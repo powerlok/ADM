@@ -1,0 +1,106 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Frota / Gerenciar Reserva /
+                    <a routerLink="/admin/frota/gerenciar reserva/lista"> Lista </a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+         <div class="row justify-content-center">
+            <div class="col-md-2">
+                <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+                    <mat-form-field>
+                        <mat-select placeholder="Situação" class="oba-form-control" formControlName="situacao" [required]="true" (ngModelChange)="aoSelecionarUSituacao($event)">
+                            <mat-option *ngFor="let s of situacoes" [value]="s.id">
+                                {{ s.text }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!--div class="reserva-legend">Reservas</div -->
+            <div class="reserva-container">
+                <mat-list class="reserva-lista">
+                    <mat-list-item *ngIf="qtdreservas == 0">
+                        <mat-card class="reserva-card">
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col col-sm-12 col-md-12">
+                                        <div class="reserva-texto">
+                                            Nenhuma reserva no momento.
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </mat-list-item>
+                    <mat-list-item *ngFor="let r of reservas">
+                        <mat-card class="reserva-card">
+                            <mat-card-content>
+                                <span class="badge badge-danger">{{r.SEQRESERVA}} - {{r.NOME}}</span>
+                                <div class="row">
+                                    <div class="col col-sm-9 col-md-9">
+                                        <b>Veiculo / Placa: </b> {{r.MODELO}} / {{r.PLACA}}
+                                    </div>
+                                    <div class="col col-sm-3 col-md-3">
+                                        <b>Unidade: </b> {{r.UNIDADE}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-sm-5 col-md-5">
+                                        <b>Data Reserva: </b> {{r.DATARESERVA}}
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4">
+                                        <b>Hora Incial: </b> {{r.HORAINICIO}}
+                                    </div>
+                                    <div class="col-3 col-sm-3 col-md-3">
+                                        <b>Hora Final: </b> {{r.HORAFIM}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-sm-5 col-md-5">
+                                        <b>Origem: </b> {{r.ORIGEM}}
+                                    </div>
+                                    <div class="col-7 col-sm-7 col-md-7">
+                                        <b>Destino: </b> {{r.DESTINOS}}
+                                    </div>
+                                </div>
+                                <div class="reserva-btn-editar">
+                                    <smd-fab-speed-dial [direction]="direction" [animationMode]="animationMode" [fixed]="fixed">
+                                        <smd-fab-trigger [spin]="spin">
+                                            <button mat-mini-fab (click)="_click('', 0)">
+                                                <i class="material-icons">list</i>
+                                            </button>
+                                        </smd-fab-trigger>
+                                        <smd-fab-actions>
+                                            <button mat-mini-fab (click)="cancelarReserva(r.SEQRESERVA, r.DATARESERVA, r.HORAINICIO, r.HORAFIM, r.OBSERVACAO, r.SEQVEICULO, r.SEQUNIDADE, r.SEQUSUARIO, r.CHAPACONDUTOR)"
+                                                matTooltip="Cancelar" aria-label="Cancelar">
+                                                <i class="material-icons">remove</i>
+                                            </button>
+                                            <button mat-mini-fab (click)="_click('EDIT', r.SEQRESERVA)" matTooltip="Editar" aria-label="Editar">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </smd-fab-actions>
+                                    </smd-fab-speed-dial>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<!-- div class="reserva-add">
+    <button mat-fab (click)="_click('ADD', 0)">
+        <mat-icon aria-label="Novo" matTooltip="Novo">add</mat-icon>
+    </button>
+</div -->

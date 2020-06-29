@@ -1,0 +1,14 @@
+<div class="oba-errorpage">
+	<div class="oba-errorpage-interno">
+		<i class="material-icons">warning</i>
+		<div *ngIf="routeParams?.error">
+			<h1>ERRO {{ routeParams?.error }}</h1>
+			<a mat-list-item routerLink="/admin/home">
+				<h5>Ir para Home</h5>
+			</a>
+			<a mat-list-item routerLink="routeParams">
+				<h5>Voltar a pagina anterior</h5>
+			</a>
+		</div>
+	</div>
+</div>

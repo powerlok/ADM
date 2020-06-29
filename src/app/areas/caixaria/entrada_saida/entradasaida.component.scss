@@ -1,0 +1,59 @@
+.mat-cell:nth-child(1),
+.mat-footer-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+flex: 0 0 8%;
+}
+
+.mat-cell:nth-child(2),
+.mat-footer-cell:nth-child(2),
+.mat-header-cell:nth-child(2),
+{
+flex: 0 0 57%;
+}
+
+.mat-cell:nth-child(3),
+.mat-footer-cell:nth-child(3),
+.mat-header-cell:nth-child(3),
+{
+flex: 0 0 10%;
+}
+
+.mat-cell:nth-child(4),
+.mat-footer-cell:nth-child(4),
+.mat-header-cell:nth-child(4),
+{
+flex: 0 0 10%;
+}
+
+.mat-cell:nth-child(5),
+.mat-footer-cell:nth-child(5),
+.mat-header-cell:nth-child(5),
+{
+   flex: 0 0 10%;
+}
+
+.mat-cell:nth-child(6),
+.mat-footer-cell:nth-child(6),
+.mat-header-cell:nth-child(6),
+{
+   flex: 0 0 5%;
+}
+
+.mat-accordion {
+    width: 100%;
+}
+
+
+.mat-footer-row {
+    font-weight: bold;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
+  }
+
+/* ::ng-deep .cdk-overlay-pane {
+    max-width: none !important;
+    width: auto !important;    
+}*/

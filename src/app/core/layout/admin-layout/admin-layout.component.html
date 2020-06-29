@@ -1,0 +1,70 @@
+<div class="mat-app-background basic-container">
+    <div class="oba-container" [class.oba-is-mobile]="mobileQuery.matches">
+        <mat-toolbar color="primary" class="oba-toolbar">
+            <mat-toolbar-row>
+                <button mat-icon-button (click)="snav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <h1 class="oba-app-name" routerLink="/admin/home"></h1>
+
+                <span class="oba-spacer"></span>
+
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="oba-toolbar-button">
+                    <img src="{{src}}" alt="{{nome}}" class="oba-toolbar-icon">
+                    <!-- mat-icon>account_circle</mat-icon -->
+                </button>
+                <h5 class="oba-app-chapa" [matMenuTriggerFor]="menu">{{chapa}}</h5>
+                <mat-menu #menu="matMenu" class="oba-sidenav-menu">
+                    <mat-card class="oba-sidenav-card">
+                        <div class="oba-sidenav-header">
+                            <div mat-card-avatar class="oba-sidenav-logo-user">
+                                <img src="{{src}}" alt="{{nome}}">
+                            </div>
+                        </div>
+                        <!-- <img mat-card-image src="/assets/img/user.jpg" alt="{{nome}}">-->
+                        <mat-card-content class="oba-sidenav-content">
+                            <mat-card-title class="oba-sidenav-title"> {{chapa}} </mat-card-title>
+                            <mat-card-subtitle class="oba-sidenav-subtitle">
+                                <b>{{nome}}</b>
+                                <p>{{funcao}}</p>
+                            </mat-card-subtitle>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-raised-button color="primary" (click)="logout()">Sair</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-menu>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+
+        <mat-sidenav-container class="oba-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+            <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                <mat-nav-list (click)="snav.close()" class="oba-nav-list">
+                    <div class="oba-nav-list-home">
+                        <a mat-list-item routerLink="/admin/home" class="oba-nav-list-aplicacao" (click)="closeAlert()">
+                            <mat-icon class="oba-icon">home</mat-icon> Home
+                        </a>
+                    </div>
+                    <div *ngFor="let m of modulo">
+                        <div class="oba-nav-list-modulo">{{m.modulo}}</div>
+                        <a mat-list-item routerLink="/admin/{{m.modulo | lowercase}}/{{a.aplicacao | lowercase}}" *ngFor="let a of m.appsPermitidas" class="oba-nav-list-aplicacao"
+                            (click)="closeAlert()">
+                            <i class="material-icons oba-icon">{{a.icon}}</i> &nbsp;{{a.aplicacao}}
+                        </a>
+                    </div>
+                </mat-nav-list>
+            </mat-sidenav>
+
+            <mat-sidenav-content (click)="snav.close()">
+                <!-- main -->
+
+                <div [@fadeAnimation]="getRouterOutletState(o)">
+                    <router-outlet #o="outlet"></router-outlet>
+                </div>
+                <!--/main -->
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+
+    </div>
+</div>

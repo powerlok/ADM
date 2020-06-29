@@ -1,0 +1,103 @@
+<div id="content">
+    <div style="width: 740px !important; overflow: scroll; padding: 15px">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="../../../../../../assets/img/oba.jpg" alt="OBA" width="150">
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h6>REGISTRO DE {{ tipoRelac }} DE CAIXAS</h6>
+            </div>
+        </div>
+        <div class="form-group" style="height: 15px;"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-justify">
+                    <small>
+                        GRUPO FARTURA DE HORTIFRUT LDTA, pessoa jurídica inscrita no CNPJ/MF sob nº 04.972.092/0001-22, com Inscrição Estadual nº
+                        244.923.444.116, estabelecida na Rodovia D. Pedro I, Km 140,5, Galpão Caixaria, na cidade de Campinas,
+                        estado de São Paulo, DECLARA o recebimento das caixas abaixo relacionadas de {{ nomeFornec }}, inscrito
+                        (a) no CNPJ/MF sob nº {{ cpfcnpjFornec }} com sede no endereço {{ endereco }}.
+                    </small>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12" style="width: 740px !important; padding: 15px">
+                <div>
+                    <mat-table #table [dataSource]="dataSource" style="min-width: 750px !important;">
+                        <ng-container matColumnDef="codigo">
+                            <mat-header-cell *matHeaderCellDef > Código </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                {{element.codigo}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="modelo">
+                            <mat-header-cell *matHeaderCellDef r> Modelo </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                 {{element.modelo}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="quantidade">
+                            <mat-header-cell *matHeaderCellDef > Quantidade </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                {{element.quantidade}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="valorUn">
+                            <mat-header-cell *matHeaderCellDef > Valor - UN </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                 {{element.valor | currency :'R$ ' }} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="valorTotal">
+                            <mat-header-cell *matHeaderCellDef > Valor - Total </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                 {{element.total | currency :'R$ ' }} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef> {{ getTotalItens() | currency :'R$ '}} </mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: false"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        <mat-footer-row *matFooterRowDef="displayedColumns; sticky: false"></mat-footer-row>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="height: 30px;"></div>
+        <div class="row">
+            <div class="col-md-12">
+                Observação: {{observacao}}
+            </div>
+        </div>
+        <div class="form-group" style="height: 30px;"></div>
+        <div class="row">
+            <div class="col-md-12">
+                Campinas, {{data}}
+            </div>
+        </div>
+        <div class="form-group" style="height: 30px;"></div>
+        <div class="row">
+            <div class="col-5 col-md-5 col-sm-5">
+                <div class="text-center">
+                    ________________________________<br>
+                     GRUPO FARTURA DE HORTIFRUT S.A
+                </div>
+            </div>
+            <div class="col-5 col-md-5 col-sm-5 offset-md-2 offset-sm-2 offset-2">
+                <div class="text-center">
+                    _______________________________<br>
+                             COMODATÁRIO
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="height: 30px;"></div>
+        <div class="row">
+            <div class="col-md-12">
+                Nro Controle: {{ controleDevCaixa }}
+            </div>
+        </div>
+    </div>
+</div>

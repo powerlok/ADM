@@ -1,0 +1,67 @@
+.oba-container {
+    display: flex;
+    flex-direction: column;
+    /*max-height: 500px;*/
+    min-width: 300px;
+}
+
+.mat-list-item {
+    display: inline-block;
+    width: 200px;
+}
+
+.oba-mat-button-pesquisa {
+    min-width: 0px !important;
+}
+
+.familia .mat-cell:nth-child(1),
+.familia .mat-header-cell:nth-child(1),
+{
+    flex: 0 0 5%;
+}
+
+.familia .mat-cell:nth-child(2),
+.familia .mat-header-cell:nth-child(2),
+{
+    flex: 0 0 85%;
+}
+
+.familia .mat-cell:nth-child(3),
+.familia.mat-header-cell:nth-child(3),
+{
+    flex: 0 0 5%;
+}
+
+.monitoramento .mat-cell:nth-child(1),
+.monitoramento .mat-header-cell:nth-child(1),
+{
+    flex: 0 0 5%;
+}
+
+.monitoramento .mat-cell:nth-child(2),
+.monitoramento .mat-header-cell:nth-child(2),
+{
+    flex: 0 0 5%;
+}
+
+.monitoramento .mat-cell:nth-child(3),
+.monitoramento .mat-header-cell:nth-child(3),
+{
+    flex: 0 0 5%;
+}
+
+.monitoramento .mat-cell:nth-child(4),
+.monitoramento .mat-header-cell:nth-child(4),
+{
+    flex: 0 0 10%;
+}
+
+.monitoramento .mat-cell:nth-child(5),
+.monitoramento .mat-header-cell:nth-child(5),
+{
+    flex: 0 0 30%;
+}
+
+.filtro-cidades {
+    margin: 0 0 0 10px;
+}

@@ -1,0 +1,66 @@
+<div  class="login">
+<mat-card>
+	<mat-card-title>
+		<button mat-fab>
+			<mat-icon>lock</mat-icon>
+		</button>
+	</mat-card-title>
+	<mat-card-subtitle>
+		<div class="logo"></div>
+	</mat-card-subtitle>
+	<mat-card-content>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<div class="mat-card__supporting-text">
+				<p>
+					<mat-form-field>
+						<input type="text" matInput placeholder="Chapa" formControlName="chapa">
+					</mat-form-field>
+				</p>
+				<p>
+					<mat-form-field>
+						<input type="password" matInput placeholder="Senha" formControlName="senha">
+					</mat-form-field>
+				</p>
+			<!--	<p>
+					<mat-form-field>
+						<mat-select placeholder="Unidade" formControlName="unidade">
+							<mat-option *ngFor="let unidade of unidades" [value]="unidade.value">
+								{{ unidade.viewValue }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</p> -->
+				<p class="loginButtons">
+					<button type="submit" mat-raised-button color="primary">Login</button>
+				</p>
+			</div>
+		</form>
+	</mat-card-content>
+</mat-card>
+</div>
+<!--<form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+<div class="matl-layout matl-js-layout">
+	<div id="login-conatiner" class="matl-card matl-shadow--16dp">
+		<div class="matl-card__supporting-text">
+			<div id="login-fab" class="matl-color--accent matl-color-text--white">
+				<i id="lock-icon" class="material-icons">lock</i>
+			</div>
+			<div id="card-heading">
+
+			</div>
+			<div class="matl-textfield matl-js-textfield matl-textfield--floating-label" [ngClass]="{ 'has-error': f.submitted && !chapa.valid }">
+				<input class="matl-textfield__input" id="chapa" [(ngModel)]="model.chapa" name="chapa" #chapa="ngModel" required/>
+				<label class="matl-textfield__label" for="chapa">Chapa</label>
+			</div>
+			<div class="matl-textfield matl-js-textfield matl-textfield--floating-label" [ngClass]="{ 'has-error': f.submitted && !senha.valid }" >
+				<input class="matl-textfield__input" type="password" id="senha"  [(ngModel)]="model.senha" name="senha" #senha="ngModel" required/>
+				<label class="matl-textfield__label" for="senha">Senha</label>
+			</div>
+			<button id="login-button" class="matl-button matl-js-button matl-button--raised matl-js-ripple-effect matl-button--colored matl-color-text--white">
+				Login
+			</button>
+			
+		</div>
+
+	</div>
+</div>-->

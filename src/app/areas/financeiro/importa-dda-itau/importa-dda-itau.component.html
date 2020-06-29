@@ -1,0 +1,32 @@
+<mat-card class="oba-card mat-card">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Financeiro /
+          <a routerLink="/admin/financeiro/imprta dda itau">Importa DDA Itaú</a>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <div class="container-fluid">
+      <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+      <div class="row">
+        
+          <div class="col-md-3">
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" #file class="custom-file-input" id="inputGroupFile04" formControlName="arquivo" accept=".ret" aria-describedby="inputGroupFileAddon04" (change)="onFileChanged()">
+                <label class="custom-file-label" for="inputGroupFile04">Procurar Arquivo XML</label>
+              </div>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

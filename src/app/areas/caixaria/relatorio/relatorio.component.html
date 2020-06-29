@@ -1,0 +1,136 @@
+<mat-card class="oba-card mat-card">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">
+          Caixaria /
+          <a routerLink="/admin/caixaria/relatório"> Relatório </a>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="form" #f="ngForm">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field>
+            <input matInput formControlName="codfornec" [matAutocomplete]="auto2" placeholder="codigo / Fornecedor"
+              class="oba-form-control">
+
+            <mat-autocomplete #auto2="matAutocomplete">
+              <mat-option *ngFor="let c of filteredOptionsFornec" [value]="c.seqfornecedor" (onSelectionChange)="onSelectChangeFornec(c.nome)">
+                <small>({{ c.seqfornecedor }})</small> -
+                <small matTooltip="{{ c.seqfornecedor }}) - {{ c.nome }}">{{ c.nome }}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input matInput placeholder="Fornecedor" formControlName="fornecedor" class="oba-form-control">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <input matInput [matDatepicker]="dp3" placeholder="Data Inicio" formControlName="datainicio" class="oba-form-control">
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <input matInput placeholder="Data Fim" formControlName="datafim" class="oba-form-control" [matDatepicker]="pickerFim">
+            <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFim disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-1">
+          <mat-form-field>
+            <mat-select placeholder="Tipo" class="oba-form-control" formControlName="tipo" (ngModelChange)="limpaData($event)">
+              <mat-option *ngFor="let t of tipos" [value]="t.id">
+                {{ t.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <button type="button" mat-raised-button color="primary" class="bt-salvar" (click)="pesquisar()">Pesquisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="oba-container mat-elevation-z8">
+            <mat-toolbar color="primary">
+              <mat-toolbar-row>
+                <span>Resultado</span>
+              </mat-toolbar-row>
+            </mat-toolbar>
+            <div class="form-inline">
+              <div class="col-md-11">
+              </div>
+              <div class="col-md-1">
+                <button type="button" mat-mini-fab color="primary" (click)="exportParaExcel($event)" class="bt-pdf">
+                  <i class="material-icons">
+                    file_copy
+                  </i>
+                </button>
+              </div>
+            </div>
+            <br>
+            <mat-table #table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Código: </span> {{element.codigo}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="fornecedor">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Fornecedor </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Fornecedor: </span> {{element.fornecedor}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="modelo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Modelo: </span> {{element.modelo}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="data">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Data </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Data: </span> {{element.data }} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="saida">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Saída </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Saída: </span> {{element.saida}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="retorno">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Retorno </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Retorno: </span> {{element.retorno }} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="saldo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Saldo: </span> {{element.saldo }} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="valor">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="mobile-label ">Valor: </span> {{element.valor }} </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100, sizeItensPages]"
+              [showFirstLastButtons]="true">
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

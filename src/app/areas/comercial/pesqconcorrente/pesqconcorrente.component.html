@@ -1,0 +1,87 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Comercial /
+                    <a routerLink="/admin/comercial/pesquisa concorrente">Pesquisa Concorrente</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-10">
+                        <mat-list>
+                            <mat-list-item>
+                                <mat-checkbox [(ngModel)]="checkedAll" (change)="checkAll($event);" formControlName="checkall"> Marcar todos</mat-checkbox>
+                            </mat-list-item>
+                            <br>
+                            <div class="oba-scoll-check">
+                                <mat-list-item *ngFor="let item of empresas" formArrayName="empresa">
+                                    <mat-checkbox [value]="item.nroEmpresa" (change)="updateChkbxArray(item.nroEmpresa, $event.checked, 'empresa')" [checked]="item.checked">{{item.fantasia}}</mat-checkbox>
+                                </mat-list-item>
+                            </div>
+                        </mat-list>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Concorrentes" class="oba-form-control" formControlName="seqconcorrente">
+                                <mat-option *ngFor="let fornec of fornecedores" [value]="fornec.SEQCONCORRENTE">
+                                    {{ fornec.FANTASIA }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" mat-button color="primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="oba-container mat-elevation-z8">
+            <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="seqconcorrente">
+                    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label ">Id: </span> {{element.SEQCONCORRENTE}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="unidade">
+                    <mat-header-cell *matHeaderCellDef> Unidade </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label ">Unidade: </span> {{element.UNIDADE}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nomereduzido">
+                    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label ">Nome: </span> {{element.NOMEREDUZIDO}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fantasia">
+                    <mat-header-cell *matHeaderCellDef> Fantasia </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label ">Fantasia: </span> {{element.FANTASIA}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef> Deletar </mat-header-cell>
+                    <mat-cell *matCellDef="let element" (click)="deletar(element.SEQCONCORRENTE, element.NROEMPRESA)" style="cursor: pointer;">
+                        <mat-icon>delete</mat-icon>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>

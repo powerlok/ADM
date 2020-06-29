@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+  <div class="row justify-content-center">{{data.titulo}}</div>
+</h1>
+<mat-dialog-content>
+  <p class="row justify-content-start">{{data.descricao}}</p>
+</mat-dialog-content>
+<mat-dialog-actions class="row justify-content-end">
+ 
+    <button mat-button (click)="onNoClick()">Não</button>
+    <button mat-button (click)="onYesClick()" cdkFocusInitial>Sim</button>
+ 
+</mat-dialog-actions>

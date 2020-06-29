@@ -1,0 +1,86 @@
+<mat-card class="oba-card mat-card">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Contábil /
+          <a routerLink="/admin/folha/imprta nfse">Importa NFS-e</a>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <div class="container-fluid">
+      <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+        <div class="row">
+          <!-- <div class="col-md-3">
+            <mat-form-field>
+              <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="aoSelecionarCarregaEmpresa($event)"
+                [required]="true">
+                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                  {{ unidade.Unidade }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-select placeholder="Empresa" class="oba-form-control" formControlName="nroempresa" [required]="true" (ngModelChange)="aoSelecionarCarregaCGO($event)">
+                <mat-option *ngFor="let emp of empresas" [value]="emp.nroEmpresa">
+                  {{ emp.fantasia }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2">
+            <mat-form-field appearance="legacy">
+              <input matInput formControlName="codigo" [matAutocomplete]="auto" placeholder="Código / Descrição" class="oba-form-control"
+                minlength="1">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let prod of produtoOpt" [value]="prod.SEQPRODUTO" (onSelectionChange)="aoSelecionarProduto($event, prod.DESCREDUZIDA)">
+                  <small>{{ prod.SEQPRODUTO }}</small> -
+                  <small matTooltip="{{ prod.DESCREDUZIDA }}">{{ prod.DESCREDUZIDA }}</small>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="Descrição" formControlName="descricao" class="oba-form-control">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+                  <mat-form-field>
+                      <mat-select placeholder="CGO" class="oba-form-control" formControlName="cgo">
+                          <mat-option *ngFor="let c of cgoLista" [value]="c.id">
+                              {{ c.text }}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" #file class="custom-file-input" id="inputGroupFile04" formControlName="arquivo" accept="text/xml" aria-describedby="inputGroupFileAddon04" (change)="onFileChanged()">
+                <label class="custom-file-label" for="inputGroupFile04">Procurar Arquivo XML</label>
+              </div>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 scroll">
+               <ul class="lista">
+                 <li *ngFor="let l of lista">{{ l }}</li>
+               </ul>
+            </div>
+          </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

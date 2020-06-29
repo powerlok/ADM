@@ -1,0 +1,26 @@
+  /*.oba-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+  }*/
+  
+  .oba-radio-button {
+    margin: 5px;
+  }
+  
+  .oba-selected-value {
+    margin: 15px 0;
+  }
+
+
+  .mat-grid-tile {
+    background: lightblue;
+  }
+  
+ .mat-raised-button {
+    width: 100% !important;
+}
+
+.mat-card-title {
+  font-size: 15px;
+  font-weight: bold;
+}

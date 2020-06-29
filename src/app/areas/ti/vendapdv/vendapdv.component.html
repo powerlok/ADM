@@ -1,0 +1,208 @@
+<mat-card class="oba-card mat-card">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">TI /
+          <a routerLink="/admin/ti/valida venda pdv">Validação Venda Pdv</a>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+
+    <form [formGroup]="form" (ngSubmit)="executar('P')" #f="ngForm">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChange($event)">
+                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                  {{ unidade.Unidade }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-10">
+            <mat-list>
+              <mat-list-item>
+                <mat-checkbox (change)="checkAll($event)" formControlName="checkall"> Marcar todos</mat-checkbox>
+              </mat-list-item>
+              <!--mat-list-item>
+                                <mat-checkbox (change)="uncheckAll($event)" formControlName="uncheckall">Desmarcar todos</mat-checkbox>
+                            </mat-list-item -->
+              <br>
+              <div class="oba-scoll-check-empresas">
+                <mat-list-item *ngFor="let item of empresas">
+                  <mat-checkbox [value]="item.nroEmpresa" formControlName="empresa" [(ngModel)]="item.checked">{{item.fantasia}}</mat-checkbox>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dp3" placeholder="Data Inicio" formControlName="datainicio" class="oba-form-control">
+              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <input matInput placeholder="Data Fim" formControlName="datafim" class="oba-form-control" [matDatepicker]="pickerFim">
+              <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+              <mat-datepicker #pickerFim disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="Validação" class="oba-form-control" formControlName="validacao">
+                <mat-option *ngFor="let valida of validacao" [value]="valida.VALIDACAO">
+                  {{ valida.VALIDACAO }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <input matInput currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                placeholder="Diferença" class="oba-form-control" formControlName="diferenca">
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <section class="oba-scoll-check-colunas-section">
+              <div *ngFor="let item of colunas">
+                <mat-checkbox formControlName="colunas" [value]="item.valor" [(ngModel)]="item.checked">{{item.text}}</mat-checkbox>
+              </div>
+            </section>
+          </div>
+          <div class="col-md-5">
+            <button type="button" mat-button color="warn" (click)="executar('I')">Inconsistências Fiscal</button>
+            <button type="button" mat-button color="warn" (click)="executar('A')" class="float-right">Atualizar</button>
+            <button type="submit" mat-button color="primary" id="pesquisar" class="float-right">Pesquisar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 form-group"></div>
+      <div class="oba-container mat-elevation-z8 Inconstencias" [style.display]="!isCarregarInc ? 'block' : 'none'">
+        <mat-table #tableInc [dataSource]="dataSourceInc" matSort>
+          <ng-container matColumnDef="empresa">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Empresa: </span> {{element.NROEMPRESA}} </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="nrodocto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nro Docto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Nro Docto: </span> {{element.NRODOCTO}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="codmodelo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Cod Modelo </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Cod Modelo: </span> {{element.CODMODELO}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="serie">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Série </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Série: </span> {{element.SERIE}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="dtaemissao">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Dta Emissão </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Dta Emissão: </span> {{element.DTAEMISSAO}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="motivo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Motivo: </span> {{element.MOTIVO}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsInc; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsInc;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginatorInc [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+      <div class="col-md-12 form-group"></div>
+      <div class="oba-container mat-elevation-z8">
+        <div class="form-inline">
+          <div class="col-md-11">
+          </div>
+          <div class="col-md-1">
+            <button type="button" mat-mini-fab color="primary" (click)="exportParaExcel($event)" class="bt-pdf">
+              <i class="material-icons">
+                file_copy
+              </i>
+            </button>
+          </div>
+        </div>
+        <mat-table #table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="empresa">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label ">Empresa: </span> {{element.FANTASIA}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="dtamovimento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Dta Movimento </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label ">Dta Mov: </span> {{element.DTAMOVIMENTO}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="sm">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> SM </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">SM: </span> {{element.SM}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="monitor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MONITOR </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div [style.color]="marqueiconsist(element.SM, element.MONITOR)">
+                <span class="mobile-label">MONITOR: </span> {{ element.MONITOR }}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fiscal">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> FISCAL </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div [style.color]="marqueiconsist(element.SM, element.FISCAL)">
+                <span class="mobile-label">FISCAL: </span> {{ element.FISCAL }}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="tesouraria">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> TESOURARIA </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div [style.color]="marqueiconsist(element.SM, element.TESOURARIA)">
+                <span class="mobile-label">TESOURARIA: </span> {{ element.TESOURARIA }}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="atualizar">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button type="button" mat-button color="warn" (click)="atualizar(element.NROEMPRESA, element.VALIDACAO, element.DTAMOVIMENTO, element.SEQUNIDADE)"
+                [style.display]="mostrarAtualizar(element.SM, element.TESOURARIA, element.MONITOR, element.FISCAL)
+                    ? 'none' : 'inherit'">
+                <mat-icon>refresh</mat-icon> Atualizar
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginatorR [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true" >
+        </mat-paginator>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

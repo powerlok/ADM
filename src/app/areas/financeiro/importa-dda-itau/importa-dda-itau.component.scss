@@ -1,0 +1,14 @@
+.scroll {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.lista {
+    list-style-type: none;
+}
+
+/*Definido cor das linhas pares*/
+.lista li:nth-child(even) {background: #FFF}
+         
+/*Definindo cor das Linhas impáres*/
+.lista li:nth-child(odd) {background: #EEE}

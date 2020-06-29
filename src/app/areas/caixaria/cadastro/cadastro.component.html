@@ -1,0 +1,114 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Caixaria /
+                    <a routerLink="/admin/caixaria/cadastro"> Cadastro </a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="codigo" placeholder="Código" class="oba-form-control" maxlength="10">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="modelo" placeholder="Modelo" class="oba-form-control" maxlength="90" #modelo>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <textarea matInput #desc formControlName="descricao" placeholder="Descrição" rows="3" class="oba-form-control" maxlength="150"></textarea>
+                            <mat-hint align="end">{{desc.value.length}} / 150</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="valor" placeholder="Valor" class="oba-form-control" maxlength="15">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="button" mat-raised-button color="warn" (click)="limpar()">Limpar</button>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="submit" mat-raised-button color="primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="oba-container mat-elevation-z8">
+                        <mat-toolbar color="primary">
+                            <mat-toolbar-row>
+                                <span>Caixas</span>
+                            </mat-toolbar-row>
+                        </mat-toolbar>
+                        <mat-table #table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="codigo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Código: </span> {{element.SEQ_CADCAIXA}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="modelo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Modelo: </span> {{element.MODELO}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="valor">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Valor: </span> {{element.VALOR}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="descricao">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Descrição: </span> {{element.DESCRICAO}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="editar">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <i class="material-icons" (click)="editRowGrid(element.SEQ_CADCAIXA)" style="cursor: pointer;">
+                                        edit
+                                    </i>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

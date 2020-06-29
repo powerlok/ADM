@@ -1,0 +1,236 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Caixaria /
+                    <a routerLink="/admin/caixaria/entradasaída"> EntradaSaída </a>
+                </div>
+                <div class="float-right col-md-1 text-right" [style.display]="hideCampos ? 'none' : ''">
+                    <button mat-button [matMenuTriggerFor]="menu" calss=" menu">
+                        <i class="material-icons">more_horiz</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="gerPDf()" [style.display]="hidePDF ? 'none' : ''">
+                            <i class="material-icons" style="margin-top: 11px;">local_printshop</i>
+                            <div style="margin:-55px 0px 0px 29px;">Imprimir</div>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="limparCamposBt()">Limpar</button>
+                    </mat-menu>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" #f="ngForm">
+            <input type="hidden" class="oba-form-control" formControlName="status">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Tipo" class="oba-form-control" formControlName="tipo" (ngModelChange)="onChange()">
+                                <mat-option *ngFor="let t of tipos" [value]="t.id">
+                                    {{ t.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- div class="col-md-2 offset-md-4" [style.display]="none">
+                    <div class="col-md-12">
+                        <mat-form-field>                            
+                            <input matInput placeholder="Situação" class="oba-form-control" formControlName="statusCampo">
+                        </mat-form-field>
+                    </div>
+                </div -->
+                <div class="col-md-2 offset-md-5" [style.display]="hideCampos ? 'none' : ''">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="dtaLancto" placeholder="Data Lancto" class="oba-form-control" maxlength="10">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3" [style.display]="hideCampos ? 'none' : ''">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="nroControle" [matAutocomplete]="auto" placeholder="Nº Controle/Fornecedor" class="oba-form-control">
+                            <mat-icon matSuffix style="cursor: pointer;" (click)="getControle()">search</mat-icon>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let c of filteredOptions" [value]="c.seqcontrole" (onSelectionChange)="onSelectChange($event)">
+                                    <small>({{ c.seqcontrole }})</small> -
+                                    <small matTooltip="({{ c.seqcontrole }}) - {{ c.nome }} - {{ c.data }}">{{ c.nome }} - {{ c.data }}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [style.display]="hideCampos ? 'none' : ''">
+                <mat-accordion class="col-md-12" multi="true">
+                    <mat-expansion-panel expanded='true'>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Fornecedor</mat-panel-title>
+                            <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <mat-form-field>
+                                    <input matInput formControlName="nomeFornec" placeholder="Nome" class="oba-form-control">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field>
+                                    <input matInput formControlName="codigoFornec" [matAutocomplete]="auto2" placeholder="Fornecedor" class="oba-form-control">
+                                    <mat-autocomplete #auto2="matAutocomplete">
+                                        <mat-option *ngFor="let c of filteredOptionsFornec" [value]="c.seqfornecedor" (onSelectionChange)="onSelectChangeFornec($event)" matTooltip="({{ c.seqfornecedor }}) - {{ c.nome }}">
+                                            <small>({{ c.seqfornecedor }})</small> -
+                                            <small>{{ c.nome }}</small>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field>
+                                    <input matInput formControlName="cpfcnpjFornec" placeholder="CPF / CNPJ" class="oba-form-control" maxlength="14">
+                                    <mat-icon matSuffix (click)="getFornecedorPorCnpj()" style="cursor: pointer;">search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <mat-form-field>
+                                    <input matInput formControlName="endereco" placeholder="Endereço" class="oba-form-control">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field>
+                                    <input matInput formControlName="telefone" placeholder="Telefone" class="oba-form-control">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel expanded='true'>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Produto</mat-panel-title>
+                            <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <mat-form-field>
+                                    <input matInput formControlName="codigoProd" placeholder="Código" class="oba-form-control">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-7">
+                                <mat-form-field>
+                                    <mat-select placeholder="Modelo" class="oba-form-control" formControlName="modeloProd" (ngModelChange)="getCaixa($event)">
+                                        <mat-option *ngFor="let c of cadastro.cadastros" [value]="c.SEQ_CADCAIXA">
+                                            {{ c.MODELO }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field>
+                                    <input matInput formControlName="quantidadeProd" placeholder="Quantidade" class="oba-form-control">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-1">
+                                <button mat-mini-fab type="button" color="primary" (click)="addRowGrid()" [style.display]="hideAdd ? 'none' : ''">
+                                    <i class="material-icons">
+                                        add
+                                    </i>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div class="form-group"></div>
+            <div class="row" [style.display]="hideCampos ? 'none' : ''">
+                <div class="col-md-12">
+                    <div class="oba-container mat-elevation-z8">
+                        <mat-toolbar color="primary">
+                            <mat-toolbar-row>
+                                <span>Totais</span>
+                            </mat-toolbar-row>
+                        </mat-toolbar>
+                        <mat-table #table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="codigo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Código: </span> {{element.codigo}} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="modelo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Modelo: </span> {{element.modelo}} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="quantidade">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">Qtde: </span> {{element.quantidade}} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="valorUn">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor - UN </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">VLR UN: </span> {{element.valor | currency :'R$ ' }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="valorTotal">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor - Total </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label ">VLR TOTAL: </span> {{element.total | currency :'R$ ' }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef> {{ getTotalItens() | currency :'R$ '}} </mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="delete">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <i class="material-icons" (click)="removeRowGrid(element.codigo)" style="cursor: pointer;" [style.display]="hideDeletar ? 'none' : ''">
+                                        delete
+                                    </i>
+                                </mat-cell>
+                                <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
+                        </mat-table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+
+
+            <div class="row" [style.display]="hideCampos ? 'none' : ''">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <textarea matInput #desc formControlName="observacao" placeholder="Observação" rows="3" class="oba-form-control" maxlength="150"></textarea>
+                            <mat-hint align="end">{{desc.value.length}} / 150</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+            <div class="row" [style.display]="hideCampos ? 'none' : ''">
+                <div class="col-md-11">
+                    <div class="form-group">
+                        <button type="button" mat-raised-button color="warn" class="bt-salvar" (click)="submit('C')" [style.display]="hideCancel ? 'none' : ''">Cancelar</button>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="button" mat-raised-button color="primary" class="bt-salvar" [style.display]="hideSave ? 'none' : ''" (click)="submit('I')">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

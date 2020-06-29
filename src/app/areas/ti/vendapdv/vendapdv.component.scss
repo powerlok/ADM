@@ -1,0 +1,76 @@
+.oba-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-list-item{
+  display: inline-block;
+  width: 250px;
+}
+
+@media only screen and (min-width: 451px) {
+.bt-pdf{
+  margin-left: 41px;
+}
+}
+
+@media(max-width: 600px) {
+  .form-inline {
+    margin: 7px 0 38px !important;
+  }
+}
+
+.oba-scoll-check-empresas
+{
+    overflow-y:auto;
+    max-height: 200px;
+    width: 100%;
+}
+
+.oba-scoll-check-colunas-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;  
+}
+
+.oba-scoll-check-colunas-section mat-checkbox {
+  margin-right: 10px;
+}
+
+.Inconstencias .mat-cell:nth-child(1),
+.Inconstencias .mat-header-cell:nth-child(1),
+{
+flex: 0 0 8%;
+}
+.Inconstencias .mat-cell:nth-child(2),
+.Inconstencias .mat-header-cell:nth-child(2),
+{
+flex: 0 0 8%;
+}
+
+.Inconstencias .mat-cell:nth-child(3),
+.Inconstencias .mat-header-cell:nth-child(3),
+{
+flex: 0 0 8%;
+}
+
+.Inconstencias .mat-cell:nth-child(4),
+.Inconstencias .mat-header-cell:nth-child(4),
+{
+flex: 0 0 8%;
+}
+
+.Inconstencias .mat-cell:nth-child(5),
+.Inconstencias .mat-header-cell:nth-child(5),
+{
+flex: 0 0 10%;
+}
+
+.Inconstencias .mat-cell:nth-child(6),
+.Inconstencias .mat-header-cell:nth-child(6),
+{
+flex: 0 0 58%;
+}

@@ -1,0 +1,320 @@
+<mat-card class="oba-card mat-card col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-8 offset-lg-8">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Ti /
+          <a routerLink="/admin/ti/microsoft/lista">Microsoft</a> / Novo
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field>
+            <input matInput placeholder="Codigo" formControlName="codigo" [value]="0" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">       
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="getChapa()">
+              <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                {{ unidade.Unidade }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Chapa" formControlName="chapa" (blur)="getChapa()" maxlength="20">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Nome" formControlName="nome" maxlength="100">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="powerbifree">PowerBI Free</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_pwbf">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_pwbf" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_pwbf">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_pwbf"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_pwbf disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="powerbipro">PowerBI Pro</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_pwbp">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_pwbp" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_pwbp">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_pwbp"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_pwbp disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="exchangekiosk">Exchange Kiosk</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_ek">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_ek" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_ek">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_ek"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_ek disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="exchengeplano1">Exchange Plano 1</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_ep1">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_ep1" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_ep1">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_ep1"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_ep1 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="exchengeplano2">Exchange Plano 2</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_ep2">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_ep2" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_ep2">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_ep2"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_ep2 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="sharepointplano2">SharePoint Plano 2</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_spp2">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_spp2" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_ssp2">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_ssp2"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_ssp2 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="office365business">Office 365 Bussiness</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_ofb">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_ofb" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_of">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_of"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_of disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="microsoftflowfree">Microsoft Flow Free</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_mff">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_mff" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_mf">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_mf"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_mf disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="projectonlineprofissional">Project Online Profissional</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_pop">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_pop" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_pop">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_pop"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_pop disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="office365extrafilastorafe">Office 365 Extra Filas Storage</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_ofefs">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_ofefs" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_ofefs">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_ofefs"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_ofefs disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="visioonline">Visio Online</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_vo">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_vo" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_vo">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_vo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_vo disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="visioonlineplan2">Visio Online Plan 2</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_vop2">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_vop2" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_vop2">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_vop2"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_vop2 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="microsoftpowerappsp2t">Microsoft PowerApps Plan 2 Trial</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_mpp2t">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_mpp2t" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_mpp2t">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_mpp2t"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_mpp2t disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="microsoft365e3">Microsoft 365 E3</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput maxlength="15" placeholder="Checkin" formControlName="checkin_m365e3">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Data Liberação" formControlName="dtaliberacao_m365e3" class="oba-form-control"
+              [matDatepicker]="pickerDtaLiberacao_m365e3">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaLiberacao_m365e3"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaLiberacao_m365e3 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-12">
+          <button type="button" mat-button color="primary" (click)="voltar()">Voltar</button>
+
+          <button type="submit" mat-raised-button color="primary" class="float-right">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

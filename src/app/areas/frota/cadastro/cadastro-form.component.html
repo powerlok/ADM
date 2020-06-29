@@ -1,0 +1,134 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Frota /
+                    <a routerLink="/admin/frota/cadastro/lista"> Cadastro </a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+            <input type="hidden" formControlName="seqveiculo">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="carregaEmpresa($event)">
+                                <mat-option *ngFor="let u of unidades" [value]="u.SeqUnidade">
+                                    {{ u.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Empresa" class="oba-form-control" formControlName="nroempresa">
+                                <mat-option *ngFor="let e of empresas" [value]="e.NROEMPRESA">
+                                    {{ e.NOMEREDUZIDO }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <input matInput formControlName="placa" placeholder="Placa" class="oba-form-control" maxlength="10" [dropSpecialCharacters]="false" mask="SSS-9999">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <input matInput formControlName="modelo" placeholder="Modelo" class="oba-form-control" maxlength="30">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-form-field>
+                            <input matInput formControlName="ano" placeholder="Ano" class="oba-form-control" maxlength="4">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Status" class="oba-form-control" formControlName="status">
+                                <mat-option *ngFor="let t of status" [value]="t.id">
+                                    {{ t.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <input matInput formControlName="tipohabilitacao" placeholder="Tipo Habilitação" class="oba-form-control" maxlength="4">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" mat-raised-button color="primary" class="float-right">Salvar</button>
+                    </div>
+                </div>
+                <div class="row" [style.display]="hide ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <div class="col-md-1">
+                            <mat-checkbox formControlName="rodizio" value="S" color="primary" (change)="mostrarGridRodizio($event)" [(checked)]="isCheckedRodizio">Rodizio</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="oba-container mat-elevation-z8" [style.display]="hideGrid ? 'none' : 'inherit'">
+                            <mat-toolbar color="primary">
+                                <mat-toolbar-row>
+                                    <span>Rodizio</span>
+                                    <span class="spacer"></span>
+                                    <button mat-mini-fab color="warn" type="button" (click)="montaPopupRodizio()">
+                                        <mat-icon aria-label="Adicionar Novo">add</mat-icon>
+                                    </button>
+                                </mat-toolbar-row>
+                            </mat-toolbar>
+                            <mat-table #table [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="uf">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> UF </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label ">UF: </span> {{element.UF}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="cidade">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cidade </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label ">Cidade: </span> {{element.CIDADE}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="dia">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Dia Semana </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label ">Dia: </span> {{element.NOMEDIA}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label ">Status: </span> {{element.STATUS}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="deletar">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let element" (click)="ativaInativaRowGrid(element.SEQVEICULO, element.UF, element.CIDADE, element.STATUS, element.DIADASEMANA)"
+                                        style="cursor: pointer;">
+                                        <i class="material-icons">
+                                            {{element.ICON}}
+                                        </i>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" mat-button color="primary" (click)="voltarLista()">Voltar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,257 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Comercial /
+                    <a routerLink="/admin/comercial/altera preço">Altera Preço</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- <div class="col-md-12">
+                            <mat-form-field>
+                                <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChange($event)"
+                                    [required]="true">
+                                    <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                        {{ unidade.Unidade }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+                    <!-- <div class="col-md-12">
+                            <mat-form-field appearance="legacy">
+                                <input matInput formControlName="codigo" [matAutocomplete]="auto" placeholder="Código / Descrição" class="oba-form-control" minlength="1">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let prod of filteredOptions" [value]="prod.SEQPRODUTO" (onSelectionChange)="onSelectChange($event)">
+                                        <small>{{ prod.SEQPRODUTO }}</small> -
+                                        <small matTooltip="{{ prod.DESCREDUZIDA }}">{{ prod.DESCREDUZIDA }}</small>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div> -->
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="codigo" placeholder="CÓDIGO DO PRODUTO (ENTER)" class="oba-form-control" (keypress)="onKeypress($event)" minlength="1">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <input matInput formControlName="descricao" placeholder="Descrição" class="oba-form-control" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <mat-select placeholder="Embalagem" class="oba-form-control" [(ngModel)]="selecao" formControlName="embalagem" (ngModelChange)="onChangeEmbalagem($event)" [required]="true">
+                                <mat-option *ngFor="let embalagem of embalagens" [value]="embalagem.QTDEEMBALAGEM">
+                                    {{ embalagem.QTDEEMBALAGEM }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <input matInput formControlName="custo" placeholder="Custo" class="oba-form-control">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-checkbox formControlName="agendaenvio" (change)="onChangeAgendaEnvio($event)">Agenda Envio</mat-checkbox>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCamposDataHora ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <input matInput formControlName="datahoraAgendada" placeholder="Data/Hora" class="oba-form-control" mask="99/99/9999 99:99" [dropSpecialCharacters]="false">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <input matInput currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" maxlength="15" formControlName="preconovo" placeholder="Preço Novo" class="oba-form-control">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" [style.display]="hideCampos ? 'none' : 'inherit'">
+                        <mat-form-field>
+                            <mat-select placeholder="Motivo" class="oba-form-control" formControlName="motivo">
+                                <mat-option *ngFor="let motivo of motivos" [value]="motivo.SEQMOTIVO">
+                                    {{ motivo.MOTIVO }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" [style.display]="hideCampos ? 'none' : 'inherit'">
+
+                    <mat-list-item>
+                        <mat-checkbox (change)="checkAll($event, 0)" formControlName="checkAllEmpresas" [(ngModel)]="isChecked"> Marcar/Desmarcar (Todos)</mat-checkbox>
+                        <div *ngFor="let i of cidades">
+                            <mat-checkbox formControlName="cidade" (change)="checkAll($event, i.CIDADE)">{{i.CIDADE}}</mat-checkbox>
+                        </div>
+                    </mat-list-item>
+                </div>
+                <div class="col-md-7" [style.display]="hideCampos ? 'none' : 'inherit'">
+
+                    <mat-list>
+                        <div class="oba-scoll-check">
+                            <mat-list-item *ngFor="let item of empresas">
+                                <mat-checkbox [value]="item.nroEmpresa" formControlName="empresa" [(ngModel)]="item.checked">{{item.fantasia}}</mat-checkbox>
+                            </mat-list-item>
+                        </div>
+                    </mat-list>
+
+                </div>
+
+            </div>
+
+            <!--div class="row">
+                    <div class="col-md-3">
+                        <button type="submit" mat-button color="primary" id="pesquisar">Pesquisar</button>
+                    </div>
+                </div-->
+
+
+            <div class="oba-container mat-elevation-z8" [style.display]="hideGridFamilia ? 'none' : 'inherit'">
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                        <span>Familia</span>
+
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                <mat-table #table [dataSource]="dataSource" matSort class="familia">
+                    <ng-container matColumnDef="codigo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.SEQPRODUTO}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="descricao">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Produto </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.DESCREDUZIDA}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="checkbox">
+                        <mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="checkAllGridFamilia($event)"></mat-checkbox>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-checkbox [value]="element.SEQPRODUTO" [(ngModel)]="element.CHECKED" formControlName="familia"></mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                </mat-paginator>
+            </div>
+
+
+            <div class="form-group"></div>
+
+            <div class="row form-group" [style.display]="hideGridFamilia ? 'none' : 'inherit'">
+                <div class="col-md-12 text-right">
+                    <button type="submit" mat-raised-button color="primary" class="bt-salvar">Salvar</button>
+                </div>
+            </div>
+
+
+            <div class="oba-container mat-elevation-z8">
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                        <div class="col-md-2"><span>Produtos Monitorados</span></div>
+                        <div class="col-md-10">
+                            <input type="file" [style.display]="hideElement?'none':'inherit'" style="display: inline-block;" #imgFileInput (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+                            <button type="button" mat-mini-fab color="" style="margin: 0 5px;" (click)="imgFileInput.click()" class="float-right">
+                                    <i class="material-icons">
+                                        attach_file
+                                    </i>
+                            </button>
+                            <button type="button" mat-mini-fab color="" (click)="exportParaExcel($event)" class="float-right">
+                                <i class="material-icons">
+                                    file_copy
+                                </i>
+                            </button>
+                        </div>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                <div class="form-group"></div>
+                <div class="row col-md-12">
+
+                    <div class="col-md-1">
+                        <div>
+                            <button type="button" mat-mini-fab color="" (click)="deleteSelecionados()" class="float-left">
+                                    <i class="material-icons" title="Deletar selecionados">
+                                        delete
+                                    </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro" formControlName="filtro">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <mat-table #tableMonitoramento [dataSource]="dataSourceMonitoramento" matSort class="monitoramento">
+                    <ng-container matColumnDef="checkbox">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <mat-checkbox (change)="checkAllGridMonitorados($event)"></mat-checkbox>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-checkbox [value]="element.SEQPRODUTO" [(ngModel)]="element.CHECKED" formControlName="monitorado"></mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="alteracao">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Código GR </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Cód GR: </span> {{element.SEQALTERACAO}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="codigo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Cód: </span> {{element.SEQPRODUTO}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="empresa">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Empresa: </span> {{element.NOMEREDUZIDO}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="descricao">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Produto </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Produto: </span> {{element.DESCCOMPLETA}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="embalagem">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Embalagem </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Emb: </span> {{element.QTDEEMBALAGEM}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="categoria">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Categ 1: </span> {{element.CATEGORIA_1 }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="custo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Custo </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Categ 2: </span> {{element.CUSTO }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="preconovo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Preço Novo </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Preço Novo: </span> {{element.PRECONOVO }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="datahoraagendada">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Data/Hora Agendada </mat-header-cell>
+                        <mat-cell *matCellDef="let element"><span class="mobile-label ">Dta/Hora Agend: </span> {{element.DATAHORAAGEND }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="deletar">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <i class="material-icons" (click)="delete(element.SEQALTERACAO, element.SEQPRODUTO)" style="cursor: pointer;">
+                                delete
+                            </i>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumnsMonitoramento; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsMonitoramento;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginatorMonitoramento [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                </mat-paginator>
+            </div>
+            <div class="form-group"></div>
+        </form>
+
+    </mat-card-content>

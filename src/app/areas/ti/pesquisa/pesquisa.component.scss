@@ -1,0 +1,45 @@
+
+  .oba-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+
+  .mat-list{
+     float: left;
+  }
+
+  .mat-list-item {
+    width: 200px;
+    float: left;
+    font-size: 12px;
+  }
+
+
+.mat-card {
+  padding: 12px 29px 53px !important;
+}
+
+.mat-card-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+form {
+  margin: 0 0 0 7px !important;
+}
+
+
+@mixin table-cell-width($child, $flex) {
+  .mat-cell:nth-child(#{$child}),
+  .mat-header-cell:nth-child(#{$child}) {
+    flex: $flex !important;
+  }
+}
+
+  @include table-cell-width(1, 0 0 10%);
+  @include table-cell-width(2, 0 0 8%);
+  @include table-cell-width(3, 0 0 20%);
+  @include table-cell-width(6, 0 0 20%);
+  @include table-cell-width(8, 0 0 5%);

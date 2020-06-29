@@ -1,0 +1,44 @@
+@import '~@angular/material/_theming.scss';
+@include mat-core();
+
+$mat-deep: (
+    50 : #e4efe6,
+    100 : #bcd7c0,
+    200 : #90bc97,
+    300 : #64a16d,
+    400 : #428c4d,
+    500 : #21782e,
+    600 : #1d7029,
+    700 : #186523,
+    800 : #145b1d,
+    900 : #0b4812,
+    A100 : #21782e,
+    A200 : #21782e,
+    A400 : #21782e,
+    A700 : #21782e,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$mha-app-primary: mat-palette($mat-deep);
+$mha-app-accent:  mat-palette($mat-deep, A200, A100, A400);
+$mha-app-warn:    mat-palette($mat-red);
+$mha-app-theme:   mat-light-theme($mha-app-primary, $mha-app-accent, $mha-app-warn);
+
+@include mat-button-theme($mha-app-theme);
+
+@include angular-material-theme($mha-app-theme);

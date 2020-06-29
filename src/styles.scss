@@ -1,1 +1,160 @@
-/* You can add global styles to this file, and also import other style files */
+//@import "~bootstrap/scss/bootstrap";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic);
+//@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import './assets/css/index.css';
+@import './assets/css/custom-themes.scss';
+@import 'sweetalert2/src/sweetalert2.scss';
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+    /*font-family: Roboto, Arial, sans-serif;*/
+    margin: 0;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+
+  .oba-card{
+    margin: 0 25px 0 25px !important;
+  }
+
+  .oba-card a {
+    color: #21782e !important;
+  }
+
+  button:focus{
+    outline: 0 !important;
+  }
+
+  /*.basic-container {
+    padding: 5px;
+  }*/
+
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+
+  .mat-cell {
+    font-size: 11px !important;
+  }
+
+  .mat-form-field-infix {
+    width: 100% !important;
+  }
+
+
+.mat-form-field {
+  display: block !important;
+}
+
+.mat-menu-content{
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.oba-toolbar .oba-breadcrumb {
+  font-size: 15px;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  white-space: normal !important;
+}
+
+.oba-form-control {
+  display: block;
+  width: 100%;
+}
+
+.mat-list-item {
+  font-size: 12px !important;
+}
+
+.oba-scoll-check
+{
+    overflow-y:auto;
+    max-height: 300px;
+    width: 100%;
+}
+
+.mat-checkbox-label{
+  font-size: 11px;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  font-size: 14px;
+  padding: 0 8px !important;
+}
+/*
+@media(max-width: 800px) {
+  .oba-container .mat-elevation-z8 {
+      overflow-x: auto !important;
+  }
+
+  .oba-container .mat-elevation-z8 .mat-table {
+      min-width:800px;
+  }
+}
+*/
+.oba-container .mat-elevation-z8 .mobile-label {
+  display: none;
+}
+
+@media(max-width: 600px) {
+  // Custom header label that shows in each column, with a set width and bold font
+  .oba-container .mat-elevation-z8 .mat-header-row {
+    width: 80px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .oba-container .mat-elevation-z8 .mat-header-cell{
+    text-align: left !important;
+  }
+
+  .oba-container .mat-elevation-z8 .mobile-label {
+    display: block;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  // Remove the header row altogether
+  .oba-container .mat-elevation-z8 .mat-header-row {
+    display: none;
+  }
+
+  .mat-cell:first-child, .mat-footer-cell:first-child, .mat-header-cell:first-child {
+    padding-left: 0 !important;
+  }
+
+  // The row cells should display as a column, justified left, with a bit of extra padding
+  .oba-container .mat-elevation-z8 .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+}
+
+.mat-select-panel:not([class*=mat-elevation-z]){
+  max-width: calc(100% + 32px) !important;
+}
+
+
+.mat-horizontal-stepper-header-container {
+  margin: 0 0 0 -18px;
+}
+
+@media(max-width: 780px) {
+  .mat-step-header .mat-step-label {
+    display: none;
+  }
+}
+
+.tab-dupla .mat-tab-label {
+  width: 50%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
