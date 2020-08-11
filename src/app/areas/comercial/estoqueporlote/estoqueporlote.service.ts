@@ -181,7 +181,7 @@ export class EstoquePorLoteService implements OnDestroy{
                retorno = this.getJsonLocal(sequnidade, nroempresa);
                break;
             case 'LoteProd':
-               retorno = this.getJsonLoteProd(seqproduto, sequnidade);
+               retorno = this.getJsonLoteProd(seqproduto, sequnidade, nroempresa);
                break;
             default:
                retorno = null;
@@ -261,7 +261,7 @@ export class EstoquePorLoteService implements OnDestroy{
         return retorno;
     }
 
-    private getJsonLoteProd(seqproduto : number, sequnidade : number){
+    private getJsonLoteProd(seqproduto : number, sequnidade : number, nroempresa: number){
 
         this._dbConsult.model = new DbConsult();
         this._dbConsult.model.objeto = "cmp_getLoteprod";
@@ -280,6 +280,11 @@ export class EstoquePorLoteService implements OnDestroy{
         parametro2.nome  = "pr_sequnidade";
         parametro2.valor = sequnidade.toString();
         this._dbConsult.model.parameters.push(parametro2);
+
+        let parametro3   = new Parametro();
+        parametro3.nome  = "pr_nroempresa";
+        parametro3.valor = nroempresa.toString();
+        this._dbConsult.model.parameters.push(parametro3);
 
         return JSON.stringify(this._dbConsult);
     }

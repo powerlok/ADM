@@ -61,14 +61,14 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
             cgo                   : new FormControl('', [Validators.required/*, Validators.minLength(6)*/]),
             local                 : new FormControl('', [Validators.required/*, Validators.minLength(6)*/]),
             nroempresa            : new FormControl('', [Validators.required/*, Validators.minLength(6)*/]),
-            sequnidade            : new FormControl('', [Validators.required/*, Validators.minLength(3)*/])
+           // sequnidade            : new FormControl('', [Validators.required/*, Validators.minLength(3)*/])
         });
 
         this.germov = new Array<Select>();
         this.germov = [{ id: "S", text: "Sim"}, { id: "N", text: "Não"}];
     }
 
-    filterGroup(sequnidade: number, seqproduto: number, desc: Params): Observable<ProdMonitorado[]> {
+    filterGroup(seqproduto: number, desc: Params): Observable<ProdMonitorado[]> {
         let obs = new Observable<any>();
         let r   = new RodarJson();
 
@@ -77,7 +77,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
             if(Number(desc)){
 
                 r = {
-                    obj: [{ sequnidade : sequnidade, desc : null, seqproduto : Number(desc) }],
+                    obj: [{ sequnidade : 6, desc : null, seqproduto : Number(desc) }],
                     tipo : "BUSCAPRODUTO",
                     json : null
                 };
@@ -85,7 +85,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
                 if(desc.length > 2) obs = this.estoquePorLoteServ.getProduto(r);
             }else{
                 r = {
-                    obj  : [{ sequnidade : sequnidade, desc : (desc != undefined) ? desc.toLowerCase() : null, seqproduto : 0 }],
+                    obj  : [{ sequnidade : 6, desc : (desc != undefined) ? desc.toLowerCase() : null, seqproduto : 0 }],
                     tipo : "BUSCAPRODUTO",
                     json : null
                 };
@@ -98,9 +98,9 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
+        this.onChangeEmpresa(6);
         this._subscriptions.push(this.form.get("codigo").valueChanges
-                 .switchMap((params : Params) => this.filterGroup(this.form.get("sequnidade").value, 0, params))
+                 .switchMap((params : Params) => this.filterGroup(0, params))
                  .subscribe(
                         val => {
                             this.filteredOptions = val;
@@ -110,7 +110,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
 
     onSelectProdChange(event){
 
-        this._subscriptions.push(this.estoquePorLoteServ.execJson(event.source.value, this.form.get("sequnidade").value, this.form.get("nroempresa").value, null, null, null, null, 'LoteProd')
+        this._subscriptions.push(this.estoquePorLoteServ.execJson(event.source.value, 6, this.form.get("nroempresa").value, null, null, null, null, 'LoteProd')
                                .subscribe((x : Lote[]) => {
             this.lote = x;
             if(x.length > 0) {
@@ -118,6 +118,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
               this.hideCampos2 = false;
             }else{
               this.form.get('descricao').setValue(null);
+              this.limparRestante();
             }
         }));
 
@@ -149,7 +150,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
         this.form.patchValue({"cgo": "0" });
 
       if(id > 0) {
-        this._subscriptions.push(this.estoquePorLoteServ.execJson(0, this.form.get('sequnidade').value, id, null, null, null, null, 'Local')
+        this._subscriptions.push(this.estoquePorLoteServ.execJson(0, 6, id, null, null, null, null, 'Local')
                                 .subscribe((local : object) => {
                                         for(let i of local as Array<object>){
                                             let l = new Select();
@@ -160,7 +161,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
                                         }
                                 }));
 
-         this._subscriptions.push(this.estoquePorLoteServ.execJson(0, this.form.get('sequnidade').value, id, "null", "CGO", "S", "I", "CGO")
+         this._subscriptions.push(this.estoquePorLoteServ.execJson(0, 6, id, "null", "CGO", "S", "I", "CGO")
                                 .subscribe((cgo : object) => {
                                             for(let i of cgo as Array<object>){
                                                 let l = new Select();
@@ -177,7 +178,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
         this.motivo = [];
         if(id > 0) {
 
-            this._subscriptions.push(this.estoquePorLoteServ.execJson(0, this.form.get('sequnidade').value, 0, id, "MOTIVO", "null", "null", "Motivo")
+            this._subscriptions.push(this.estoquePorLoteServ.execJson(0, 6, 0, id, "MOTIVO", "null", "null", "Motivo")
             .subscribe((motivo : object) => {
                     for(let i of motivo as Array<object>){
                         let l = new Select();
@@ -222,7 +223,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
                 let m = new MovEstoqueLote();
                 m.id                    = this.utils.guidId();
                 m.seqs                  = new Seq();
-                m.seqs.sequnidade       = this.form.get("sequnidade").value;
+                m.seqs.sequnidade       = 6;
                 m.seqs.seqproduto       = this.form.get("codigo").value;
                 m.seqs.seqlote          = this.form.get("lote").value;
                 m.seqs.nroempresa       = this.form.get("nroempresa").value;
@@ -232,7 +233,7 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
                 m.seqs.seqmotivo        = this.form.get("motivo").value;
                 m.seqs.seqgermov        = this.form.get("germov").value;
                 m.texts                 = new Text();
-                m.texts.unidade         = this.estoquePorLoteServ.getTextSelected(this.unidades, this.form.get("sequnidade").value, "Unidade");
+                m.texts.unidade         = this.estoquePorLoteServ.getTextSelected(this.unidades, 6, "Unidade");
                 m.texts.produto         = this.form.get("descricao").value;
                 m.texts.lote            = this.estoquePorLoteServ.getTextSelected(this.lote, this.form.get("lote").value, "Lote");
                 m.texts.fantasia        = this.estoquePorLoteServ.getTextSelected(this.empresas, this.form.get("nroempresa").value, "Empresa");
