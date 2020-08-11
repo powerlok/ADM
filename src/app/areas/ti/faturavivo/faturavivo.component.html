@@ -1,0 +1,21 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Ti /
+                    <a routerLink="/admin/ti/integração conv.func">Importação Vivo</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form>
+            <input type="file" [style.display]="hideElement?'none':'inherit'" style="display: inline-block;" #imgFileInput (change)="incomingfile($event)" placeholder="Upload file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.shee">
+            <button mat-fab color="primary" (click)="imgFileInput.click()">
+                <i class="material-icons">
+                    attach_file
+                </i>
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,62 @@
+/**
+ * Created by vadimdez on 21/06/16.
+ */
+import { ElementRef, EventEmitter, OnChanges, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
+import { PDFDocumentProxy, PDFSource, PDFProgressData } from 'pdfjs-dist';
+export declare class PdfViewerComponent implements OnChanges, OnInit, OnDestroy {
+    private element;
+    static CSS_UNITS: number;
+    pdfLinkService: any;
+    pdfViewer: any;
+    pdfFindController: any;
+    private _cMapsUrl;
+    private _renderText;
+    private _stickToPage;
+    private _originalSize;
+    private _pdf;
+    private _page;
+    private _zoom;
+    private _rotation;
+    private _showAll;
+    private _canAutoResize;
+    private _fitToPage;
+    private _externalLinkTarget;
+    private lastLoaded;
+    private resizeTimeout;
+    afterLoadComplete: EventEmitter<PDFDocumentProxy>;
+    pageRendered: EventEmitter<CustomEvent>;
+    onError: EventEmitter<any>;
+    onProgress: EventEmitter<PDFProgressData>;
+    pageChange: EventEmitter<number>;
+    constructor(element: ElementRef);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    onPageResize(): void;
+    onPageRendered(e: CustomEvent): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    src: string | Uint8Array | PDFSource;
+    cMapsUrl: string;
+    page: any;
+    renderText: boolean;
+    originalSize: boolean;
+    showAll: boolean;
+    stickToPage: boolean;
+    zoom: number;
+    rotation: number;
+    externalLinkTarget: string;
+    autoresize: boolean;
+    fitToPage: boolean;
+    setupViewer(): void;
+    updateSize(): void;
+    private getValidPageNumber(page);
+    static getLinkTarget(type: string): any;
+    static setExternalLinkTarget(type: string): void;
+    private getDocumentParams();
+    private loadPDF();
+    private update();
+    private render();
+    private renderMultiplePages();
+    private renderPage(pageNumber);
+    static removeAllChildNodes(element: HTMLElement): void;
+    private getScale(viewportWidth);
+}

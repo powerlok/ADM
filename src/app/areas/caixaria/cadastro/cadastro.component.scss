@@ -1,0 +1,33 @@
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+flex: 0 0 8%;
+}
+
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2),
+{
+flex: 0 0 10%;
+}
+
+.mat-cell:nth-child(3),
+.mat-header-cell:nth-child(3),
+{
+flex: 0 0 10%;
+}
+
+.mat-cell:nth-child(4),
+.mat-header-cell:nth-child(4),
+{
+flex: 0 0 65%;
+}
+
+.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5),
+{
+   flex: 0 0 5%;
+}
+
+.offset-md-10{
+    margin-left: 82.333333% !important;
+}

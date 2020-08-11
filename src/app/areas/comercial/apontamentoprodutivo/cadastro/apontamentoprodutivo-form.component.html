@@ -1,0 +1,95 @@
+<mat-card class="oba-card mat-card col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-8 offset-lg-8">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Comercial /
+          <a [routerLink]="['/admin/comercial/apontamento produtivo/lista/', nrocdFiltro,dataFiltro]">Apontamento Produtivo</a> / {{ title }}
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Código" class="oba-form-control" formControlName="seqapontamento" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="CD" class="oba-form-control" formControlName="nrocd"
+                (ngModelChange)="onChangeEmpresas($event)">
+                <mat-option *ngFor="let cd of cds" [value]="cd.seqcd">
+                  {{ cd.cd }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="Empresas" class="oba-form-control" formControlName="nroempresa">
+                <mat-option *ngFor="let empresa of empresas" [value]="empresa.nroEmpresa">
+                  {{ empresa.fantasia }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-2">
+            <mat-form-field>
+              <input matInput formControlName="nrocarga" type="number" placeholder="Nro da Carga"
+                class="oba-form-control" maxlength="10">
+            </mat-form-field>
+          </div> -->
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <table class="table table-borderless" formArrayName="produtivos">
+              <tr>
+                <th class="row justify-content-center">
+                  <button mat-raised-button (click)="adicionarProdutivo()" color="primary">
+                    <mat-icon>add</mat-icon> Adicionar separadores
+                  </button></th>
+              </tr>
+              <tr *ngFor="let produtivo of produtivos().controls; let i=index" [formGroupName]="i">
+                <td>
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <mat-form-field class="example-full-width">
+                        <input placeholder="Separador" aria-label="Separador" matInput formControlName="separador"
+                          [matAutocomplete]="auto">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayObject">
+                          <mat-option *ngFor="let option of filteredOptions[i] | async" [value]="option">
+                            {{option.SEPARADOR}}
+                          </mat-option>
+                        </mat-autocomplete>
+
+                        <button mat-button mat-icon-button matSuffix type="button" (click)="removeProdutivo(i)">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-12">
+          <button type="button" mat-button color="primary" (click)="voltar()"><mat-icon>arrow_back_ios</mat-icon> Voltar</button>
+          <button type="submit" mat-raised-button color="primary" class="float-right"
+            [disabled]="!myForm.valid"><mat-icon>save</mat-icon> Salvar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

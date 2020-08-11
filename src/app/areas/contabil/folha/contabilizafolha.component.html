@@ -1,0 +1,79 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Contábil /
+                    <a routerLink="/admin/folha/contabilização folha">Contabilização Folha</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+
+            <form [formGroup]="form" (ngSubmit)="submit('N')" #f="ngForm">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChange($event)" [required] ="true">
+                                    <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                        {{ unidade.Unidade }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field>
+                                <input matInput placeholder="Ano" formControlName="ano" class="oba-form-control" maxlength="4" minlength="4" [required] ="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field>
+                                <input matInput placeholder="Mês" formControlName="mes" class="oba-form-control" maxlength="2" minlength="1" [required] ="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2" [style.display]="!isCarregarSPDF ? 'block' : 'none'">
+                            <mat-form-field>
+                                <mat-select placeholder="Recontabilizar" class="oba-form-control" formControlName="recontabilizacao"  [required]="!isCarregarSPDF">
+                                    <mat-option *ngFor="let rec of recs" [value]="rec.id">
+                                        {{ rec.desc }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1" [style.display]="!isCarregarP ? 'block' : 'none'"  >
+                            <mat-form-field>
+                                <input matInput placeholder="Coligada" formControlName="coligada" class="oba-form-control" maxlength="10" minlength="1" [required]="!isCarregarP">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1" [style.display]="!isCarregarP ? 'block' : 'none'">
+                            <mat-form-field>
+                                <input matInput placeholder="Matriz" formControlName="matriz" class="oba-form-control" maxlength="3" minlength="1" [required]="!isCarregarP">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3"> 
+                            <button type="button" mat-button color="warn" (click)= "submit('S')">Inconsistências</button>
+                            <button type="submit" mat-button color="primary">Contabilizar</button>                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="oba-container mat-elevation-z8">
+                            <mat-table #table [dataSource]="dataSource">
+                                <ng-container matColumnDef="log">
+                                    <mat-header-cell *matHeaderCellDef> Log </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"><span class="mobile-label ">Log: </span> {{element.LOG}} </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </mat-card-content>

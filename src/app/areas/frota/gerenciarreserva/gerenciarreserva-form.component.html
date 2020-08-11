@@ -1,0 +1,292 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Frota / Gerenciar Reserva /
+                    <a routerLink="/admin/frota/gerenciar reserva/lista">Lista</a> / Cadastro
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <h3 class="display-6">Reserva
+                        <span style="color:red;">{{ seqreserva }}</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                    <mat-step [stepControl]="firstFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="firstFormGroup">
+                                <input type="hidden" formControlName="status"> 
+                            <ng-template matStepLabel>Unidade</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" [required]="true">
+                                            <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                                {{ unidade.Unidade }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="voltar()">Voltar</button>
+                                <button mat-button (click)="goForward(stepper)">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Data / Hora</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Data (DD/MM/YYYY)" formControlName="datareserva" readonly="true" class="oba-form-control" [matDatepicker]="picker">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker touchUi #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <input matInput type="time" placeholder="Hora Inicial" formControlName="horainicial" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <input matInput type="time" placeholder="Hora Final" formControlName="horafinal" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)">Voltar</button>
+                                <button mat-button (click)="buscaVeiculos();goForward(stepper)">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel>Veiculo</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Veiculo" class="oba-form-control" formControlName="veiculo" (ngModelChange)="AoSelecionarVeiculo($event)">
+                                            <mat-option *ngFor="let v of veiculos" [value]="v.SEQVEICULO">
+                                                {{ v.MODELO }} - {{ v.PLACA }} / {{ v.ANO }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)">Voltar</button>
+                                <button mat-button (click)="buscaEmpresas();goForward(stepper);">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fourthFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="fourthFormGroup">
+                            <ng-template matStepLabel>Local</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Origem" formControlName="origem" required maxlength="100">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 offset-md-2">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Destino" class="oba-form-control" formControlName="destino">
+                                            <mat-option *ngFor="let e of empresas" [value]="e.NROEMPRESA">
+                                                {{ e.NOMEREDUZIDO }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <button mat-mini-fab color="primary" (click)="addLocal()">
+                                        <mat-icon aria-label="Adicionar">add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <div class="oba-container mat-elevation-z8">
+                                        <mat-table #table [dataSource]="dataSource" matSort>
+                                            <ng-container matColumnDef="empresa">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+                                                <mat-cell *matCellDef="let element">
+                                                    <span class="mobile-label">Empresa: </span> {{element.NOMEREDUZIDO}}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="remover">
+                                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                                <mat-cell *matCellDef="let element" (click)="removerLocalGrid(element.NROEMPRESA, element.NOMEREDUZIDO, element.SEQUNIDADE)"
+                                                    style="cursor: pointer;">
+                                                    <i class="material-icons">delete</i>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                        </mat-table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)">Voltar</button>
+                                <button mat-button (click)="goForward(stepper);">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fifthFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="fifthFormGroup">
+                            <ng-template matStepLabel>Usuário</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input type="hidden" formControlName="sequsuario">
+                                        <input type="hidden" formControlName="chapa">
+                                        <input matInput formControlName="usuario" [matAutocomplete]="auto" placeholder="Usuário" class="oba-form-control">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let c of fUsuario" [value]="c.sequsuario" (onSelectionChange)="aoSelecionarUsuario(c.sequsuario, c.nome, c.chapa)">
+                                                <small matTooltip="({{ c.sequsuario }}) - {{ c.nome }}">({{ c.sequsuario
+                                                    }}) - {{ c.nome }}</small>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)">Voltar</button>
+                                <button mat-button (click)="goForward(stepper);">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="sixthFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="sixthFormGroup">
+                            <ng-template matStepLabel>Check-in / Check-out</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-9">
+                                    <mat-tab-group dynamicHeight class="tab-dupla">
+                                        <mat-tab label="Check-In">
+                                            <div class="form-group"></div>
+                                            <div class="row"  [style.display]="verificaCheckIn ? '' : 'none' ">
+                                                <div class="col-md-5">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Km Inicial" formControlName="kmInicialCheckIn">
+                                                    </mat-form-field>
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Estacionamento" formControlName="estaciomentoCheckIn">
+                                                    </mat-form-field>
+                                                    <mat-form-field>
+                                                        <textarea matInput #message maxlength="100" rows="6" placeholder="Observação" formControlName="observacaoCheckIn"></textarea>
+                                                        <mat-hint align="end">{{message.value.length}} / 100</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="checkOverFlow">
+                                                            <mat-radio-group formControlName="checkIn" *ngFor="let item of listaCheckin">
+                                                                <table class="table table-striped">
+                                                                    <tr>
+                                                                        <td>{{item.DESCRICAO}}</td>
+                                                                        <td>
+                                                                            <mat-radio-button value="S" [checked]="item.CHECKED ? true : false" (change)="radioChangeCheck($event, item, 'CHECKIN')">Sim</mat-radio-button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <mat-radio-button value="N" [checked]="!item.CHECKED ? true : false" (change)="radioChangeCheck($event, item, 'CHECKIN')">Não</mat-radio-button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="Check-Out">
+                                            <div class="form-group"></div>
+                                            <div class="row"  [style.display]="verificaCheckOut ? '' : 'none' ">
+                                                <div class="col-md-5">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Km Final" formControlName="kmFinalCheckOut">
+                                                    </mat-form-field>
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Estacionamento" formControlName="estaciomentoCheckOut">
+                                                    </mat-form-field>
+                                                    <mat-form-field>
+                                                        <textarea matInput #message maxlength="100" rows="6" placeholder="Observação" formControlName="observacaoCheckOut"></textarea>
+                                                        <mat-hint align="end">{{message.value.length}} / 100</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="row justify-content-md-center">
+                                                        <div class="checkOverFlow">
+                                                            <mat-radio-group formControlName="checkOut" *ngFor="let item of listaCheckOut">
+                                                                <table class="table table-striped">
+                                                                    <tr>
+                                                                        <td>{{item.DESCRICAO}}</td>
+                                                                        <td>
+                                                                            <mat-radio-button value="S" [checked]="item.CHECKED ? true : false" (change)="radioChangeCheck($event, item, 'CHECKOUT')">Sim</mat-radio-button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <mat-radio-button value="N" [checked]="!item.CHECKED ? true : false" (change)="radioChangeCheck($event, item, 'CHECKOUT')">Não</mat-radio-button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+                            </div>                            
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)" class="float-left">Voltar</button>
+                                <button mat-button (click)="goForward(stepper);" color="primary">Próximo</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="seventhFormGroup" [completed]="isCompleted">
+                        <form [formGroup]="seventhFormGroup">
+                            <ng-template matStepLabel>Finalizar</ng-template>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <textarea matInput #message maxlength="100" rows="6" placeholder="Observação / Outros Destinos" formControlName="observacao"></textarea>
+                                        <mat-hint align="end">{{message.value.length}} / 100</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <button mat-button (click)="goBack(stepper)" class="float-left">Voltar</button>
+                                <button mat-button (click)="submit()" color="primary">Finalizar</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+<!-- div class="reserva-add" [style.display]="seqreserva == 0 ? 'none' : ''">
+    <button mat-fab (click)="_click('ADD')">
+        <mat-icon aria-label="Novo" matTooltip="Novo">add</mat-icon>
+    </button>
+</div -->

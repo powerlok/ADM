@@ -1,0 +1,35 @@
+.oba-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+    width: 100%;
+}
+
+.GridStatus .mat-cell:nth-child(1),
+.GridStatus .mat-header-cell:nth-child(1),
+{
+  flex: 0 0 20%;
+}
+
+.GridStatus .mat-cell:nth-child(2),
+.GridStatus .mat-header-cell:nth-child(2),
+{
+  flex: 0 0 20%; 
+}
+
+.GridStatus .mat-cell:nth-child(2),
+.GridStatus .mat-header-cell:nth-child(2),
+{
+  flex: 0 0 20%;
+}
+
+.GridStatus .mat-cell:nth-child(3),
+.GridStatus .mat-header-cell:nth-child(3),
+{
+  flex: 0 0 20%;
+}
+
+.GridStatus .v-align-middle { 
+   margin-left: 50px;
+ }

@@ -1,0 +1,116 @@
+<mat-card class="oba-card mat-card col-sm-12 col-md-6 col-lg-5 col-xl-4 offset-md-3 offset-lg-4">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Ti /
+          <a routerLink="/admin/ti/telefonia/lista">Telefonia</a> / Novo
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+      <div class="col-md-12">
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Codigo" formControlName="codigo" [value]="0" readonly>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Chapa" formControlName="chapa" (blur)="getChapa()" maxlength="20">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade">
+              <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                {{ unidade.Unidade }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Nome" formControlName="nome" maxlength="100">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput telefoneMask maxlength="15" placeholder="Nº Linha" formControlName="nrolinha">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-radio-group formControlName="aparelhos">
+            <mat-radio-button class="oba-radio-button" *ngFor="let tipo of tipos" [value]="tipo.Valor">
+              {{tipo.Texto}} &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Imei Aparelho" formControlName="imeiaparelho" maxlength="50">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Imei Sim Card" formControlName="imeisimcard" maxlength="50">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Plano Voz" formControlName="planovoz" maxlength="100">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Plano Dados" formControlName="planodados" maxlength="100">
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Data Entrega" formControlName="dtaentrega" class="oba-form-control"
+              [matDatepicker]="pickerDtaEntrega">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaEntrega"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaEntrega disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Data Devolução" formControlName="dtadevolucao" class="oba-form-control"
+              [matDatepicker]="pickerDtaDevolucao">
+            <mat-datepicker-toggle matSuffix [for]="pickerDtaDevolucao"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDtaDevolucao disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Checkin" formControlName="checkin" [value]="0" maxlength="10" minlength="1">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12">
+          <input type="file" #file class="custom-file-input" id="inputGroupFile04" formControlName="arquivo" accept="*" aria-describedby="inputGroupFileAddon04" (change)="onFileChanged()">
+          <label class="custom-file-label" for="inputGroupFile04">Procurar Arquivo</label>
+        </div>
+
+        <div class="form-group col-md-12">
+           <a href="http://desenvolvimento.wpmc.com.br/{{codigo}}/{{arquivo}}" target="blank">{{arquivo}}</a>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-12">
+            <button type="button" mat-button color="primary" (click)="voltar()">Voltar</button>
+
+            <button type="submit" mat-raised-button color="primary" class="float-right">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

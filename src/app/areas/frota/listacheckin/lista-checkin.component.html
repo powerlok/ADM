@@ -1,0 +1,78 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Frota / <a routerLink="/admin/frota/lista check-in"> Lista Check-in </a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" [required]="true" (ngModelChange)="carregaGridCheckins($event,0)">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput formControlName="descricao" placeholder="descricao" class="oba-form-control" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-mini-fab type="submit" color="primary" class="float-left">
+                            <mat-icon aria-label="Adicionar">add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <mat-toolbar color="primary">
+                            <mat-toolbar-row>
+                                <span>Lista Checkins</span>
+                            </mat-toolbar-row>
+                        </mat-toolbar>
+                        <div class="oba-container mat-elevation-z8">
+                            <mat-table #table [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="desc">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label">Descrição: </span> {{element.DESCRICAO}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label">Status: </span> {{element.STATUS}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="alter">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let element" (click)="ativaInativaRowGrid(element.SEQUNIDADE, element.SEQITEM, element.DESCRICAO, element.STATUS)"
+                                        style="cursor: pointer;">
+                                        <i class="material-icons">
+                                            {{element.ICON}}
+                                        </i>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

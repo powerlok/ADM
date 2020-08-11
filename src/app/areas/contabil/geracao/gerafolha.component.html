@@ -1,0 +1,177 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Contábil /
+                    <a routerLink="/admin/folha/geracao folha">Geração Folha</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+            <div class="col-md-12">
+                <div class="row">
+                    <!-- <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onchangeUnidade($event)">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-md-1" [style.display]="!isCarregarTipoGeracao ? 'block' : 'none'">
+                        <mat-form-field>
+                            <mat-select placeholder="Banco" class="oba-form-control" formControlName="banco">
+                                <mat-option *ngFor="let g of banco" [value]="g.id">
+                                    {{ g.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2" [style.display]="!isCarregarTipoGeracao ? 'block' : 'none'">
+                        <mat-form-field>
+                            <mat-select placeholder="Tipo Geração" class="oba-form-control" formControlName="tipogeracao" (ngModelChange)="onChangeCampo($event)">
+                                <mat-option *ngFor="let g of geracao" [value]="g.id">
+                                    {{ g.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1" [style.display]="!isCarregarAno ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="Ano" formControlName="ano" class="oba-form-control" maxlength="4" minlength="4">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1" [style.display]="!isCarregarMes ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="Mês" formControlName="mes" class="oba-form-control" maxlength="2" minlength="1">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2" [style.display]="!isCarregarDtaVenc ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="Vencimento" formControlName="dtavencimento" class="oba-form-control" maxlength="10" minlength="1"
+                                [matDatepicker]="pickerVenc">
+                            <mat-datepicker-toggle matSuffix [for]="pickerVenc"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerVenc disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" [style.display]="!isCarregarDtaMov ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="Movimento" formControlName="dtamovimento" class="oba-form-control" maxlength="10" minlength="1"
+                                [matDatepicker]="pickerMov">
+                            <mat-datepicker-toggle matSuffix [for]="pickerMov"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerMov disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" [style.display]="!isCarregarDtaPagtoDe ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput [placeholder]="dataDe" formControlName="dtapagamentode" class="oba-form-control" maxlength="10" minlength="1"
+                                [matDatepicker]="pickerPagtoDe">
+                            <mat-datepicker-toggle matSuffix [for]="pickerPagtoDe"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerPagtoDe disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" [style.display]="!isCarregarDtaPagtoAte ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput [placeholder]="dataAte" formControlName="dtapagamentoate" class="oba-form-control" maxlength="10" minlength="1"
+                                [matDatepicker]="pickerPagtoAte">
+                            <mat-datepicker-toggle matSuffix [for]="pickerPagtoAte"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerPagtoAte disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" [style.display]="!isCarregarCPF ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="CPF" formControlName="cpf" class="oba-form-control" maxlength="14" minlength="1" mask="000.000.000-99"
+                                [dropSpecialCharacters]="true">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-1" [style.display]="!isCarregarMatriz ? 'block' : 'none'">
+                        <mat-form-field>
+                            <input matInput placeholder="Matriz" formControlName="matriz" class="oba-form-control" maxlength="3" minlength="1">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 offset-md-11">
+                        <button type="submit" mat-raised-button color="primary">Gerar</button>
+                    </div>
+                </div>
+            </div>
+
+            
+        </form>
+    </mat-card-content>    
+
+
+    <div class="row justify-content-center">
+        <div class="oba-container mat-elevation-z8 GridStatus col-md-8">
+            <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="verificacadastro">
+                    <mat-header-cell *matHeaderCellDef> Verificação de Cadastro </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <mat-icon aria-hidden="false" class="v-align-middle" aria-label="">{{element.verificaCadastro}}</mat-icon>  </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="verificaconta">
+                    <mat-header-cell *matHeaderCellDef> Verificação de Contas </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <mat-icon aria-hidden="false" class="v-align-middle" aria-label="">{{element.verificaContas}}</mat-icon> </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="gerandotitulos">
+                    <mat-header-cell *matHeaderCellDef> Gerando Títulos </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <mat-icon aria-hidden="false" class="v-align-middle" aria-label="">{{element.gerandoTitulos}}</mat-icon> </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="integrandotitulos">
+                    <mat-header-cell *matHeaderCellDef> Integrando Títulos </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <mat-icon aria-hidden="false" class="v-align-middle" aria-label="">{{element.integracaoTitulos}}</mat-icon> </mat-cell>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="gerandocomplemento">
+                      <mat-header-cell *matHeaderCellDef> Gerando Complemento </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> <mat-icon aria-hidden="false" class="v-align-middle" aria-label="">{{element.gerandoComplemento}}</mat-icon> </mat-cell>
+                    </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            
+        </div>
+    </div>
+    <br><br>
+    <div class="row justify-content-center" [style.display]="!isCarregarInconsistencia ? 'block' : 'none'">
+        <div class="oba-container mat-elevation-z8 GridInconsistencia col-md-8">
+            <mat-table #table [dataSource]="dataSource2">
+                <ng-container matColumnDef="nrotitulo">
+                    <mat-header-cell *matHeaderCellDef> Nro Título </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.nrotitulo}}  </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="codpessoa">
+                    <mat-header-cell *matHeaderCellDef> Cod Pessoa </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.codpessoa}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="fantasia">
+                    <mat-header-cell *matHeaderCellDef> Fantasia </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.fantasia}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="motivo">
+                    <mat-header-cell *matHeaderCellDef> Motivo </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.motivo}} </mat-cell>
+                  </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+            </mat-table>
+            
+        </div>
+    </div>

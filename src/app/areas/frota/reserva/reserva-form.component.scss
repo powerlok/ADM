@@ -1,0 +1,25 @@
+.mat-step-label {
+    min-width: 0 !important;
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+    flex: 0 0 90%;
+}
+
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2),
+{
+    flex: 0 0 10%;
+}
+
+.reserva-add {
+    bottom: 30px;
+    right: 30px;
+    text-align: center;
+    padding: 15px;
+    text-transform: uppercase;
+    position: fixed;
+    /*opacity: .8;*/
+}

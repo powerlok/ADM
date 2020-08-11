@@ -1,0 +1,3 @@
+import { AbstractLoader } from '../abstract.loader.component';
+export declare class SkChasingDotsComponent extends AbstractLoader {
+}

@@ -1,0 +1,21 @@
+export class Telefonia {
+    public SEQTELEFONIA   : number;
+    public NROLINHA       : string;
+    public APARELHO       : string;
+    public IMEIAPARELHO   : string;
+    public IMEISIMCARD    : string;
+    public PLANOVOZ       : string;
+    public PLANODADOS     : string;
+    public CHAPA          : string;
+    public NOME           : string;
+    public UNIDADE        : string;
+    public FUNCAO         : string;
+    public SITUACAO       : string;
+    public SEQUNIDADE     : number;
+    public DTAENTREGA     : string;
+    public DTADEVOLUCAO   : string;
+    public CHECKIN        : number;
+    public ARQUIVO        : string;
+    public CENTROCUSTOC5  : string;
+    public AUDITAR        : string;
+}

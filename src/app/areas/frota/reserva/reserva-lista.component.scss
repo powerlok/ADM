@@ -1,0 +1,77 @@
+.reserva-container {
+   max-height: 500px;
+   overflow: auto;
+   width: 820px;
+   
+  /* padding: 40px 0 0 0;*/
+}
+
+.reserva-texto {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0 0 30px;
+}
+ 
+/**
+.reserva-legend {
+    margin: -8px 0 195px 0;
+    width: 100px;
+    height: 30px;
+    background-color: #21782e;
+    position: absolute;
+    color: #ffffff;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 3px;
+    border: none;
+}*/
+
+.reserva-lista {
+   width: 800px;  
+}
+
+.reserva-lista .mat-list-item {      
+   height: 178px;
+   background-color: #21782e;
+}
+
+.reserva-lista .reserva-card {    
+   width: 800px;  
+}
+
+.reserva-lista .reserva-card div.row div {    
+    font-size: 12px !important;  
+    padding: 10px;  
+}
+
+.reserva-lista .reserva-card:not([class*=mat-elevation-z]) {
+    box-shadow: 3px 3px 1px -2px rgba(0,0,0,.2), 3px 2px 2px 0 rgba(0,0,0,.14), 3px 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.reserva-lista .reserva-card .reserva-btn-editar {
+   float: right;
+   margin: -85px -10px 0 0;
+   opacity: .8;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.reserva-add {
+    bottom: 30px;
+    right: 30px;
+    text-align: center;
+    padding: 15px;
+    text-transform: uppercase;
+    position: fixed;
+    /*opacity: .8;*/
+}
+
+
+.badge {
+    position: absolute;
+    margin: -20px 0 0 -20px;
+ }

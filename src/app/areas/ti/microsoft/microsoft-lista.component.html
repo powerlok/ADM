@@ -1,0 +1,133 @@
+<mat-card class="oba-card">
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Ti /
+                    <a routerLink="/admin/ti/microsoft/lista">Microsoft</a> / Lista
+                </div>
+                <div class="float-right col-md-1 text-right">
+                    <button mat-button [matMenuTriggerFor]="menu" calss=" menu">
+                        <i class="material-icons">more_horiz</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="novo()">Novo</button>
+                        <!--mat-divider></mat-divider>
+                        <button mat-menu-item>Excluir</button -->
+                    </mat-menu>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" #f="ngForm">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-button type="button" color="primary" (click)="limparMicrosoft()">Limpar</button>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Auditoria" class="oba-form-control" formControlName="auditoria" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let auditoria of auditorias" [value]="auditoria.id">
+                                    {{ auditoria.desc }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Demititos" class="oba-form-control" formControlName="demitido" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let demitido of demitidos" [value]="demitido.id">
+                                    {{ demitido.desc }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="oba-container mat-elevation-z8">
+                    <div class="form-inline">
+                        <div class="col-md-11">
+                            <div class="form-group col-md-2">
+                                <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" mat-mini-fab color="primary" (click)="exportParaExcel($event)" class="bt-pdf">
+                                <i class="material-icons">
+                                    file_copy
+                                </i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <mat-table #table [dataSource]="dataSource" matSort>
+                         <ng-container matColumnDef="CODIGO">
+                            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> <mat-checkbox  [value]="element.SEQMICROSOFT" (click)="atualizarAuditado(element.SEQMICROSOFT);" [checked]="element.AUDITORIA == 'S' ? true : false"></mat-checkbox> </mat-cell>
+                        </ng-container>                         
+
+                        <ng-container matColumnDef="CHAPA">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Chapa </mat-header-cell>
+                            <mat-cell *matCellDef="let element"  matTooltip="{{element.SITUACAO}}" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <span class="mobile-label">Chapa: </span> {{element.CHAPA}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="NOME">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+                            <mat-cell *matCellDef="let element" matTooltip="{{element.SITUACAO}}" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <span class="mobile-label ">Nome: </span> {{element.NOME}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="CR">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Centro Custo </mat-header-cell>
+                            <mat-cell *matCellDef="let element" matTooltip="{{element.SITUACAO}}" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <span class="mobile-label ">Centro Custo: </span> {{element.CCUSTO_DESCRICAO_C5}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="EMAIL">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                            <mat-cell *matCellDef="let element" matTooltip="{{element.SITUACAO}}" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <span class="mobile-label ">Email: </span> {{element.EMAIL}} </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="EDITAR" stickyEnd>
+                            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"  (click)="verDetalhe(element.SEQMICROSOFT)" style="cursor: pointer;" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <mat-icon>edit</mat-icon>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="DELETAR" stickyEnd>
+                            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                            <mat-cell *matCellDef="let element" (click)="deletar(element.SEQMICROSOFT)" style="cursor: pointer;" [ngClass]="{'mat-cell-danger' : element.SITUACAO == 'Demitido'}">
+                                <mat-icon>delete</mat-icon>
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,106 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Contábil /
+                    <a routerLink="/admin/contabil/integração conv.func">Convênio Funcionário</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+
+        <form [formGroup]="form" (ngSubmit)="submit('N')" #f="ngForm">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChangeUnidade($event)">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-form-field>
+                            <input matInput placeholder="Ano Comp" formControlName="ano" class="oba-form-control" maxlength="4" minlength="4">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-form-field>
+                            <input matInput placeholder="Mês Comp" formControlName="mes" class="oba-form-control" maxlength="2" minlength="1">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-form-field>
+                            <input matInput placeholder="Coligada" formControlName="coligada" class="oba-form-control" maxlength="10" minlength="1">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-select placeholder="Período" class="oba-form-control" formControlName="periodo">
+                                <mat-option *ngFor="let periodo of periodos" [value]="periodo.SEQCONVENIOPERIODO">
+                                    {{ periodo.PERIODO }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" mat-button color="warn" (click)="submit('S')">Inconsistências</button>
+                        <button type="submit" mat-button color="primary">Integrar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="oba-container mat-elevation-z8">
+                        <mat-table #table [dataSource]="dataSource">
+                            <ng-container matColumnDef="log">
+                                <mat-header-cell *matHeaderCellDef> Inconsistências </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Log: </span> {{element.LOG}} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100, totalSizeLog]" [showFirstLastButtons]="true">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="oba-container mat-elevation-z8">
+                        <mat-table #table [dataSource]="dataSource2">
+                            <ng-container matColumnDef="seqpessoa">
+                                <mat-header-cell *matHeaderCellDef> Cód Pessoa </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Pessoa: </span> {{element.SEQPESSOA}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="nomerazao">
+                                <mat-header-cell *matHeaderCellDef> Razão </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Razão: </span> {{element.NOMERAZAO}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="cpf">
+                                <mat-header-cell *matHeaderCellDef> CPF </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">CPF: </span> {{element.CPF}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="vlr_c5">
+                                <mat-header-cell *matHeaderCellDef> VLR C5 </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">VLR C5: </span> {{element.VLR_C5}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="vlr_rm">
+                                <mat-header-cell *matHeaderCellDef> VLR RM </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">VLR RM: </span> {{element.VLR_RM}} </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator2 [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100, totalSizeCompConvCompra]" [showFirstLastButtons]="true">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>

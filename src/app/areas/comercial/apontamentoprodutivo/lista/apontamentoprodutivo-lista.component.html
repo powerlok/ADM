@@ -1,0 +1,149 @@
+<mat-card class="oba-card mat-card col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-8 offset-lg-8">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <mat-toolbar class="oba-toolbar">
+        <div class="col-md-11 oba-breadcrumb">Comercial /
+          <a [routerLink]="['/admin/comercial/apontamento produtivo/lista/',nroempresaFiltro, nrocdFiltro, dataFiltro]">Apontamento
+            Produtivo</a> / Lista
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="form" #f="ngForm">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="CD" class="oba-form-control" formControlName="nrocd"
+                >
+                <mat-option *ngFor="let cd of cds" [value]="cd.seqcd">
+                  {{ cd.cd }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="Empresas" class="oba-form-control" formControlName="nroempresa">
+                <mat-option *ngFor="let empresa of empresas" [value]="empresa.nroEmpresa">
+                  {{ empresa.fantasia }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+          <div class="col-md-2">
+            <mat-form-field>
+              <input matInput placeholder="Data" formControlName="data" class="oba-form-control"
+                [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 my-2">
+            <button mat-raised-button type="button" color="primary" (click)="carregaApontamentoProdutivo()" class="mx-2"
+              [disabled]="!form.valid">
+              <mat-icon>search</mat-icon> Pesquisar
+            </button>
+            <button mat-button type="button" color="primary" (click)="limparApontamentoProdutivo()">
+              <mat-icon>clear_all</mat-icon> Limpar
+            </button>
+          </div>
+          <div class="col-md-2 my-2 d-flex flex-row-reverse">
+            <button mat-raised-button type="button" color="primary" (click)="novo()">
+              <mat-icon>add</mat-icon> Novo
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <div class="oba-container mat-elevation-z8">
+          <div class="form-inline">
+            <!-- <div class="col-md-11">
+              <div class="form-group col-md-2">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                </mat-form-field>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-1">
+              <button type="button" mat-mini-fab color="primary" (click)="exportParaExcel($event)" class="bt-pdf">
+                <i class="material-icons">
+                  file_copy
+                </i>
+              </button>
+            </div> -->
+
+          </div>
+
+          <mat-table #table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="CODIGO">
+              <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.SEQAPONTAMENTO}}">
+                <span class="mobile-label">Código: </span> {{element.SEQAPONTAMENTO}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="EMPRESA">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.FANTASIA}}">
+                <span class="mobile-label">Empresa: </span> {{element.FANTASIA}} </mat-cell>
+            </ng-container>
+
+
+            <!-- <ng-container matColumnDef="NROCARGA">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> NroCarga </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.NROCARGA}}">
+                <span class="mobile-label">NroCarga: </span> {{element.NROCARGA}} </mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="DTACADASTRO">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> DtaCadastro </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.DTACADASTRO}}">
+                <span class="mobile-label">DtaCadastro: </span> {{element.DTACADASTRO}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="STATUS">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.STATUS}}">
+                <span class="mobile-label">Status: </span> {{element.STATUS}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="QTDPRODUTIVOS">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Qtd Produtivos </mat-header-cell>
+              <mat-cell *matCellDef="let element" matTooltip="{{element.QTD}}">
+                <span class="mobile-label">Qtd Produtivos: </span> {{element.QTD}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="EDITAR" stickyEnd >
+              <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+              <mat-cell *matCellDef="let element"
+                (click)="(element.QTD > 0 ? verDetalhe(element.SEQAPONTAMENTO, element.NROEMPRESA, element.DTACADASTRO) : '')"
+                style="cursor: pointer;">
+                <mat-icon>edit</mat-icon>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="DELETAR" stickyEnd>
+              <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+              <mat-cell *matCellDef="let element" (click)="(element.QTD > 0 ? deletar(element.SEQAPONTAMENTO) : '')" style="cursor: pointer;">
+                <mat-icon>delete</mat-icon>
+              </mat-cell>
+            </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <div *ngIf="dataSource.data.length === 0" class="footer">Nenhuma informação encontrada.</div>
+
+          <mat-paginator #paginator [pageSize]="100" [pageSizeOptions]="[5, 10, 20, 50, 100]"
+            [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

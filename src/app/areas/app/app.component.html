@@ -1,0 +1,8 @@
+<ngx-loading-bar [includeSpinner]='false' [color]="'#ff0000'"></ngx-loading-bar>
+
+<ng-http-loader [backgroundColor]="'#ff0000'" [spinner]="spinkit.skWave" [debounceDelay]="200">
+</ng-http-loader>
+
+<div [@fadeAnimation]="getRouterOutletState(o)">
+<router-outlet #o="outlet"></router-outlet>
+</div>

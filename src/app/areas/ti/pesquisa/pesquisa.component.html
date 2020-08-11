@@ -1,0 +1,109 @@
+<mat-card class="oba-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">Ti /
+                    <a routerLink="/admin/ti/pesquisa chapa">Pesquisa</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <div class="oba-form">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <mat-form-field>
+                            <input matInput placeholder="Chapa / Nome" formControlName="chapa">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button type="submit" mat-button color="primary">Pesquisa</button>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+
+                        <mat-list>
+                            <mat-list-item *ngFor="let item of checkboxList">
+                                <mat-checkbox (change)="toggle($event);" [value]="item.text" formControlName="checkbox" [(ngModel)]="item.checked">{{item.text}}</mat-checkbox>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="oba-container mat-elevation-z8">
+            <mat-table #table [dataSource]="dataSource" matSort [class.isMobile]>
+                <ng-container matColumnDef="unidade">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Unidade </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Unidade: </span>
+                        {{element.unidade}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chapa">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Chapa </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Chapa:</span>
+                        {{element.chapa}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="nome">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Nome: </span>
+                        {{element.nome}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="cargo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Cargo:</span>
+                        {{element.cargo}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="depto">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Depto </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Depto: </span>
+                        {{element.depto}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="empresa">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Filial (Empresa) </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Filial (Empresa): </span>
+                        {{element.empresa}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="usercomp">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> User Computador </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label">User Computador: </span> {{element.usercomp}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="situacao">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Situação </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><span class="mobile-label">Situação: </span> {{element.situacao}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+</mat-card>

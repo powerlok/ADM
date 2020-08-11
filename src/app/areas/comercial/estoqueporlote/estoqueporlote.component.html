@@ -1,0 +1,255 @@
+<mat-card class="oba-card mat-card">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-toolbar class="oba-toolbar">
+                <div class="col-md-11 oba-breadcrumb">
+                    Comercial /
+                    <a routerLink="/admin/comercial/mov estoque por lote"> Mov Estoque por Lote</a>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit('S')" #f="ngForm">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidade" class="oba-form-control" formControlName="sequnidade" (ngModelChange)="onChangeEmpresa($event)"
+                                [required]="true">
+                                <mat-option *ngFor="let unidade of unidades" [value]="unidade.SeqUnidade">
+                                    {{ unidade.Unidade }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" [style.display]="hideCamposSelect ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Empresa" class="oba-form-control" formControlName="nroempresa" (ngModelChange)="onChangeLocal($event)"
+                                [required]="true">
+                                <mat-option *ngFor="let emp of empresas" [value]="emp.nroEmpresa">
+                                    {{ emp.fantasia }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" [style.display]="hideCamposSelect ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Local" class="oba-form-control" formControlName="local" [required]="true">
+                                <mat-option *ngFor="let l of local" [value]="l.id">
+                                    {{ l.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3" [style.display]="hideCamposSelect ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="CGO" class="oba-form-control" formControlName="cgo" (ngModelChange)="onChangeMotivo($event)" [required]="true">
+                                <mat-option *ngFor="let c of cgo" [value]="c.id">
+                                    {{ c.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3" [style.display]="hideCamposSelect ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Motivo" class="oba-form-control" formControlName="motivo" [required]="true" (ngModelChange)="onChangeCampos($event)">
+                                <mat-option *ngFor="let m of motivo" [value]="m.id">
+                                    {{ m.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" [style.display]="hideCampos ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field appearance="legacy">
+                            <input matInput formControlName="codigo" [matAutocomplete]="auto" placeholder="Código / Descrição" class="oba-form-control" minlength="1"
+                                #codigoprod>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let prod of filteredOptions" [value]="prod.SEQPRODUTO" (onSelectionChange)="onSelectProdChange($event)">
+                                    <small>{{ prod.SEQPRODUTO }}</small> -
+                                    <small matTooltip="{{ prod.DESCREDUZIDA }}">{{ prod.DESCREDUZIDA }}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-1" [style.display]="hideCampos ? 'none' : 'inherit'">
+                    <div class="col-md-1 text-left">
+                        <button type="button" mat-button color="primary" (click)="limparRestante()">Limpar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" [style.display]="hideCampos ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="descricao" placeholder="Descrição" class="oba-form-control">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Gera Movimentação?" class="oba-form-control" formControlName="germov"
+                                [required]="true">
+                                <mat-option *ngFor="let l of germov" [value]="l.id">
+                                   {{ l.text }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Lote" class="oba-form-control" formControlName="lote" (ngModelChange)="onChangeEmbalagem($event)"
+                                [required]="true">
+                                <mat-option *ngFor="let l of lote" [value]="l.SEQLOTE" matTooltip="{{ l.SEQLOTE }} - {{ l.FANTASIA }} - {{ l.DTAENTRADA }}">
+                                    {{ l.SEQLOTE }} - {{ l.FANTASIA }} - {{ l.DTAENTRADA }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <input matInput formControlName="estoquedisp" placeholder="Estoque Disponível" class="oba-form-control" maxlength="15">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select placeholder="Embalagem" class="oba-form-control" formControlName="embalagem" [required]="true">
+                                <mat-option *ngFor="let e of embalagens" [value]="e.EMBALAGEM">
+                                    {{ e.EMBLOTE }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="qtdmov" placeholder="Qtde Movimento" class="oba-form-control" maxlength="15">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <textarea matInput #justif formControlName="justificativa" placeholder="Justificativa" rows="3" class="oba-form-control"
+                                maxlength="250"></textarea>
+                            <mat-hint align="end">{{justif.value.length}} / 250</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row">
+                <div class="col-md-12" [style.display]="hideCampos2 ? 'none' : 'inherit'">
+                    <div class="col-md-1 offset-md-11">
+                        <button type="button" mat-raised-button color="primary" class="bt-salvar" (click)="submit('A')">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mat-elevation-z8" [style.display]="hideGrid ? 'none' : 'inherit'">
+                        <mat-toolbar color="primary">
+                            <mat-toolbar-row>
+                                <span>Produtos a Movimentar</span>
+                            </mat-toolbar-row>
+                        </mat-toolbar>
+                        <mat-table #table [dataSource]="dataSource" matSort>
+                            <!--ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
+                                </ng-container -->
+                            <ng-container matColumnDef="sequnidade">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Unidade </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Unidade: </span> {{element.texts.unidade}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="nroempresa">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Empresa: </span> {{element.texts.fantasia}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="local">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Local </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Local: </span> {{element.texts.local}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="cgo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> CGO </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">CGO: </span> {{element.texts.cgo}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="motivo">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Motivo: </span> {{element.texts.motivo}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="seqproduto">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Produto </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Produto: </span> {{element.texts.produto}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="lote">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Lote </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Lote: </span>{{element.texts.lote}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="embalagem">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Embalagem </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Embalagem: </span> {{element.texts.embalagem}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="qtdemov">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Qtde Movimento </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Qtde Mov: </span> {{element.qtdemov}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="justificativa">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Justificativa </mat-header-cell>
+                                <mat-cell *matCellDef="let element"><span class="mobile-label ">Just: </span> {{element.justificativa}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="deletar">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell *matCellDef="let element" (click)="removeRowGrid(element.id)" style="cursor: pointer;">
+                                    <i class="material-icons">
+                                        delete
+                                    </i>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <!--mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" [showFirstLastButtons]="true">
+                        </mat-paginator-->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row">
+                <div class="col-md-12" [style.display]="hideSalvar ? 'none' : 'inherit'">
+                    <div class="col-md-1 offset-md-11">
+                        <button type="submit" mat-raised-button color="primary" class="bt-salvar">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

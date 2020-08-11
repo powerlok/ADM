@@ -1,0 +1,55 @@
+.mat-step-label {
+    min-width: 0 !important;
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+    flex: 0 0 90%;
+}
+
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2),
+{
+    flex: 0 0 10%;
+}
+
+.reserva-add {
+    bottom: 30px;
+    right: 30px;
+    text-align: center;
+    padding: 15px;
+    text-transform: uppercase;
+    position: fixed;
+    /*opacity: .8;*/
+}
+
+.jumbotron {
+    padding: 5px;
+}
+
+.mat-radio-button {
+    padding-right: 16px;
+  }
+
+.checkOverFlow {
+    max-height: 256px;
+    overflow-y: auto;
+    
+}
+
+.table tbody tr td:nth-child(1) {
+    width: 200px;
+}
+
+.table {
+    width: 100%;
+}
+
+.table td {
+    font-size: 12px;
+}
+
+.mat-tab {
+    padding: 5px;
+}
