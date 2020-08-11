@@ -6,8 +6,13 @@ import { DiaSemana, Rodizio } from "../../../shared/models/Frota";
 import { RodarJson } from "../../../shared/models/RodarJson";
 import { Subscription } from "rxjs";
 import { ValidationErrorService } from "../../../shared/services/validation-error.service";
+<<<<<<< HEAD
 import { isArray } from "util";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+=======
+import { isArray } from "jquery";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
     selector: 'app-cadastro-popup-rodizio-form-frota',
@@ -19,6 +24,7 @@ export class  CadastroPopupRodizioFrotaComponent implements OnInit, OnDestroy {
     diaSemana  : Array<DiaSemana>;
     rodizios   : Array<Rodizio>;
     private _subscriptions: Array<Subscription> = [];
+<<<<<<< HEAD
     constructor(private fb : FormBuilder, 
                 private cadastroService : CadastroFrotaService, 
                 private user : UserService, 
@@ -27,10 +33,21 @@ export class  CadastroPopupRodizioFrotaComponent implements OnInit, OnDestroy {
        
         this.carregaDiaSamana();
         this.form = this.fb.group({ 
+=======
+    constructor(private fb : FormBuilder,
+                private cadastroService : CadastroFrotaService,
+                private user : UserService,
+                private validError : ValidationErrorService,
+                private dialogRef: MatDialogRef<CadastroPopupRodizioFrotaComponent>,  @Inject(MAT_DIALOG_DATA) private data){
+
+        this.carregaDiaSamana();
+        this.form = this.fb.group({
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
             uf       : new FormControl('', [Validators.required]),
             cidade   : new FormControl('', [Validators.required/*, Validators.minLength(6)*/]),
             dia      : new FormControl('', [Validators.required/*, Validators.minLength(6)*/])
         });
+<<<<<<< HEAD
        
     }
 
@@ -41,6 +58,18 @@ export class  CadastroPopupRodizioFrotaComponent implements OnInit, OnDestroy {
     carregaDiaSamana(){
         let r = new RodarJson();  
         r.obj = [{ null: null  }]; 
+=======
+
+    }
+
+    ngOnInit(){
+
+    }
+
+    carregaDiaSamana(){
+        let r = new RodarJson();
+        r.obj = [{ null: null  }];
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         r.tipo = "DIASEMANA";
         this._subscriptions.push(this.cadastroService.getExec(r).subscribe((x : DiaSemana[]) =>  this.diaSemana = x));
     }
@@ -48,10 +77,17 @@ export class  CadastroPopupRodizioFrotaComponent implements OnInit, OnDestroy {
     submit(){
         if(this.form.valid){
             let r = new RodarJson();
+<<<<<<< HEAD
             r.obj = [{seqveiculo: this.data.seqveiculo, 
                               uf: this.form.get("uf").value, 
                           cidade: this.form.get("cidade").value, 
                           status: "A", 
+=======
+            r.obj = [{seqveiculo: this.data.seqveiculo,
+                              uf: this.form.get("uf").value,
+                          cidade: this.form.get("cidade").value,
+                          status: "A",
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                              dia: this.form.get("dia").value
                     }];
             r.tipo = "CADRODIZIO";
@@ -75,4 +111,8 @@ export class  CadastroPopupRodizioFrotaComponent implements OnInit, OnDestroy {
           }
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

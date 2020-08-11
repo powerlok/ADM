@@ -15,7 +15,7 @@ export class ValidationErrorService {
     }
 
     showError(form: FormGroup) {
-        
+
         Object.keys(form.controls).forEach(key => {
             this.errors = [];
             let control = form.controls[key];
@@ -24,12 +24,12 @@ export class ValidationErrorService {
                 return;
             }
 
-            if (errors.message) {               
-                this.errors.push(errors.message);                
+            if (errors.message) {
+                this.errors.push(errors.message);
             }
 
-            if (errors.required) {               
-                this.errors.push(`${key} é obrigatório`);                
+            if (errors.required) {
+                this.errors.push(`${key} é obrigatório`);
             }
 
             if (errors.minlength) {
@@ -41,12 +41,12 @@ export class ValidationErrorService {
             if (this.errors != null) {
 
                 Object.keys(this.errors).forEach(keyError => {
-                    //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', this.errors[keyError]);                    
+                    //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', this.errors[keyError]);
                     this._alertService.alertValid(this.errors[keyError]);
                 });
             }
         });
 
-        
+
     }
 }

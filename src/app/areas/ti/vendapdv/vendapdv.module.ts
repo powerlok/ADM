@@ -11,28 +11,28 @@ import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyFormat } from '../../../shared/util/moeda';
 import { ExcelService } from '../../../shared/util/excel-service';
 
-@NgModule({    
+@NgModule({
     declarations: [
         VendaPdvComponent
     ],
     imports: [
         CommonModule,
         VendaPdvRoutingModule,
-        FormsModule, 
+        FormsModule,
         ReactiveFormsModule,
-        CustomMaterialModule,  
-        NgxMaskModule.forRoot(),    
+        CustomMaterialModule,
+        NgxMaskModule.forRoot(),
         NgxCurrencyModule
     ],
     exports: [],
     providers: [
         CurrencyFormat,
         VendaPdvService,
-        ExcelService        
+        ExcelService
     ],
 })
 export class VendaPdvModule {
-    
+
     constructor(private dateAdapter:DateAdapter<Date>) {
 		this.dateAdapter.setLocale('pt-br'); // DD/MM/YYYY
 	}

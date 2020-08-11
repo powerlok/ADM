@@ -1,7 +1,10 @@
 
 import { Component, OnInit, ViewChild, EventEmitter, OnDestroy } from "@angular/core";
 import { Microsoft } from "../../../shared/models/Microsoft";
+<<<<<<< HEAD
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+=======
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { Parametro, DbConsultModel } from "../../../shared/models/Service";
 import { ConsultAPIService } from "../../../shared/services/consultapi.service";
 import { AppInfoService } from "../../../shared";
@@ -16,6 +19,12 @@ import { Subscription } from "rxjs";
 
 //import swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
+<<<<<<< HEAD
+=======
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
 	selector: "app-ti-microsoft-lista",
@@ -51,14 +60,22 @@ export class MicrosoftListaComponent implements OnInit, OnDestroy {
 		private activatedRoute: ActivatedRoute) {
 
 		this._tel = new Array<Microsoft>();
+<<<<<<< HEAD
 		this.unidades = user.getUnidadePerm();
+=======
+
+		this.unidades = this.user.getUnidadePerm();
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		this.form = this.fb.group({
 			//codigo            : new FormControl('', [Validators.nullValidator/*, Validators.minLength(3)*/]),
 			demitido: new FormControl('', [Validators.nullValidator/*, Validators.minLength(3)*/]),
 			auditoria: new FormControl('', [Validators.nullValidator/*, Validators.minLength(3)*/]),
 			sequnidade: new FormControl('', [Validators.required/*, Validators.minLength(3)*/]),
 		});
+<<<<<<< HEAD
 
+=======
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 	}
 
 	displayedColumns = ['CODIGO', 'CHAPA', 'NOME', 'CR', 'EMAIL', 'EDITAR', 'DELETAR'];
@@ -75,7 +92,11 @@ export class MicrosoftListaComponent implements OnInit, OnDestroy {
 			let sequnidade = params['un'];
 			this.auditoria = params['auditar'];
 			this.demitido = params['demitido'];
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 			if (sequnidade != '' && this.auditoria != '' && this.demitido != '' && sequnidade != undefined) {
 				this.form.get("sequnidade").setValue(Number(sequnidade));
 				this.form.get("auditoria").setValue(this.auditoria);
@@ -171,8 +192,13 @@ carregaMicrosoft(sequnidade){
 				m.CHECKIN_PWBF				= t.CHECKIN_PWBF;
 				m.DTALIBERACAO_PWBF     	= t.DTALIBERACAO_PWBF;
 				m.POWERBIPRO            	= t.POWERBIPRO;
+<<<<<<< HEAD
 				m.CHECKIN_PWBP				= t.CHECKIN_PWBP; 
 				m.DTALIBERACAO_PWBP     	= t.DTALIBERACAO_PWBP; 
+=======
+				m.CHECKIN_PWBP				= t.CHECKIN_PWBP;
+				m.DTALIBERACAO_PWBP     	= t.DTALIBERACAO_PWBP;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 				m.EXCHANGEKIOSK         	= t.EXCHANGEKIOSK;
 				m.CHECKIN_EK            	= t.CHECKIN_EK;
 				m.DTALIBERACAO_EK       	= t.DTALIBERACAO_EK;
@@ -185,7 +211,11 @@ carregaMicrosoft(sequnidade){
 				m.SHAREPOINTPLANO2      	= t.SHAREPOINTPLANO2;
 				m.CHECKIN_SPP2          	= t.CHECKIN_SPP2;
 				m.DTALIBERACAO_SPP2     	= t.DTALIBERACAO_SPP2;
+<<<<<<< HEAD
 				m.OFFICE365BUSINESS     	= t.OFFICE365BUSINESS; 
+=======
+				m.OFFICE365BUSINESS     	= t.OFFICE365BUSINESS;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 				m.CHECKIN_OFB           	= t.CHECKIN_OFB;
 				m.DTALIBERACAO_OFB      	= t.DTALIBERACAO_OFB;
 				m.MICROSOFTFLOWFREE     	= t.MICROSOFTFLOWFREE;
@@ -205,10 +235,17 @@ carregaMicrosoft(sequnidade){
 				m.DTALIBERACAO_OFEFS        = t.DTALIBERACAO_OFEFS;
 				m.VISIOONLINE               = t.VISIOONLINE;
 				m.CHECKIN_VO                = t.CHECKIN_VO;
+<<<<<<< HEAD
 				m.DTALIBERACAO_VO           = t.DTALIBERACAO_VO;   
 				m.VISIOONLINEPLAN2          = t.VISIOONLINEPLAN2;
 				m.CHECKIN_VOP2              = t.CHECKIN_VOP2;
 				m.DTALIBERACAO_VOP2         = t.DTALIBERACAO_VOP2;   
+=======
+				m.DTALIBERACAO_VO           = t.DTALIBERACAO_VO;
+				m.VISIOONLINEPLAN2          = t.VISIOONLINEPLAN2;
+				m.CHECKIN_VOP2              = t.CHECKIN_VOP2;
+				m.DTALIBERACAO_VOP2         = t.DTALIBERACAO_VOP2;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 				m.AUDITORIA					= t.AUDITORIA;
 				this._tel.push(m);
 			});
@@ -235,7 +272,11 @@ checkIfAllSelected() {
 
 atualizarAuditado(seqmicrosoft){
 	let microsoft = new Microsoft();
+<<<<<<< HEAD
 	microsoft.SEQMICROSOFT = seqmicrosoft;	
+=======
+	microsoft.SEQMICROSOFT = seqmicrosoft;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 	this._subscriptions.push(this.serviceMicrosoft.setAuditoria(microsoft).subscribe((data: string) => {
 		this.carregaMicrosoft(this.form.get("sequnidade").value);
@@ -256,6 +297,10 @@ ngOnDestroy() {
 		x.unsubscribe();
 	});
 }
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 }
 

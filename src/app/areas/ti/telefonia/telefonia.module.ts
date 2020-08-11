@@ -13,7 +13,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { DateFormat } from '../../../shared/util/date-format';
 import { UploadService } from '../../../shared/services/upload.service';
-@NgModule({    
+@NgModule({
     declarations: [
         TelefoniaComponent,
         TelefoneFormComponent,
@@ -22,11 +22,11 @@ import { UploadService } from '../../../shared/services/upload.service';
     imports: [
         CommonModule,
         TelefoniaRoutingModule,
-        FormsModule, 
+        FormsModule,
         ReactiveFormsModule,
         CustomMaterialModule,
-        NgxMaskModule.forRoot(),    
-        NgxCurrencyModule      
+        NgxMaskModule.forRoot(),
+        NgxCurrencyModule
     ],
     exports: [],
     providers: [TelefoniaService, ExcelService, DateFormat, UploadService],

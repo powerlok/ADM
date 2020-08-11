@@ -4,7 +4,11 @@ import { DbConsultModel, DbConsult, Parametro } from "../../../shared/models/Ser
 @Injectable()
 export class AssocGerenteServiceJson {
     private _dbConsult: DbConsultModel;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     constructor() {
         this._dbConsult = new DbConsultModel();
 
@@ -25,6 +29,12 @@ export class AssocGerenteServiceJson {
         parametro.valor = nroempresa.toString();
         this._dbConsult.model.parameters.push(parametro);
 
+<<<<<<< HEAD
         return JSON.stringify(this._dbConsult); 
     }
 }
+=======
+        return JSON.stringify(this._dbConsult);
+    }
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

@@ -8,12 +8,20 @@ import { CustomMaterialModule } from '../../../material.module';
 import { CommonModule } from '@angular/common';
 import { MicrosoftService } from './microsoft.service';
 import { ExcelService } from '../../../shared/util/excel-service';
+<<<<<<< HEAD
 import { DateAdapter } from '@angular/material';
+=======
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { DateFormat } from '../../../shared/util/date-format';
 import { UploadService } from '../../../shared/services/upload.service';
+<<<<<<< HEAD
 @NgModule({    
+=======
+import { DateAdapter } from '@angular/material/core';
+@NgModule({
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     declarations: [
         MicrosoftComponent,
         MicrosoftFormComponent,
@@ -22,11 +30,19 @@ import { UploadService } from '../../../shared/services/upload.service';
     imports: [
         CommonModule,
         MicrosoftRoutingModule,
+<<<<<<< HEAD
         FormsModule, 
         ReactiveFormsModule,
         CustomMaterialModule,
         NgxMaskModule.forRoot(),    
         NgxCurrencyModule      
+=======
+        FormsModule,
+        ReactiveFormsModule,
+        CustomMaterialModule,
+        NgxMaskModule.forRoot(),
+        NgxCurrencyModule
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     ],
     exports: [],
     providers: [MicrosoftService, ExcelService, DateFormat, UploadService],

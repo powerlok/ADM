@@ -9,6 +9,10 @@ import { GoogleAnalyticsEventsService } from '../../shared/services/google-analy
 import { NotificationService } from '../../shared/services/notification.service';
 import { Subscription } from 'rxjs';
 import { AlertSimpleSnackComponent } from '../../shared/components/snack/alert-simple/alert-simple.component';
+<<<<<<< HEAD
+=======
+//declare let ga: any;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
   selector: 'app-root',
@@ -17,7 +21,11 @@ import { AlertSimpleSnackComponent } from '../../shared/components/snack/alert-s
   animations: [fadeAnimation]
 })
 export class AppComponent implements OnDestroy{
+<<<<<<< HEAD
   public spinkit = Spinkit; 
+=======
+  public spinkit = Spinkit;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   navigationSubscription : Array<Subscription> = [];
 
   constructor(public router: Router, private alertService: AlertService, protected network: Network, private notificationService: NotificationService, public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
@@ -55,11 +63,16 @@ export class AppComponent implements OnDestroy{
 
 
     //Google Analytics
+<<<<<<< HEAD
     this.router.events.subscribe(event => {
+=======
+  /*  this.router.events.subscribe(event => {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
       if (event instanceof NavigationEnd) {
         ga('set', 'page', event.urlAfterRedirects);
         ga('send', 'pageview');
       }
+<<<<<<< HEAD
     });
 
   }
@@ -79,3 +92,24 @@ export class AppComponent implements OnDestroy{
   }
 
 }   
+=======
+    });*/
+
+  }
+
+  public getRouterOutletState(outlet) {
+    return outlet.isActivated ? outlet.activatedRoute : '';
+  }
+
+
+  ngOnDestroy() {
+    this.navigationSubscription.forEach(x => {
+      if (x) {
+        x.unsubscribe();
+      }
+    });
+
+  }
+
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

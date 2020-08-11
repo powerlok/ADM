@@ -6,10 +6,17 @@ import { UserService } from "../../../shared/services/user.service";
 import { Subscription } from "rxjs";
 import { RodarJson } from "../../../shared/models/RodarJson";
 import { Reservas } from "../../../shared/models/Frota";
+<<<<<<< HEAD
 import { isArray } from "jquery";
 import { DialogService } from "../../../shared/services/dialog.service";
 import { ReservaFrotaService } from "../reserva/reserva.service";
 import { Select } from "../../../shared/models/Components";
+=======
+import { DialogService } from "../../../shared/services/dialog.service";
+import { ReservaFrotaService } from "../reserva/reserva.service";
+import { Select } from "../../../shared/models/Components";
+import { isArray } from "jquery";
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
     selector: 'app-gerenciarreserva-lista-frota',
@@ -35,25 +42,42 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
         this._fixed = fixed;
         if (this._fixed) {
             this.open = false;
+<<<<<<< HEAD
         } 
     }
     
     constructor(private router                     : Router, 
                 private fb                         : FormBuilder,
                 private reservaService             : ReservaFrotaService, 
+=======
+        }
+    }
+
+    constructor(private router                     : Router,
+                private fb                         : FormBuilder,
+                private reservaService             : ReservaFrotaService,
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                 private user                       : UserService,
                 private activatedRouter            : ActivatedRoute,
                 private dialog                     : DialogService
                 ){
 
+<<<<<<< HEAD
         this.form = this.fb.group({ 
+=======
+        this.form = this.fb.group({
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
             situacao  : new FormControl('', [Validators.nullValidator])
         });
     }
 
     ngOnInit() {
        this.situacoes = new Array<Select>({id:'V', text: 'Validos', selected: false}, {id:'C' , text: 'Cancelado', selected: false}, { id:'F' , text: 'Finalizado', selected: false});
+<<<<<<< HEAD
               
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
        this._subscriptions.push(
         this.activatedRouter.params.subscribe((params: Params) => {
             if(params["id"] != null) {
@@ -62,12 +86,20 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
             }else{
               this.form.get("situacao").setValue('V');
               this.carregaGridReservas('V');
+<<<<<<< HEAD
             }            
+=======
+            }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         }));
 
     }
 
+<<<<<<< HEAD
     aoSelecionarUSituacao(situacao){     
+=======
+    aoSelecionarUSituacao(situacao){
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
        this.carregaGridReservas(situacao);
     }
 
@@ -98,8 +130,13 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
                         r.NOME          = x.NOME;
                         r.STATUS        = x.STATUS;
                         this.reservas.push(r);
+<<<<<<< HEAD
                     });   
                 }                
+=======
+                    });
+                }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
                this.qtdreservas = this.reservas.length;
             }
@@ -108,6 +145,7 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
 
     cancelarReserva(seqreserva : number, datareserva : string, horainicio : string, horafim : string, observacao : string, seqveiculo : number, sequnidade : number, sequsuario : number, chapa : string){
        let dialogRef = this.dialog.dialogConfirm("Confirmação!", "Tem certeza que deseja cancelar a reserva " + seqreserva + "?", "450px");
+<<<<<<< HEAD
         
        this._subscriptions.push(dialogRef.afterClosed().subscribe(result => {
         if(result){
@@ -115,6 +153,15 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
             let r = new RodarJson();
                 r.obj = [{
                     seqreserva  : seqreserva,         
+=======
+
+       this._subscriptions.push(dialogRef.afterClosed().subscribe(result => {
+        if(result){
+
+            let r = new RodarJson();
+                r.obj = [{
+                    seqreserva  : seqreserva,
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                     seqveiculo  : seqveiculo,
                     datareserv  : datareserva,
                     horainicial : datareserva + ' ' + horainicio,
@@ -127,8 +174,13 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
                     tipo: 'T'
                 }];
                 r.tipo = "RESERVAFROTA";
+<<<<<<< HEAD
                             
                 this._subscriptions.push(this.reservaService.getExec(r).subscribe((c: object) => { 
+=======
+
+                this._subscriptions.push(this.reservaService.getExec(r).subscribe((c: object) => {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                     this.router.navigate(['/admin/frota/gerenciar reserva/lista']);
                 }));
             }
@@ -147,7 +199,11 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
               break;
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     ngOnDestroy(){
         this._subscriptions.forEach(x => {
           if(x){
@@ -155,4 +211,8 @@ export class GerenciarReservaListaFrotaComponent implements OnInit, OnDestroy{
           }
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

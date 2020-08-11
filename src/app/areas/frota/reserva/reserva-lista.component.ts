@@ -7,8 +7,13 @@ import { UserService } from "../../../shared/services/user.service";
 import { Subscription } from "rxjs";
 import { RodarJson } from "../../../shared/models/RodarJson";
 import { Reservas } from "../../../shared/models/Frota";
+<<<<<<< HEAD
 import { isArray } from "jquery";
 import { DialogService } from "../../../shared/services/dialog.service";
+=======
+import { DialogService } from "../../../shared/services/dialog.service";
+import { isArray } from 'jquery';
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
     selector: 'app-reserva-lista-frota',
@@ -21,8 +26,13 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
     reservas              : Array<Reservas>     = [];
     private _subscriptions: Array<Subscription> = [];
 
+<<<<<<< HEAD
     //fabspeeddial : FabSpeedDial;  
     
+=======
+    //fabspeeddial : FabSpeedDial;
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     private _fixed: boolean = false;
     qtdreservas : number = 0;
     open: boolean;
@@ -35,18 +45,31 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
         this._fixed = fixed;
         if (this._fixed) {
             this.open = false;
+<<<<<<< HEAD
         } 
    }
     
     constructor(private router                      : Router, 
                 private fb                          : FormBuilder,
                 private reservaService              : ReservaFrotaService, 
+=======
+        }
+   }
+
+    constructor(private router                      : Router,
+                private fb                          : FormBuilder,
+                private reservaService              : ReservaFrotaService,
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                 private user                        : UserService,
                 private dialog                      : DialogService,
                 private activatedRouter             : ActivatedRoute,
                 ){
 
+<<<<<<< HEAD
         this.form = this.fb.group({ 
+=======
+        this.form = this.fb.group({
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
             sequnidade  : new FormControl('', [Validators.nullValidator])
         });
     }
@@ -81,8 +104,13 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
                         r.UNIDADE      = x.UNIDADE;
                         r.NOME         = x.NOME;
                         this.reservas.push(r);
+<<<<<<< HEAD
                     });   
                 }                
+=======
+                    });
+                }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
                this.qtdreservas = this.reservas.length;
             }
@@ -92,6 +120,7 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
 
     cancelarReserva(seqreserva : number, datareserva : string, horainicio : string, horafim : string, observacao : string, seqveiculo : number, sequnidade : number, sequsuario : number){
        let dialogRef = this.dialog.dialogConfirm("Confirmação!", "Tem certeza que deseja cancelar a reserva " + seqreserva + "?", "450px");
+<<<<<<< HEAD
         
        this._subscriptions.push(dialogRef.afterClosed().subscribe(result => {
         if(result){
@@ -99,6 +128,15 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
             let r = new RodarJson();
                 r.obj = [{
                     seqreserva  : seqreserva,         
+=======
+
+       this._subscriptions.push(dialogRef.afterClosed().subscribe(result => {
+        if(result){
+
+            let r = new RodarJson();
+                r.obj = [{
+                    seqreserva  : seqreserva,
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                     seqveiculo  : seqveiculo,
                     datareserv  : datareserva,
                     horainicial : datareserva + ' ' + horainicio,
@@ -110,8 +148,13 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
                     tipo        : ''
                 }];
                 r.tipo = "RESERVAFROTA";
+<<<<<<< HEAD
                             
                 this._subscriptions.push(this.reservaService.getExec(r).subscribe((c: object) => { 
+=======
+
+                this._subscriptions.push(this.reservaService.getExec(r).subscribe((c: object) => {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                     this.router.navigate(['/admin/frota/reserva/lista']);
                 }));
             }
@@ -130,7 +173,11 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
               break;
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     ngOnDestroy(){
         this._subscriptions.forEach(x => {
           if(x){
@@ -138,4 +185,8 @@ export class ReservaListaFrotaComponent implements OnInit, OnDestroy{
           }
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

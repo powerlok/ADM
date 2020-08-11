@@ -46,28 +46,28 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
 	dataSourceInc = new MatTableDataSource<ValidVendPdv>(this.validvendaPdv);
     @ViewChild('paginatorInc') paginatorInc: MatPaginator;
     @ViewChild(MatSort) sortInc: MatSort;
-    
+
     private _subscriptions: Array<Subscription> = [];
-    
+
     constructor(private user : UserService, private fb: FormBuilder, private validVendaPdv : VendaPdvService, private error: ValidationErrorService, private dateFormat: DateOracle, private moedaFormat : CurrencyFormat, private excelService : ExcelService){
-        this.unidades = this.user.getUnidadePerm();       
+        this.unidades = this.user.getUnidadePerm();
         this.excelService = excelService;
 
-        this.colunas = new Array<Checkbox>(); 
-        
-        this.form = this.fb.group({			            
+        this.colunas = new Array<Checkbox>();
+
+        this.form = this.fb.group({
 			 validacao: new FormControl('', [Validators.required/*, Validators.minLength(3)*/]),
 			   datafim: new FormControl({disabled: true, value: ''}, [Validators.required]),
 			datainicio: new FormControl({disabled: true, value: ''}, [Validators.required]),
-               empresa: new FormControl('', [Validators.required]),       
+               empresa: new FormControl('', [Validators.required]),
             sequnidade: new FormControl('', [Validators.required/*, Validators.minLength(3)*/]),
               checkall: new FormControl('', [Validators.nullValidator]),
             uncheckall: new FormControl('', [Validators.nullValidator]),
              diferenca: new FormControl('', [Validators.nullValidator]),
                colunas: new FormControl('', [Validators.required]),
-        }); 
+        });
     }
-      
+
     ngOnInit() {
 
         let coluna = new Checkbox();
@@ -84,14 +84,14 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
             coluna.valor = "TESOURARIA";
             coluna.text = "TESOURARIA";
         this.colunas.push(coluna);
-         
+
     }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSourceInc.paginator = this.paginatorInc;			
-        this.dataSourceInc.sort = this.sortInc; 
+        this.dataSourceInc.paginator = this.paginatorInc;
+        this.dataSourceInc.sort = this.sortInc;
         this.getValidacao();
 	}
 
@@ -104,18 +104,18 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
     }
 
 
-    executar(tipo : string){ 
+    executar(tipo : string){
         this.form.controls['datainicio'].enable();
         this.form.controls['datafim'].enable();
         this.ckdiferenca = false;
         this.isCarregarInc = true;
-        
-        if(this.form.valid) { 
-           this._subscriptions.push(this.validVendaPdv.executar(this.checkeds(), 
-                                       this.dateFormat.get(this.form.get("datainicio").value), 
-                                       this.dateFormat.get(this.form.get("datafim").value), 
-                                       this.form.get("validacao").value, 
-                                       tipo, 
+
+        if(this.form.valid) {
+           this._subscriptions.push(this.validVendaPdv.executar(this.checkeds(),
+                                       this.dateFormat.get(this.form.get("datainicio").value),
+                                       this.dateFormat.get(this.form.get("datafim").value),
+                                       this.form.get("validacao").value,
+                                       tipo,
                                        this.form.get("sequnidade").value,
                                        this.checkedsColunas().join(),
                                        this.form.get("diferenca").value)
@@ -123,17 +123,17 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
                                 if(x != null){
                                     this.validvendaPdv =  x;
                                    if(tipo != 'I') {
-                                       
+
                                         this.dataSource = new MatTableDataSource<ValidVendPdv>(this.validvendaPdv);
-                                        this.dataSource.paginator = this.paginator;			
-                                        this.dataSource.sort = this.sort; 
+                                        this.dataSource.paginator = this.paginator;
+                                        this.dataSource.sort = this.sort;
                                    }else{
                                         this.isCarregarInc = false;
                                         this.dataSourceInc = new MatTableDataSource<ValidVendPdv>(this.validvendaPdv);
-                                        this.dataSourceInc.paginator = this.paginatorInc;			
-                                        this.dataSourceInc.sort = this.sortInc; 
+                                        this.dataSourceInc.paginator = this.paginatorInc;
+                                        this.dataSourceInc.sort = this.sortInc;
                                    }
-                                       
+
                                 }
                             }));
         }
@@ -141,10 +141,10 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
         this.error.showError(this.form);
         this.form.controls['datainicio'].disable();
         this.form.controls['datafim'].disable();
-        
+
     }
 
-    onChange(sequnidade: number){ 
+    onChange(sequnidade: number){
         this.form.patchValue({ checkall: false});
         this.empresas.map(x => { x.checked = false; });
         this.empresas = this.user.getEmpresaPermUnid(sequnidade);
@@ -153,7 +153,7 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
     checkAll(event){
         this.form.patchValue({ uncheckall: false});
 
-        if(event.checked == true){ 
+        if(event.checked == true){
             this.empresas.map(x => {  x.checked = true; });
         }else{
             this.empresas.map(x => {  x.checked = false; });
@@ -181,16 +181,16 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
     }
 
     atualizar(nroempresa : number, validacao : string, dtamovimento : string, sequnidade : string)
-    { 
+    {
            this.ckdiferenca = false;
-           
+
            let empresas : number[] = [ nroempresa ];
-           
-           this._subscriptions.push(this.validVendaPdv.executar(empresas, 
-                                       dtamovimento, 
-                                       dtamovimento, 
-                                       validacao, 
-                                       'A', 
+
+           this._subscriptions.push(this.validVendaPdv.executar(empresas,
+                                       dtamovimento,
+                                       dtamovimento,
+                                       validacao,
+                                       'A',
                                        sequnidade,
                                        this.form.get("colunas").value,
                                        this.form.get("diferenca").value
@@ -200,13 +200,13 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
                                 element.click();
                                     /*this.validvendaPdv = x;
                                     this.dataSource = new MatTableDataSource<ValidVendPdv>(this.validvendaPdv);
-                                    this.dataSource.paginator = this.paginator;			
+                                    this.dataSource.paginator = this.paginator;
                                     this.dataSource.sort = this.sort;*/
                             }));
     }
 
     clickPesquisa(){
-        
+
     }
 
     applyFilter(filterValue: string) {
@@ -220,7 +220,7 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
             this.dataSource = new MatTableDataSource<ValidVendPdv>(this.validvendaPdv);
         }
 
-            this.dataSource.paginator = this.paginator;			
+            this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
     }
 
@@ -228,20 +228,20 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
         this.validCent  = this.valid;
         let filterValue = this.form.get("arredondar").value;
         if(filterValue > 0){
-        
-            this.validCent = this.validCent.filter(x => 
-                (Math.abs(parseFloat((this.moedaFormat.float(x.SM) - this.moedaFormat.float(x.TESOURARIA)).toFixed(2))) >=  filterValue || 
+
+            this.validCent = this.validCent.filter(x =>
+                (Math.abs(parseFloat((this.moedaFormat.float(x.SM) - this.moedaFormat.float(x.TESOURARIA)).toFixed(2))) >=  filterValue ||
                 (Math.abs(parseFloat((this.moedaFormat.float(x.SM) - this.moedaFormat.float(x.MONITOR)).toFixed(2))) >= filterValue   ||
                 (Math.abs(parseFloat((this.moedaFormat.float(x.SM) - this.moedaFormat.float(x.FISCAL)).toFixed(2))) >= filterValue))
             ));
-            
+
             this.dataSource = new MatTableDataSource<ValidVendPdv>(this.validCent);
 
         }else{
             this.dataSource = new MatTableDataSource<ValidVendPdv>(this.valid);
         }
 
-            this.dataSource.paginator = this.paginator;			
+            this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
     }*/
 
@@ -251,7 +251,7 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
     }
 
     exportParaExcel(event) {
-                
+
         if(this.validCent.length > 0){
             this.validGrid = this.validCent;
         }else if(this.valid.length > 0){
@@ -259,11 +259,11 @@ export class VendaPdvComponent implements OnInit, OnDestroy {
         }else if(this.validvendaPdv.length > 0){
             this.validGrid = this.validvendaPdv;
         }
-        
+
         this.excelService.exportAsExcelFile(this.validGrid, 'ValidaPDV');
    }
 
-   
+
    ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
         this._subscriptions.forEach(x => {

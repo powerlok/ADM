@@ -129,7 +129,7 @@ export class TelefoneFormComponent implements OnInit, OnDestroy {
 
 	voltar() {
 		let link = (this.form.get("codigo").value > 0) ? ['/admin/ti/telefonia/lista/' + this.form.get("sequnidade").value + '/' + this.auditoria + '/' + this.demitido] : ['/admin/ti/telefonia/lista'];
-		
+
 		this._router.navigate(link);
 		//this._buscaChange.emit('');
 	}
@@ -176,7 +176,7 @@ export class TelefoneFormComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	salvar() { 
+	salvar() {
 		let tel = new Telefonia();
 		tel.SEQTELEFONIA = this.form.get("codigo").value == null || this.form.get("codigo").value == "" ? 0 : this.form.get("codigo").value;
 		tel.APARELHO = this.form.get("aparelhos").value;
@@ -207,7 +207,7 @@ export class TelefoneFormComponent implements OnInit, OnDestroy {
 
 						this._subscriptions.push(forkJoin(allProgressObservables).subscribe(end => {
 							if (end[0] == 100) {
-								//this.myNgForm.resetForm();	
+								//this.myNgForm.resetForm();
 							}
 						}));
 					}

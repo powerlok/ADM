@@ -9,8 +9,8 @@ export class ProdutoService {
 
     constructor(private produtoJson : ProdutoJson) {
 
-    }   
-        
+    }
+
     buscaProduto(r : RodarJson) : Observable<object> {
         return this.produtoJson.gerarJson(r);
     }

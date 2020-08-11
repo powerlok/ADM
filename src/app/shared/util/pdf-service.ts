@@ -10,13 +10,13 @@ export class PDFService {
 
 
     criarImg(content : any) {
-        
-        html2canvas(content, { allowTaint: true }).then((canvas) => {      
-            this.dowloadPDF(canvas.toDataURL("image/png", 1.0));     
+
+        html2canvas(content, { allowTaint: true }).then((canvas) => {
+            this.dowloadPDF(canvas.toDataURL("image/png", 1.0));
         });
     }
    //@ViewChild('content') content: ElementRef;
- 
+
     dowloadPDF(img : string) {
         //let doc = new jsPDF();
 
@@ -38,7 +38,7 @@ export class PDFService {
             //let fileURL = URL.createObjectURL(file);
             //this.debugBase64(canvas.toDataURL("image/png", 1.0));
             //console.log(canvas.toDataURL("image/png", 1.0));
-            var win = window.open('', '_self', 'width: 100%; height: 100%;fullscreen=yes,scrollbars=yes', true);  
+            var win = window.open('', '_self', 'width: 100%; height: 100%;fullscreen=yes,scrollbars=yes', true);
             win.document.write('<html>');
             win.document.write('<head>');
             win.document.write('<style type="text/css">');
@@ -48,27 +48,27 @@ export class PDFService {
             win.document.write('} p a { word-wrap: break-word; } p {  widows: 3; orphans: 3; }');
             win.document.write('</style>');
             win.document.write('</head>');
-            win.document.write('<body>');            
-            win.document.write('<iframe id="iframe" src="' + img  + '"></iframe>');             
+            win.document.write('<body>');
+            win.document.write('<iframe id="iframe" src="' + img  + '"></iframe>');
             win.document.write('</body>');
             win.document.write('</html>');
             setTimeout(() => {win.print(); win.close(); }, 1000);
-            
+
             //console.log(fileURL);
             //window.open(fileURL);
             //.fromHTML("<iframe src=" + fileURL + "frameborder='0' style='border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;' allowfullscreen></iframe>", 15, 15, {
               //  'width': '660',
                 //'elementHandlers': specialElementHandlers
             //},() => {
-                
+
                 //doc.addImage(canvas.toDataURL("image/png", 1.0), 'JPEG', -60, 5);
                // doc.autoPrint();
                // doc.output("dataurl");
-                
+
               //doc.save(fileName +'.pdf');
            // });
-    
-        
+
+
     }
 
 }

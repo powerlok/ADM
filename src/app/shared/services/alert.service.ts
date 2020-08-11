@@ -32,7 +32,7 @@ export class AlertService {
         this.snackBar.open(message, "Fechar", {
             duration: 99999999,
             verticalPosition: 'top',
-            horizontalPosition: 'center',   
+            horizontalPosition: 'center',
             //extraClasses: ['error-message', 'mdl-shadow--6dp', 'bold'],
 
         });
@@ -43,7 +43,7 @@ export class AlertService {
             duration: 99999999
             //extraClasses: ['error-message', 'mdl-shadow--6dp', 'bold'],
 
-        });  
+        });
     }
 
     alertCustomComponent(component, message, time){
@@ -52,9 +52,9 @@ export class AlertService {
         config.data = {message: message};
         config.verticalPosition = 'top';
         config.horizontalPosition = 'center';
-        
 
-        let snackbar = this.snackBar.openFromComponent(component, config);  
+
+        let snackbar = this.snackBar.openFromComponent(component, config);
     }
 
     closeAlert(){

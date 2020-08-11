@@ -74,7 +74,7 @@ export class TelefoniaListaComponent implements OnInit, OnDestroy {
 			let sequnidade = params['un'];
 			this.auditoria = params['auditar'];
 			this.demitido = params['demitido'];
-			
+
 			if (sequnidade != '' && this.auditoria != '' && this.demitido != '' && sequnidade != undefined) {
 				this.form.get("sequnidade").setValue(Number(sequnidade));
 				this.form.get("auditoria").setValue(this.auditoria);
@@ -220,6 +220,6 @@ ngOnDestroy() {
 		x.unsubscribe();
 	});
 }
-	
+
 }
 

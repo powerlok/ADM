@@ -110,7 +110,11 @@ export class EstoquePorLoteComponent implements OnInit, OnDestroy {
 
     onSelectProdChange(event){
 
+<<<<<<< HEAD
         this._subscriptions.push(this.estoquePorLoteServ.execJson(event.source.value, this.form.get("sequnidade").value, this.form.get("nroempresa").value, null, null, null, null, 'LoteProd')
+=======
+        this._subscriptions.push(this.estoquePorLoteServ.execJson(event.source.value, this.form.get("sequnidade").value, 0, null, null, null, null, 'LoteProd')
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                                .subscribe((x : Lote[]) => {
             this.lote = x;
             if(x.length > 0) {

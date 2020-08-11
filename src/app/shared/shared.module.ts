@@ -7,13 +7,13 @@ import { ProdutoJson } from "./services/produto/produto.json";
 
 @NgModule({
   entryComponents: [
-    AlertConfirmComponent  
+    AlertConfirmComponent
   ],
   exports:[],
   providers: [
-      AppInfoService, 
+      AppInfoService,
       ProdutoService,
-      ProdutoJson     
+      ProdutoJson
     ],
   declarations: [
     AlertConfirmComponent

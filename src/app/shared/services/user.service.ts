@@ -6,7 +6,6 @@ import { Injectable } from "@angular/core";
 import { Empresa } from "../models/Empresa";
 const unid = [{ id: 5, desc: 'Brasília' }, { id: 6, desc: 'São Paulo' }, { id: 7, desc: 'Pizza Hut' }, { id: 9, desc: 'Sevla' }];
 
-
 @Injectable()
 export class UserService {
     _auth: AuthenticationService;
@@ -38,7 +37,6 @@ export class UserService {
     getUnidadePerm() : Array<Unidade>{
         let unidades = new Array<Unidade>();
         let unids: number[] = [];
-
         unids = this._user.empresasPermitidas.sort().reduce((init, current) => {
             if (init.length === 0 || init[init.length - 1] !== current.sequnidade) {
                 init.push(current.sequnidade);
@@ -67,13 +65,11 @@ export class UserService {
 
     getEmpresaPerm() : Array<Empresa> {
         let empresa = new Array<Empresa>();
-
         return this._user.empresasPermitidas.sort().filter(x =>  empresa.push(x));
     }
 
     getEmpresaPermUnid(sequnidade : number) : Array<Empresa> {
         let empresa = new Array<Empresa>();
-
         this._user.empresasPermitidas.sort().filter(e => e.sequnidade == sequnidade).map(x => empresa.push(x) );
 
        return empresa;

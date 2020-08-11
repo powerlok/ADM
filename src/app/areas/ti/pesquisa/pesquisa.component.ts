@@ -25,7 +25,7 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 	private _funcGrid: FuncGrid[] = [];
 	public checkboxList: Checkbox[];
 	private situacao: string[] = [];
-	
+
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -48,7 +48,7 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 		this.carregaChekbox();
 	}
 
-	carregaChekbox(){		
+	carregaChekbox(){
         this.situacao = new Array<string>();
 		this._dbConsult.model = new DbConsult();
 		this._dbConsult.model.objeto = "p_getFuncSitDW";
@@ -81,7 +81,7 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 
 	toggle(event) {
 		this.spinner.show();
-		let array_filtrado = [];		
+		let array_filtrado = [];
 		let array = [];
 		if (event.checked) {
 			this.situacao.push(event.source.value);
@@ -104,12 +104,21 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 	}
 
 	submit() {
-		if (this.form.valid) {	
+<<<<<<< HEAD
+		if (this.form.valid) {
 			this.carregaChekbox();
-				
+
 			    this.spinner.show();
 			    this._subscriptions.push(this.pesquisaService.getFornecItens(this.form.get("chapa").value.toUpperCase()).subscribe((x : FuncGrid[]) => {
-                    
+
+=======
+		if (this.form.valid) {
+			this.carregaChekbox();
+
+			    this.spinner.show();
+			    this._subscriptions.push(this.pesquisaService.getFornecItens(this.form.get("chapa").value.toUpperCase()).subscribe((x : FuncGrid[]) => {
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 					this.dataSource = new MatTableDataSource<FuncGrid>(x);
 					this.dataSource.paginator = this.paginator;
 					this.dataSource.sort = this.sort;
@@ -119,7 +128,11 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 					this.spinner.hide();
 				}));
 
-			
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		}
 	}
 

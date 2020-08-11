@@ -29,16 +29,16 @@ export class SmdFabSpeedDialTrigger {
      id: string = null;
     /**
      * Whether this trigger should spin (360dg) while opening the speed dial
-    */  
+    */
     @HostBinding('class.smd-spin')
-    @Input() spin: boolean = false;    
+    @Input() spin: boolean = false;
 
     constructor(@Inject(forwardRef(() => SmdFabSpeedDialComponent)) private _parent: SmdFabSpeedDialComponent) {
     }
 
     @HostListener('click', ['$event'])
-    _onClick(event: any) { 
-        if (!this._parent.fixed) {            
+    _onClick(event: any) {
+        if (!this._parent.fixed) {
             this._parent.toggle();
             event.stopPropagation();
         }
@@ -70,16 +70,16 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
     }
 
     private initButtonStates() {
-        this._buttons.toArray().forEach((button, i) => { 
+        this._buttons.toArray().forEach((button, i) => {
              this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
              this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
         })
     }
-    
+
     show() {
-        if (this._buttons) {         
-            this._buttons.toArray().forEach((button, i) => {  
-                
+        if (this._buttons) {
+            this._buttons.toArray().forEach((button, i) => {
+
 
                 let transitionDelay = 0;
                 let transform;
@@ -92,9 +92,9 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
                 }
                 this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
                 this.changeElementStyle(button._getHostElement(), 'opacity', '1');
-                this.changeElementStyle(button._getHostElement(), 'transform', transform);    
-                
-            });          
+                this.changeElementStyle(button._getHostElement(), 'transform', transform);
+
+            });
         }
     }
 
@@ -160,8 +160,8 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
         return this._open;
     }
 
-    set open(open: boolean) { 
-        let previousOpen = this._open; 
+    set open(open: boolean) {
+        let previousOpen = this._open;
         this._open = open;
         if (previousOpen != this._open) {
             this.openChange.emit(this._open);
@@ -230,24 +230,24 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
     /**
      * Toggle the open state of this speed dial
      */
-    public toggle() { 
-        this.open = !this.open;        
+    public toggle() {
+        this.open = !this.open;
     }
 
     @HostListener('click')
-    _onClick() { 
+    _onClick() {
         if (!this.fixed && this.open) {
             this.open = false;
         }
     }
 
-    setActionsVisibility() { 
-        if (this.open) { 
+    setActionsVisibility() {
+        if (this.open) {
             this._childActions.show();
         } else {
             this._childActions.hide();
         }
-        
+
     }
 
     private _setElementClass(elemClass:string , isAdd:boolean) {

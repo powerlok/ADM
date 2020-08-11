@@ -5,7 +5,10 @@ import { Cadastro, Local, Reservas, Rodizio } from "../../../shared/models/Frota
 import { UserService } from "../../../shared/services/user.service";
 import { Unidade } from "../../../shared/models/Unidade";
 import { Subscription } from "rxjs";
+<<<<<<< HEAD
 import { isArray } from "jquery";
+=======
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { ReservaFrotaService } from "./reserva.service";
 import { DateOracle, DateFormat } from "../../../shared/util/date-format";
 import { CadastroFrotaService } from "../cadastro/cadastro.service";
@@ -13,8 +16,15 @@ import { Empresa, EmpresaDW } from "../../../shared/models/Empresa";
 import { Params, ActivatedRoute, Router } from "@angular/router";
 import { ValidationErrorService } from "../../../shared/services/validation-error.service";
 import { AlertService } from "../../../shared/services/alert.service";
+<<<<<<< HEAD
 import { MatTableDataSource, MatStepper, DateAdapter, MatHorizontalStepper } from "@angular/material";
 import { CustomValidators } from "../../../shared/custom.validators";
+=======
+import { CustomValidators } from "../../../shared/custom.validators";
+import { MatTableDataSource } from "@angular/material/table";
+import { isArray } from "jquery";
+import { MatStepper } from "@angular/material/stepper";
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
     selector: 'app-reserva-form-frota',
@@ -71,14 +81,22 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
         this.secondFormGroup = this._formBuilder.group({
             horafinal           : ['', Validators.required, CustomValidators.validaHoraIniFim],
             horainicial         : ['', Validators.required, CustomValidators.validaHoraIniFim],
+<<<<<<< HEAD
             datareserva         : ['', Validators.required]   
+=======
+            datareserva         : ['', Validators.required]
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         });
         this.thirdFormGroup = this._formBuilder.group({
             veiculo             : ['', Validators.required]
         });
         this.fourthFormGroup = this._formBuilder.group({
             destino             : ['', Validators.nullValidator],
+<<<<<<< HEAD
             origem              : ['', Validators.required]            
+=======
+            origem              : ['', Validators.required]
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         });
         this.fifthFormGroup = this._formBuilder.group({
             observacao          : ['', Validators.nullValidator]
@@ -136,7 +154,11 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
             if (isArray(x)) {
                 if (x.length > 0) {
                     this.local          = new Array<Local>();
+<<<<<<< HEAD
                     x.forEach((e) => {                        
+=======
+                    x.forEach((e) => {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                         let l               = new Local();
                         l.NROEMPRESA        = e.NROEMPRESA;
                         l.NOMEREDUZIDO      = e.NOMEREDUZIDO;
@@ -294,12 +316,17 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
                             this.thirdFormGroup.get("veiculo").setValue(null);
                         }
                     }));
+<<<<<<< HEAD
                 }               
+=======
+                }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
             }));
 
             if(this.veiculos.length > 0) {
                 this.veiculos.filter(x => x.SEQVEICULO == seqveiculo).map(v => {
+<<<<<<< HEAD
                     this.fourthFormGroup.get("origem").setValue(v.NOMEEMPALOC + " / " +v.LOCESTACIONAMENTO); 
                 });               
             }     
@@ -310,6 +337,18 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
         this.veiculos.filter(x => x.SEQVEICULO == id).map((v:Cadastro) => {
               //let l : string = (v.LOCESTACIONAMENTO != null && v.LOCESTACIONAMENTO != '') ? '(' +v.EMPALOCACAO + ') ' + v.LOCESTACIONAMENTO :  v.EMPALOCACAO.toString();
               
+=======
+                    this.fourthFormGroup.get("origem").setValue(v.NOMEEMPALOC + " / " +v.LOCESTACIONAMENTO);
+                });
+            }
+        }
+    }
+    /*getVeiculoEsc(id) {
+
+        this.veiculos.filter(x => x.SEQVEICULO == id).map((v:Cadastro) => {
+              //let l : string = (v.LOCESTACIONAMENTO != null && v.LOCESTACIONAMENTO != '') ? '(' +v.EMPALOCACAO + ') ' + v.LOCESTACIONAMENTO :  v.EMPALOCACAO.toString();
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
               this.fourthFormGroup.get("origem").setValue(l);
         });
     }*/
@@ -332,6 +371,7 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
 
     }
 
+<<<<<<< HEAD
     removerLocalGrid(nroempresa: number, nomereduzido : string, sequnidade: number) { 
         if(this.seqreserva > 0) {
             this._subscriptions.push(this.reservaService.deleteReservaDestino(this.seqreserva, nroempresa, nomereduzido, sequnidade).subscribe((x) => {
@@ -340,16 +380,33 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
         }else{
             this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
         }        
+=======
+    removerLocalGrid(nroempresa: number, nomereduzido : string, sequnidade: number) {
+        if(this.seqreserva > 0) {
+            this._subscriptions.push(this.reservaService.deleteReservaDestino(this.seqreserva, nroempresa, nomereduzido, sequnidade).subscribe((x) => {
+                if(x == "sucesso") this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
+            }));
+        }else{
+            this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
+        }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     }
 
     goBack(stepper: MatStepper) {
         stepper.previous();
     }
 
+<<<<<<< HEAD
     goForward(stepper: MatStepper) { 
               
         switch(stepper.selectedIndex){ 
             case 0: 
+=======
+    goForward(stepper: MatStepper) {
+
+        switch(stepper.selectedIndex){
+            case 0:
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                if(this.seqreserva > 0) {
                     this.firstFormGroup.controls["sequnidade"].enable();
                     this.validError.showError(this.firstFormGroup);
@@ -376,8 +433,13 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
                 this.validError.showError(this.fifthFormGroup);
                 if(this.fifthFormGroup.valid) stepper.next();
             break;
+<<<<<<< HEAD
         } 
         
+=======
+        }
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     }
 
     voltar() {
@@ -394,4 +456,8 @@ export class ReservaFormFrotaComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

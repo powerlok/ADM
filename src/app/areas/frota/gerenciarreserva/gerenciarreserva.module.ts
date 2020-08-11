@@ -7,7 +7,11 @@ import { NgxMaskModule } from 'ngx-mask'
 import { NgxCurrencyModule } from 'ngx-currency';
 import { OrdenaArray } from '../../../shared/util/ordena-array';
 import { SmdFabSpeedDialActions, SmdFabSpeedDialComponent, SmdFabSpeedDialTrigger } from '../../../shared/components/speeddial/fab-speed-dial';
+<<<<<<< HEAD
 import { DateAdapter } from '@angular/material';
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { CadastroFrotaService } from '../cadastro/cadastro.service';
 import { CadastroFrotaServiceJson } from '../cadastro/cadastro.service.json';
 import { DateFormat } from '../../../shared/util/date-format';
@@ -21,13 +25,21 @@ import { GerenciarReservaListaFrotaComponent } from './gerenciarreserva-lista.co
 import { ReservaFrotaModule } from '../reserva/reserva.module';
 import { GerenciarReservaFrotaServiceJson } from './gerenciarreserva.service.json';
 import { GerenciareservaFrotaService } from './gerenciarreserva.service';
+<<<<<<< HEAD
+=======
+import { DateAdapter } from '@angular/material/core';
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @NgModule({
     entryComponents: [AlertRodizioComponent],
     declarations: [
         GerenciarReservaFrotaComponent,
         GerenciarReservaListaFrotaComponent,
+<<<<<<< HEAD
         GerenciarReservaFormFrotaComponent        
+=======
+        GerenciarReservaFormFrotaComponent
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     ],
     imports: [
         CommonModule,

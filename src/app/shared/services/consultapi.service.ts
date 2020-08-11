@@ -29,7 +29,6 @@ export class ConsultAPIService {
     URL =  this.APIURLBASE +'/api/values';
     URLUpload = this.APIURLBASE + '/api/upload';
 
-
     APITeste = "http://localhost:56547/api/values";
     APIUploadTeste = "http://localhost:56547/api/upload";
 
@@ -98,7 +97,6 @@ export class ConsultAPIService {
 
         });
 
-
         return status;
 
     }
@@ -121,7 +119,6 @@ export class ConsultAPIService {
              const body = error.json() || '';
              const err = body.error || JSON.stringify(body);
              errMsg = `${error.status} - ${error.statusText || '' } ${err}`;
-
          }else{
              errMsg = error.message ? error.message : error.toString();
          }*/

@@ -8,7 +8,11 @@ import { UserService } from "../../../shared/services/user.service";
 import { DialogService } from "../../../shared/services/dialog.service";
 import { isNumber } from "util";
 import { DateOracle, DateFormat } from "../../../shared/util/date-format";
+<<<<<<< HEAD
 import { UploadService } from "app/shared/services/upload.service";
+=======
+import { UploadService } from "../../../../app/shared/services/upload.service";
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { Observable, Subscription, forkJoin } from 'rxjs';
 import { saveAs } from 'file-saver/FileSaver';
 @Component({
@@ -48,6 +52,11 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 
 		this._router = router;
 		//this._buscaChange = new EventEmitter();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		this.unidades = this.user.getUnidadePerm();
 
 		this.form = fb.group({
@@ -77,7 +86,11 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 			office365business 	     : new FormControl('', [Validators.nullValidator]),
 			checkin_spp2      		 : new FormControl('', [Validators.nullValidator]),
 			dtaliberacao_spp2 	     : new FormControl({ disabled: false, value: '' }, [Validators.nullValidator]),
+<<<<<<< HEAD
 			sharepointplano2  	     : new FormControl('', [Validators.nullValidator]),	
+=======
+			sharepointplano2  	     : new FormControl('', [Validators.nullValidator]),
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 			checkin_ep2              : new FormControl('', [Validators.nullValidator]),
 			dtaliberacao_ep2         : new FormControl({ disabled: false, value: '' }, [Validators.nullValidator]),
 			exchengeplano2    	     : new FormControl('', [Validators.nullValidator]),
@@ -86,7 +99,11 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 			exchengeplano1           : new FormControl('', [Validators.nullValidator]),
 			checkin_ek        	     : new FormControl('', [Validators.nullValidator]),
 			dtaliberacao_ek   		 : new FormControl({ disabled: false, value: '' }, [Validators.nullValidator]),
+<<<<<<< HEAD
 			exchangekiosk     		 : new FormControl('', [Validators.nullValidator]),	
+=======
+			exchangekiosk     		 : new FormControl('', [Validators.nullValidator]),
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 			checkin_pwbp      		 : new FormControl('', [Validators.nullValidator]),
 			dtaliberacao_pwbp 	     : new FormControl({ disabled: false, value: '' }, [Validators.nullValidator]),
 			powerbipro        		 : new FormControl('', [Validators.nullValidator]),
@@ -95,7 +112,11 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 			powerbifree       		 : new FormControl('', [Validators.nullValidator]),
 			nome              		 : new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.maxLength(100)]),
 			chapa             		 : new FormControl('', [Validators.required]),
+<<<<<<< HEAD
 			sequnidade        	     : new FormControl({ disabled: false, value: '' }, [Validators.required]),
+=======
+			sequnidade        	     : new FormControl({ value: '' }, [Validators.required]),
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 			codigo            		 : new FormControl('', [Validators.nullValidator])
 		});
 	}
@@ -113,11 +134,19 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 			this.auditoria = params['auditar'];
 			this.demitido = params['demitido'];
 
+<<<<<<< HEAD
 			
 			if (userId != ''  && userId != undefined) {
 				this._subscriptions.push(this.serviceMicrosoft.getMicrosoft(userId, null, 0).subscribe((tel: Microsoft[]) => {
 				
 					if (tel[0].SEQMICROSOFT > 0) { 
+=======
+
+			if (userId != ''  && userId != undefined) {
+				this._subscriptions.push(this.serviceMicrosoft.getMicrosoft(userId, null, 0).subscribe((tel: Microsoft[]) => {
+
+					if (tel[0].SEQMICROSOFT > 0) {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 						this.form.get("codigo").setValue(tel[0].SEQMICROSOFT);
 						this.form.get("sequnidade").setValue(Number(tel[0].SEQUNIDADE));
 						this.form.get("chapa").setValue(tel[0].CHAPA);
@@ -174,6 +203,7 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 						this.form.get("visioonline").setValue((tel[0].VISIOONLINE == 'S') ? true : false);
 						this.form.get("checkin_vo").setValue(tel[0].CHECKIN_VO == 0 ? null : Number(tel[0].CHECKIN_VO));
 						this.form.get("dtaliberacao_vo").setValue(this.dateOriginal.parse(tel[0].DTALIBERACAO_VO));
+<<<<<<< HEAD
 						
 						this.form.get("visioonlineplan2").setValue((tel[0].VISIOONLINEPLAN2 == 'S') ? true : false);
 						this.form.get("checkin_vop2").setValue(tel[0].CHECKIN_VOP2 == 0 ? null : Number(tel[0].CHECKIN_VOP2));
@@ -184,22 +214,43 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 						//this.codigo = tel[0].SEQMICROSOFT;
 						
 					}					
+=======
+
+						this.form.get("visioonlineplan2").setValue((tel[0].VISIOONLINEPLAN2 == 'S') ? true : false);
+						this.form.get("checkin_vop2").setValue(tel[0].CHECKIN_VOP2 == 0 ? null : Number(tel[0].CHECKIN_VOP2));
+						this.form.get("dtaliberacao_vop2").setValue(this.dateOriginal.parse(tel[0].DTALIBERACAO_VOP2));
+
+						//if(tel[0].CENTROCUSTOC5 != '') this.form.get("centrocustoc5").setValue(tel[0].CENTROCUSTOC5);
+
+						//this.codigo = tel[0].SEQMICROSOFT;
+
+					}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 				}));
 				setTimeout((e) => { this.getChapa(); },500);
 			}
 		});
 
+<<<<<<< HEAD
 		
 						
 	}
 
 	voltar() { 
+=======
+
+
+	}
+
+	voltar() {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		let link = (this.form.get("codigo").value > 0) ? ['/admin/ti/microsoft/lista/' + this.form.get("sequnidade").value + '/' + this.auditoria + '/' + this.demitido] : ['/admin/ti/microsoft/lista'];
 		this._router.navigate(link);
 		//this._buscaChange.emit('');
 	}
 
 	getChapa() {
+<<<<<<< HEAD
 		
 		  var  chapa = this.form.get("chapa").value;
 		  var  sequnidade = this.form.get("sequnidade").value;
@@ -208,6 +259,16 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 		if (chapa != '' && sequnidade != '') {
 			this._subscriptions.push(this.serviceMicrosoft.getMicrosoft("0", chapa, sequnidade).subscribe((tel: Microsoft[]) => {
 				
+=======
+
+		  var  chapa = this.form.get("chapa").value;
+		  var  sequnidade = this.form.get("sequnidade").value;
+
+
+		if (chapa != '' && sequnidade != '') {
+			this._subscriptions.push(this.serviceMicrosoft.getMicrosoft("0", chapa, sequnidade).subscribe((tel: Microsoft[]) => {
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 				if (tel.length > 0) {
 					if (tel[0].NOME != null) {
 						this.form.get("nome").setValue(tel[0].NOME);
@@ -227,16 +288,24 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 		}
 	}
 
+<<<<<<< HEAD
 	salvar() { 
 		
 		let tel = new Microsoft();
 		tel.SEQMICROSOFT = this.form.get("codigo").value != null && this.form.get("codigo").value != '' ? this.form.get("codigo").value : 0; 
+=======
+	salvar() {
+
+		let tel = new Microsoft();
+		tel.SEQMICROSOFT = this.form.get("codigo").value != null && this.form.get("codigo").value != '' ? this.form.get("codigo").value : 0;
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		tel.CHAPA = this.form.get("chapa").value == "" ? 0 : this.form.get("chapa").value;
 		tel.SEQUNIDADE = this.form.get("sequnidade").value == "" ? 0 : this.form.get("sequnidade").value;
 
 		tel.POWERBIFREE = this.form.get("powerbifree").value ? 'S': 'N';
 		tel.CHECKIN_PWBF = this.form.get("checkin_pwbf").value == null  ? 0 : this.form.get("checkin_pwbf").value;
 		tel.DTALIBERACAO_PWBF = (this.form.get("dtaliberacao_pwbf").value != null && this.form.get("dtaliberacao_pwbf").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_pwbf").value) : null;
+<<<<<<< HEAD
 	
 		tel.POWERBIPRO = this.form.get("powerbipro").value ? 'S': 'N';
 		tel.CHECKIN_PWBP = this.form.get("checkin_pwbp").value == null ? 0 : this.form.get("checkin_pwbp").value;
@@ -282,6 +351,53 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 		tel.CHECKIN_OFEFS = this.form.get("checkin_ofefs").value == null ? 0 : this.form.get("checkin_ofefs").value;
 		tel.DTALIBERACAO_OFEFS = (this.form.get("dtaliberacao_ofefs").value != null && this.form.get("dtaliberacao_ofefs").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ofefs").value) : null;
 		
+=======
+
+		tel.POWERBIPRO = this.form.get("powerbipro").value ? 'S': 'N';
+		tel.CHECKIN_PWBP = this.form.get("checkin_pwbp").value == null ? 0 : this.form.get("checkin_pwbp").value;
+		tel.DTALIBERACAO_PWBP = (this.form.get("dtaliberacao_pwbp").value != null && this.form.get("dtaliberacao_pwbp").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_pwbp").value) : null;
+
+		tel.EXCHANGEKIOSK = this.form.get("exchangekiosk").value ? 'S': 'N';
+		tel.CHECKIN_EK = this.form.get("checkin_ek").value == null ? 0 : this.form.get("checkin_ek").value;
+		tel.DTALIBERACAO_EK = (this.form.get("dtaliberacao_ek").value != null && this.form.get("dtaliberacao_ek").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ek").value) : null;
+
+		tel.EXCHENGEPLANO1 = this.form.get("exchengeplano1").value ? 'S': 'N';
+		tel.CHECKIN_EP1 = this.form.get("checkin_ep1").value == null ? 0 : this.form.get("checkin_ep1").value;
+		tel.DTALIBERACAO_EP1 = (this.form.get("dtaliberacao_ep1").value != null && this.form.get("dtaliberacao_ep1").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ep1").value) : null;
+
+		tel.EXCHENGEPLANO2 = this.form.get("exchengeplano2").value ? 'S': 'N';
+		tel.CHECKIN_EP2 = this.form.get("checkin_ep2").value == null ? 0 : this.form.get("checkin_ep2").value;
+		tel.DTALIBERACAO_EP2 = (this.form.get("dtaliberacao_ep2").value != null && this.form.get("dtaliberacao_ep2").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ep2").value) : null;
+
+		tel.SHAREPOINTPLANO2 = this.form.get("sharepointplano2").value ? 'S': 'N';
+		tel.CHECKIN_SPP2 = this.form.get("checkin_spp2").value == null ? 0 : this.form.get("checkin_spp2").value;
+		tel.DTALIBERACAO_SPP2 = (this.form.get("dtaliberacao_spp2").value != null && this.form.get("dtaliberacao_spp2").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_spp2").value) : null;
+
+		tel.OFFICE365BUSINESS = this.form.get("office365business").value ? 'S': 'N';
+		tel.CHECKIN_OFB = this.form.get("checkin_ofb").value == null ? 0 : this.form.get("checkin_ofb").value;
+		tel.DTALIBERACAO_OFB = (this.form.get("dtaliberacao_ofb").value != null && this.form.get("dtaliberacao_ofb").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ofb").value) : null;
+
+		tel.MICROSOFTFLOWFREE = this.form.get("microsoftflowfree").value ? 'S': 'N';
+		tel.CHECKIN_MFF = this.form.get("checkin_mff").value == null ? 0 : this.form.get("checkin_mff").value;
+		tel.DTALIBERACAO_MFF = (this.form.get("dtaliberacao_mff").value != null && this.form.get("dtaliberacao_mff").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_mff").value) : null;
+
+		tel.MICROSOFT365E3 = this.form.get("microsoft365e3").value ? 'S': 'N';
+		tel.CHECKIN_M365E3 = this.form.get("checkin_m365e3").value == null ? 0 : this.form.get("checkin_m365e3").value;
+		tel.DTALIBERACAO_M365E3 = (this.form.get("dtaliberacao_m365e3").value != null && this.form.get("dtaliberacao_m365e3").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_m365e3").value) : null;
+
+        tel.MICROSOFTPOWERAPPSPLAN2TRIAL = this.form.get("microsoftpowerappsp2t").value ? 'S': 'N';
+		tel.CHECKIN_MPP2T = this.form.get("checkin_mpp2t").value == null ? 0 : this.form.get("checkin_mpp2t").value;
+		tel.DTALIBERACAO_MPP2T = (this.form.get("dtaliberacao_mpp2t").value != null && this.form.get("dtaliberacao_mpp2t").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_mpp2t").value) : null;
+
+		tel.PROJECTONLINEPROFISSIONAL = this.form.get("projectonlineprofissional").value ? 'S': 'N';
+		tel.CHECKIN_POP = this.form.get("checkin_pop").value == null ? 0 : this.form.get("checkin_pop").value;
+		tel.DTALIBERACAO_POP = (this.form.get("dtaliberacao_pop").value != null && this.form.get("dtaliberacao_pop").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_pop").value) : null;
+
+		tel.OFFICE365EXTRAFILASTORAFE = this.form.get("office365extrafilastorafe").value ? 'S': 'N';
+		tel.CHECKIN_OFEFS = this.form.get("checkin_ofefs").value == null ? 0 : this.form.get("checkin_ofefs").value;
+		tel.DTALIBERACAO_OFEFS = (this.form.get("dtaliberacao_ofefs").value != null && this.form.get("dtaliberacao_ofefs").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_ofefs").value) : null;
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		tel.VISIOONLINE = this.form.get("visioonline").value ? 'S': 'N';
 		tel.CHECKIN_VO = this.form.get("checkin_vo").value == null ? 0 : this.form.get("checkin_vo").value;
 		tel.DTALIBERACAO_VO = (this.form.get("dtaliberacao_vo").value != null && this.form.get("dtaliberacao_vo").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_vo").value) : null;
@@ -290,6 +406,7 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 		tel.CHECKIN_VOP2 = this.form.get("checkin_vop2").value == null ? 0 : this.form.get("checkin_vop2").value;
 		tel.DTALIBERACAO_VOP2 = (this.form.get("dtaliberacao_vop2").value != null && this.form.get("dtaliberacao_vop2").value != '') ? this.dateFormat.get(this.form.get("dtaliberacao_vop2").value) : null;
 
+<<<<<<< HEAD
 		this._subscriptions.push(this.serviceMicrosoft.salvar(tel).subscribe((res: string) => {
 
 			if (res) { 
@@ -298,6 +415,16 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 				}else{
 					this.getMicrosoft();
 				}
+=======
+		this._subscriptions.push(this.serviceMicrosoft.salvar(tel).subscribe((res: boolean) => {
+
+			if (res) {
+				if(tel.SEQMICROSOFT == 0) this.myNgForm.resetForm();
+				else this.getMicrosoft();
+				/*else{
+					this.getMicrosoft();
+				}*/
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 			}
 		}));
 	}
@@ -308,4 +435,8 @@ export class MicrosoftFormComponent implements OnInit, OnDestroy {
 			x.unsubscribe();
 		});
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

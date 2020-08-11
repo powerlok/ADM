@@ -11,7 +11,7 @@ import { MovEstoqueLote } from "../../../shared/models/MovEstoqueLote";
 import { Empresa } from "../../../shared/models/Empresa";
 import { Unidade } from "../../../shared/models/Unidade";
 import { Select } from "../../../shared/models/Components";
-import { Lote, Produto } from "../../../shared/models/Produto";
+import { Lote } from "../../../shared/models/Produto";
 import { UserService } from "../../../shared/services/user.service";
 import { RodarJson } from "../../../shared/models/RodarJson";
 import { ProdutoService } from "../../../shared/services/produto/produto.service";
@@ -181,7 +181,7 @@ export class EstoquePorLoteService implements OnDestroy{
                retorno = this.getJsonLocal(sequnidade, nroempresa);
                break;
             case 'LoteProd':
-               retorno = this.getJsonLoteProd(seqproduto, sequnidade, nroempresa);
+               retorno = this.getJsonLoteProd(seqproduto, sequnidade);
                break;
             default:
                retorno = null;
@@ -191,19 +191,18 @@ export class EstoquePorLoteService implements OnDestroy{
         return retorno;
     }
 
-    execJson(seqproduto : number, sequnidade : number, nroempresa : number, codgeraloper : string, tipobusca : string, tipocgo : string, tipouso: string, tipocampo : string): Observable<Lote[]> {
+    execJson(seqproduto : number, sequnidade : number, nroempresa : number, codgeraloper : string, tipobusca : string, tipocgo : string, tipouso: string, tipocampo : string): Observable<object> {
 
         this.spinner.show();
-       // console.log(this.getJson(seqproduto,sequnidade, nroempresa, codgeraloper, tipobusca, tipocgo, tipouso, tipocampo));
+       //console.log(this.getJson(seqproduto,sequnidade, nroempresa, codgeraloper, tipobusca, tipocgo, tipouso, tipocampo));
         return this.consult.post(this.getJson(seqproduto, sequnidade, nroempresa, codgeraloper, tipobusca, tipocgo, tipouso, tipocampo),0).pipe(
             map((res: DbConsult) => {
-              this.spinner.hide();
-                if(res.error.errorMasseger != null){
-                  this.alertService.alertInfinit('Erro ao tentar carregar o campo. Motivo: ' + res.error.errorMasseger);
-                }
-               //  console.log(res.obj.json);
-                let resp = res.obj.json as Lote[];
+                let resp : object = res.obj.json as object;
 
+                this.spinner.hide();
+                if(res.error.errorMasseger != null){
+                    this.alertService.alertInfinit('Erro ao tentar carregar o campo. Motivo: ' + res.error.errorMasseger);
+                }
                 return resp;
             })
         );
@@ -262,7 +261,7 @@ export class EstoquePorLoteService implements OnDestroy{
         return retorno;
     }
 
-    private getJsonLoteProd(seqproduto : number, sequnidade : number, nroempresa: number){
+    private getJsonLoteProd(seqproduto : number, sequnidade : number){
 
         this._dbConsult.model = new DbConsult();
         this._dbConsult.model.objeto = "cmp_getLoteprod";
@@ -281,11 +280,6 @@ export class EstoquePorLoteService implements OnDestroy{
         parametro2.nome  = "pr_sequnidade";
         parametro2.valor = sequnidade.toString();
         this._dbConsult.model.parameters.push(parametro2);
-
-        let parametro3   = new Parametro();
-        parametro3.nome  = "pr_nroempresa";
-        parametro3.valor = nroempresa.toString();
-        this._dbConsult.model.parameters.push(parametro3);
 
         return JSON.stringify(this._dbConsult);
     }

@@ -34,7 +34,7 @@ export class MicrosoftService {
 
         let parametro = new Parametro();
         parametro.nome = "pr_seqmicrosoft";
-        parametro.valor = (tel.SEQMICROSOFT != null ) ? tel.SEQMICROSOFT.toString() : null; 
+        parametro.valor = (tel.SEQMICROSOFT != null ) ? tel.SEQMICROSOFT.toString() : null;
         this._dbConsult.model.parameters.push(parametro);
 
         let parametro2 = new Parametro();
@@ -49,7 +49,7 @@ export class MicrosoftService {
 
         let parametro4 = new Parametro();
         parametro4.nome = "pr_checkin_pwbf";
-        parametro4.valor = (tel.CHECKIN_PWBF != null ) ? tel.CHECKIN_PWBF.toString() : null; 
+        parametro4.valor = (tel.CHECKIN_PWBF != null ) ? tel.CHECKIN_PWBF.toString() : null;
         this._dbConsult.model.parameters.push(parametro4);
 
         let parametro5 = new Parametro();
@@ -79,7 +79,7 @@ export class MicrosoftService {
 
         let parametro11 = new Parametro();
         parametro11.nome = "pr_checkin_ek";
-        parametro11.valor = (tel.CHECKIN_EK != null ) ? tel.CHECKIN_EK.toString() : null; 
+        parametro11.valor = (tel.CHECKIN_EK != null ) ? tel.CHECKIN_EK.toString() : null;
         this._dbConsult.model.parameters.push(parametro11);
 
         let parametro12 = new Parametro();
@@ -109,7 +109,7 @@ export class MicrosoftService {
 
         let parametro18 = new Parametro();
         parametro18.nome = "pr_checkin_ep2";
-        parametro18.valor =  (tel.CHECKIN_EP2 != null ) ? tel.CHECKIN_EP2.toString() : null;  
+        parametro18.valor =  (tel.CHECKIN_EP2 != null ) ? tel.CHECKIN_EP2.toString() : null;
         this._dbConsult.model.parameters.push(parametro18);
 
         let parametro19 = new Parametro();
@@ -124,7 +124,7 @@ export class MicrosoftService {
 
         let parametro21 = new Parametro();
         parametro21.nome = "pr_checkin_spp2";
-        parametro21.valor = (tel.CHECKIN_SPP2 != null ) ? tel.CHECKIN_SPP2.toString() : null;  
+        parametro21.valor = (tel.CHECKIN_SPP2 != null ) ? tel.CHECKIN_SPP2.toString() : null;
         this._dbConsult.model.parameters.push(parametro21);
 
         let parametro22 = new Parametro();
@@ -139,7 +139,7 @@ export class MicrosoftService {
 
         let parametro24 = new Parametro();
         parametro24.nome = "pr_checkin_ofb";
-        parametro24.valor = (tel.CHECKIN_OFB != null ) ? tel.CHECKIN_OFB.toString() : null;   
+        parametro24.valor = (tel.CHECKIN_OFB != null ) ? tel.CHECKIN_OFB.toString() : null;
         this._dbConsult.model.parameters.push(parametro24);
 
         let parametro25 = new Parametro();
@@ -154,7 +154,7 @@ export class MicrosoftService {
 
         let parametro27 = new Parametro();
         parametro27.nome = "pr_checkin_mff";
-        parametro27.valor =  (tel.CHECKIN_MFF != null ) ? tel.CHECKIN_MFF.toString() : null;  
+        parametro27.valor =  (tel.CHECKIN_MFF != null ) ? tel.CHECKIN_MFF.toString() : null;
         this._dbConsult.model.parameters.push(parametro27);
 
         let parametro28 = new Parametro();
@@ -169,7 +169,7 @@ export class MicrosoftService {
 
         let parametro30 = new Parametro();
         parametro30.nome = "pr_checkin_mpp2t";
-        parametro30.valor = (tel.CHECKIN_MPP2T != null ) ? tel.CHECKIN_MPP2T.toString() : null; 
+        parametro30.valor = (tel.CHECKIN_MPP2T != null ) ? tel.CHECKIN_MPP2T.toString() : null;
         this._dbConsult.model.parameters.push(parametro30);
 
         let parametro31 = new Parametro();
@@ -184,7 +184,7 @@ export class MicrosoftService {
 
         let parametro33 = new Parametro();
         parametro33.nome = "pr_checkin_ofefs";
-        parametro33.valor = (tel.CHECKIN_OFEFS != null ) ? tel.CHECKIN_OFEFS.toString() : null;  
+        parametro33.valor = (tel.CHECKIN_OFEFS != null ) ? tel.CHECKIN_OFEFS.toString() : null;
         this._dbConsult.model.parameters.push(parametro33);
 
         let parametro34 = new Parametro();
@@ -199,7 +199,7 @@ export class MicrosoftService {
 
         let parametro36 = new Parametro();
         parametro36.nome = "pr_checkin_vo";
-        parametro36.valor = (tel.CHECKIN_VO != null ) ? tel.CHECKIN_VO.toString() : null;  
+        parametro36.valor = (tel.CHECKIN_VO != null ) ? tel.CHECKIN_VO.toString() : null;
         this._dbConsult.model.parameters.push(parametro36);
 
         let parametro37 = new Parametro();
@@ -214,7 +214,7 @@ export class MicrosoftService {
 
         let parametro39 = new Parametro();
         parametro39.nome = "pr_checkin_vop2";
-        parametro39.valor = (tel.CHECKIN_VOP2 != null ) ? tel.CHECKIN_VOP2.toString() : null; 
+        parametro39.valor = (tel.CHECKIN_VOP2 != null ) ? tel.CHECKIN_VOP2.toString() : null;
         this._dbConsult.model.parameters.push(parametro39);
 
         let parametro40 = new Parametro();
@@ -236,7 +236,7 @@ export class MicrosoftService {
         parametro43.nome = "pr_dtaliberacao_pop";
         parametro43.valor = tel.DTALIBERACAO_POP;
         this._dbConsult.model.parameters.push(parametro43);
-        
+
         let parametro44 = new Parametro();
         parametro44.nome = "pr_microsoft365e3";
         parametro44.valor = tel.MICROSOFT365E3;
@@ -261,20 +261,20 @@ export class MicrosoftService {
     }
 
     //Salva / Edita
-    salvar(tel: Microsoft): Observable<string> { 
+    salvar(tel: Microsoft): Observable<boolean> {
         this.spinner.show();
-     
+
         return this.consult.post(this.getJsonCadastro(tel), 0).pipe(map((res: DbConsult) => {
             let resp = res.obj.json;
-            let ret = '';
-           
+            let ret = false;
+
             if (resp != null) {
                 let _data = resp.toString().split('|');
 
                 this._alertService.alert(_data[0]);
 
-                ret = _data[1];
-               
+                ret = (_data[1] == "false") ? false : true;
+
             }
             this.spinner.hide();
             return ret;
@@ -337,7 +337,7 @@ export class MicrosoftService {
 
     validaChapaVinculadoAMicrosoft(chapa: string, sequnidade : number, codigo : number): Observable<any> {
 
-        return this.consult.post(this.getJsonValidaChapaVinculadoAMicrosoft(chapa, sequnidade, codigo), 0).pipe(map((res: DbConsult) => {           
+        return this.consult.post(this.getJsonValidaChapaVinculadoAMicrosoft(chapa, sequnidade, codigo), 0).pipe(map((res: DbConsult) => {
             let numero = res.obj.json;
 
             if(res.error.errorMasseger != null){
@@ -352,7 +352,7 @@ export class MicrosoftService {
     //Get por Id
     getMicrosoft(id: string, chapa: string, sequnidade : number): Observable<Microsoft[]> {
 
-        return this.consult.post(this.getJsonMicrosoft(id, chapa, sequnidade), 0).pipe(map((res: DbConsult) => {           
+        return this.consult.post(this.getJsonMicrosoft(id, chapa, sequnidade), 0).pipe(map((res: DbConsult) => {
             this._tel = res.obj.json as Microsoft[];
 
             if(res.error.errorMasseger != null){
@@ -388,25 +388,25 @@ export class MicrosoftService {
         this.spinner.show();
         return this.consult.post(this.getJsonDeletar(id), 0).pipe(map((res: DbConsult) => {
             let ret = '';
- 
+
             if(res.error.errorMasseger != null){
                 this._alertService.alert(res.error.errorMasseger);
-            }else{               
+            }else{
                     if (res.obj.json.toString() != '') {
                         let _data = res.obj.json.toString().split('|');
-                        
+
                         this._alertService.alert(_data[0]);
 
                         ret = _data[1];
                     }
             }
             this.spinner.hide();
-            
+
             return ret;
         }));
     }
 
-    
+
     private getJsonAuditar(tel: Microsoft): string {
 
         this._dbConsult.model = new DbConsult();
@@ -425,20 +425,20 @@ export class MicrosoftService {
         return JSON.stringify(this._dbConsult);
     }
 
-    setAuditoria(tel: Microsoft): Observable<string> { 
+    setAuditoria(tel: Microsoft): Observable<string> {
         this.spinner.show();
-        
+
         return this.consult.post(this.getJsonAuditar(tel), 0).pipe(map((res: DbConsult) => {
             let resp = res.obj.json;
             let ret = '';
-            
+
             if (resp != null) {
                 let _data = resp.toString().split('|');
 
                 //this._alertService.alert(_data[0]);
 
                 ret = _data[1];
-               
+
             }
             this.spinner.hide();
             return ret;

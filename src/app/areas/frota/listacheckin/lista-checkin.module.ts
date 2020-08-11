@@ -11,19 +11,33 @@ import { ListaCheckinFrotaComponent } from './lista-checkin.component';
 import { ListaCheckinFrotaRoutingModule } from './lista-checkin.routing.module';
 import { ListaCheckinFrotaServiceJson } from './lista-checkin.service.json';
 import { ListaCheckinFrotaService } from './lista-checkin.service';
+<<<<<<< HEAD
 @NgModule({   
     entryComponents: [], 
     declarations: [        
+=======
+@NgModule({
+    entryComponents: [],
+    declarations: [
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         ListaCheckinFrotaComponent
     ],
     imports: [
         CommonModule,
         ListaCheckinFrotaRoutingModule,
+<<<<<<< HEAD
         FormsModule, 
         ReactiveFormsModule,
         CustomMaterialModule,
         NgxMaskModule.forRoot(),
         NgxCurrencyModule        
+=======
+        FormsModule,
+        ReactiveFormsModule,
+        CustomMaterialModule,
+        NgxMaskModule.forRoot(),
+        NgxCurrencyModule,
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     ],
     exports: [],
     providers: [ListaCheckinFrotaService, ListaCheckinFrotaServiceJson, OrdenaArray],

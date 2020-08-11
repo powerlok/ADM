@@ -10,7 +10,7 @@ import { map, take } from 'rxjs/operators';
 @Injectable()
 export class VendaPdvService {
     private _dbConsult: DbConsultModel;
-    
+
     constructor(private alertService: AlertService, private consult : ConsultAPIService, private spinner: SpinnerVisibilityService) {
         this._dbConsult = new DbConsultModel();
     }
@@ -75,17 +75,17 @@ export class VendaPdvService {
         return this.consult.post(this.getJsonExec(nroempresa, dtaini, dtafim, validacao, tipo, sequnidade, coluna, diferenca),0).pipe(map((res: DbConsult) => {
             let resp : ValidVendPdv[] = res.obj.json as ValidVendPdv[];
              this.spinner.hide();
-            
+
             if(res.error.errorMasseger != null){
                 this.alertService.alertInfinit(res.error.errorMasseger);
-            }else{   
+            }else{
                 if(tipo != 'P'){
-                    if(resp.length > 0){            
+                    if(resp.length > 0){
                         this.alertService.alertInfinit('Operação realizada com sucesso.');
                     }else{
                         this.alertService.alertInfinit('Operação foi realizada, mas não retornou nenhuma inconsistência.');
-                    }      
-                }                        
+                    }
+                }
             }
 
             return resp;
@@ -112,11 +112,11 @@ export class VendaPdvService {
 
     p_getValidacao(){
         this.spinner.show();
-       
+
         return this.consult.post(this.getJsonValidacao(),0).pipe(map((res: DbConsult) => {
             let resp : Validacao[] = res.obj.json as Validacao[];
              this.spinner.hide();
-            
+
             if(res.error.errorMasseger != null){
                 this.alertService.alertInfinit(res.error.errorMasseger);
             }

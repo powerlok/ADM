@@ -251,7 +251,7 @@ export class EntradaSaidaCaixaService {
 
         let parametro3   = new Parametro();
         parametro3.nome  = "prvalor_un";
-        parametro3.valor = totais.valor.toString().replace(".",",");
+        parametro3.valor = totais.valor.toString();
         this._dbConsult.model.parameters.push(parametro3);
 
         return JSON.stringify(this._dbConsult);

@@ -13,5 +13,5 @@ export class UploadComponent {
 
   public openUploadDialog() {
     let dialogRef = this.dialog.open(DialogUploadComponent, { width: '50%', height: '50%' });
-  } 
+  }
 }

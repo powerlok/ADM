@@ -5,7 +5,7 @@ import { AppModule } from "./app.module";
 import { AppComponent } from "./areas/app/app.component";
 
 @NgModule({
-	imports: [AppModule, 
+	imports: [AppModule,
 			  ServerModule
 			],
 	bootstrap: [AppComponent],

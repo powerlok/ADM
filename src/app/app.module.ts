@@ -35,7 +35,6 @@ import { ErrorModule } from './core/layout/error/error.module';
 @NgModule({
   declarations: [
     AppComponent,
-
     ...AREAS_COMPONENTS,
     ...PIPES_COMPONENTS
   ],

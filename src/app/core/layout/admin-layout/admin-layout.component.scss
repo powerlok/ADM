@@ -10,7 +10,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;    
+    right: 0;
   }
 
   .oba-icon{
@@ -21,7 +21,7 @@
     flex: 1 1 auto;
   }
 
-  
+
 @media only screen and (min-width: 451px) {
   .mat-list, .mat-nav-list, .mat-selection-list{
     padding-top: 0px !important;
@@ -34,16 +34,15 @@
     padding-top: 56px !important;
   }
 }*/
-  
   .oba-is-mobile .oba-toolbar {
     position: fixed;
     z-index: 2;
   }
-  
+
   h1.oba-app-name {
     margin-left: 8px;
   }
-  
+
   h5.oba-app-chapa {
     font-size: 13px;
   }
@@ -74,7 +73,6 @@
   .oba-sidenav-card .oba-sidenav-subtitle {
     font-size: 13px;
   }
-  
   .oba-sidenav-card .mat-raised-button {
      width: 100% !important;
   }
@@ -85,10 +83,10 @@
       margin-left: 5px;
       color: rgb(133, 133, 133)
   }
-  
+
   .oba-sidenav-container .oba-nav-list-aplicacao {
     font-size: 14px;
-    font-weight: bold;    
+    font-weight: bold;
   }
   /*
   .oba-is-mobile .oba-sidenav-container {
@@ -98,7 +96,7 @@
      /* background: url("/assets/img/user.jpg") no-repeat;*/
     background-size: cover;
     height: 100px;
-    width: 100px;      
+    width: 100px;
     margin: 1px -11px 0 63px;
   }
 
@@ -134,12 +132,11 @@
   }
 /*
   @media only screen and (max-width: 450px) {
-  .oba-nav-list-home 
+  .oba-nav-list-home
   {
     margin-top: 50px;
   }
 }*/
-  
 .oba-nav-list a:hover
 {
   border-left: 3px solid #21782e;
@@ -168,7 +165,6 @@ mat-sidenav.md-locked-open {
   display: flex;
   overflow: hidden;
   height: 100vh;
-  
   main {
     flex: 1;
     position: relative;

@@ -1,13 +1,23 @@
+<<<<<<< HEAD
 @import "~bootstrap/scss/bootstrap";
+=======
+//@import "~bootstrap/scss/bootstrap";
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic);
 //@import url(https://fonts.googleapis.com/css?family=Montserrat);
 @import './assets/css/index.css';
 @import './assets/css/custom-themes.scss';
+<<<<<<< HEAD
 @import '~sweetalert2/dist/sweetalert2.css';
 
 body { 
+=======
+@import 'sweetalert2/src/sweetalert2.scss';
+
+body {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   font-family: 'Roboto Mono', monospace;
   font-weight: 400;
     /*font-family: Roboto, Arial, sans-serif;*/
@@ -18,10 +28,17 @@ body {
     color: rgba(0, 0, 0, 0.87) !important;
   }
 
+<<<<<<< HEAD
   .oba-card{ 
     margin: 0 25px 0 25px !important;
   }
   
+=======
+  .oba-card{
+    margin: 0 25px 0 25px !important;
+  }
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   .oba-card a {
     color: #21782e !important;
   }
@@ -33,7 +50,11 @@ body {
   /*.basic-container {
     padding: 5px;
   }*/
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   .mat-table {
     overflow: auto;
     max-height: 500px;
@@ -47,7 +68,11 @@ body {
     width: 100% !important;
   }
 
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 .mat-form-field {
   display: block !important;
 }
@@ -115,7 +140,11 @@ body {
   .oba-container .mat-elevation-z8 .mat-header-cell{
     text-align: left !important;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   .oba-container .mat-elevation-z8 .mobile-label {
     display: block;
     font-weight: bold;
@@ -131,7 +160,11 @@ body {
   }
 
   // The row cells should display as a column, justified left, with a bit of extra padding
+<<<<<<< HEAD
   .oba-container .mat-elevation-z8 .mat-row { 
+=======
+  .oba-container .mat-elevation-z8 .mat-row {
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     flex-direction: column;
     align-items: start;
     padding: 8px 24px;
@@ -155,4 +188,10 @@ body {
 
 .tab-dupla .mat-tab-label {
   width: 50%;
+<<<<<<< HEAD
 }
+=======
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+>>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
