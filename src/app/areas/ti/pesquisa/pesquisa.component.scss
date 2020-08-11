@@ -1,32 +1,18 @@
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   .oba-container {
     display: flex;
     flex-direction: column;
     max-height: 500px;
     min-width: 300px;
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   .mat-list{
      float: left;
   }
 
   .mat-list-item {
-<<<<<<< HEAD
-    float: left;
-    font-size: 12px;  
-=======
-    width: 200px;
     float: left;
     font-size: 12px;
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
   }
 
 
@@ -55,8 +41,4 @@ form {
   @include table-cell-width(2, 0 0 8%);
   @include table-cell-width(3, 0 0 20%);
   @include table-cell-width(6, 0 0 20%);
-<<<<<<< HEAD
   @include table-cell-width(8, 0 0 5%);
-=======
-  @include table-cell-width(8, 0 0 5%);
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

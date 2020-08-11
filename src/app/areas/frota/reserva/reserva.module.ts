@@ -13,19 +13,12 @@ import { ReservaListaFrotaComponent } from './reserva-lista.component';
 import { ReservaFrotaServiceJson } from './reserva.service.json';
 import { SmdFabSpeedDialActions, SmdFabSpeedDialComponent, SmdFabSpeedDialTrigger } from '../../../shared/components/speeddial/fab-speed-dial';
 import { ReservaFormFrotaComponent } from './reserva-form.component';
-<<<<<<< HEAD
 import { DateAdapter } from '@angular/material';
-=======
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { CadastroFrotaService } from '../cadastro/cadastro.service';
 import { CadastroFrotaServiceJson } from '../cadastro/cadastro.service.json';
 import { DateFormat } from '../../../shared/util/date-format';
 import { AlertRodizioComponent } from './popup/alert-rodizio.component';
 import { AppSharedModule } from '../../../shared';
-<<<<<<< HEAD
-=======
-import { DateAdapter } from '@angular/material/core';
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @NgModule({
     entryComponents: [AlertRodizioComponent],

@@ -15,20 +15,12 @@
     display: flex;
     overflow: hidden;
     height: 100vh;
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     main {
       flex: 1;
       position: relative;
     }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     /deep/ router-outlet ~ * {
         position: absolute;
         width: 100%;

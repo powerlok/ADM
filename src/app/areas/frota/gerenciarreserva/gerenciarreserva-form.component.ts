@@ -5,32 +5,19 @@ import { Cadastro, Local, Reservas, Rodizio, ListaCheckin, CheckInCheckOut } fro
 import { UserService } from "../../../shared/services/user.service";
 import { Unidade } from "../../../shared/models/Unidade";
 import { Subscription, Observable } from "rxjs";
-<<<<<<< HEAD
 import { isArray } from "jquery";
-=======
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { DateOracle, DateFormat } from "../../../shared/util/date-format";
 import { CadastroFrotaService } from "../cadastro/cadastro.service";
 import { Empresa, EmpresaDW } from "../../../shared/models/Empresa";
 import { Params, ActivatedRoute, Router } from "@angular/router";
 import { ValidationErrorService } from "../../../shared/services/validation-error.service";
 import { AlertService } from "../../../shared/services/alert.service";
-<<<<<<< HEAD
 import { MatTableDataSource, MatStepper, DateAdapter, MatHorizontalStepper } from "@angular/material";
-=======
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 import { CustomValidators } from "../../../shared/custom.validators";
 import { ReservaFrotaService } from "../reserva/reserva.service";
 import { Usuario } from "../../../shared/models/Usuario";
 import { SpinnerVisibilityService } from "../../../../../node_modules/ng-http-loader";
 import { GerenciareservaFrotaService } from "./gerenciarreserva.service";
-<<<<<<< HEAD
-=======
-import { MatTableDataSource } from "@angular/material/table";
-import { isArray } from "jquery";
-import { MatStepper } from "@angular/material/stepper";
-
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
 @Component({
     selector: 'app-gerenciarreserva-form-frota',
@@ -99,41 +86,20 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
         this.secondFormGroup = this._formBuilder.group({
             horafinal        : ['', Validators.required, CustomValidators.validaHoraIniFim],
             horainicial      : ['', Validators.required, CustomValidators.validaHoraIniFim],
-<<<<<<< HEAD
-            datareserva      : ['', Validators.required]   
-=======
             datareserva      : ['', Validators.required]
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         });
         this.thirdFormGroup = this._formBuilder.group({
             veiculo          : ['', Validators.required]
         });
         this.fourthFormGroup = this._formBuilder.group({
             destino          : ['', Validators.nullValidator],
-<<<<<<< HEAD
-            origem           : ['', Validators.required]            
-=======
             origem           : ['', Validators.required]
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         });
         this.fifthFormGroup = this._formBuilder.group({
             sequsuario       : ['', Validators.required],
             usuario          : ['', Validators.required],
             chapa            : ['', Validators.required]
         });
-<<<<<<< HEAD
-        this.sixthFormGroup = this._formBuilder.group({            
-            kmInicialCheckIn       : ['', Validators.nullValidator],
-            estaciomentoCheckIn    : ['', Validators.nullValidator], 
-            observacaoCheckIn      : ['', Validators.nullValidator], 
-            checkIn                : ['', Validators.nullValidator], 
-            kmFinalCheckOut        : ['', Validators.nullValidator],
-            estaciomentoCheckOut   : ['', Validators.nullValidator], 
-            observacaoCheckOut     : ['', Validators.nullValidator],
-            checkOut               : ['', Validators.nullValidator],        
-        });
-        this.seventhFormGroup = this._formBuilder.group({            
-=======
         this.sixthFormGroup = this._formBuilder.group({
             kmInicialCheckIn       : ['', Validators.nullValidator],
             estaciomentoCheckIn    : ['', Validators.nullValidator],
@@ -145,21 +111,10 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
             checkOut               : ['', Validators.nullValidator],
         });
         this.seventhFormGroup = this._formBuilder.group({
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
             observacao       : ['', Validators.nullValidator]
         });
 
         this.buscaReserva();
-<<<<<<< HEAD
-        
-        this._subscriptions.push(this.fifthFormGroup.get("usuario").valueChanges
-                    .switchMap((params : Params) =>  this.filtrarUsuario(params))
-                    .subscribe((val : any) => { 
-                            this.fUsuario = new Array<Usuario>();                               
-                            if(isArray(val)) {
-                                if(val.length > 0) {                                 
-                                    val.map(m => { 
-=======
 
         this._subscriptions.push(this.fifthFormGroup.get("usuario").valueChanges
                     .switchMap((params : Params) =>  this.filtrarUsuario(params))
@@ -168,27 +123,17 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                             if(isArray(val)) {
                                 if(val.length > 0) {
                                     val.map(m => {
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                                         let c               = new  Usuario();
                                             c.sequsuario    = m.SEQUSUARIO;
                                             c.nome          = m.NOME;
                                             c.chapa         = m.CHAPA;
-<<<<<<< HEAD
-                                        this.fUsuario.push(c); 
-                                    });    
-=======
                                         this.fUsuario.push(c);
                                     });
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                                 }
                             }else{
                                 this.fifthFormGroup.get("sequsuario").setValue(null);
                                 this.fifthFormGroup.get("chapa").setValue(null);
-<<<<<<< HEAD
-                             }                              
-=======
                              }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                         }
                     ));
     }
@@ -213,21 +158,12 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
         }
     }
 
-<<<<<<< HEAD
-    filtrarUsuario(desc: Params): Observable<Usuario[]> {       
-        let obs = new Observable<any>();      
-        if(desc != null && (!Number(desc) && desc.toString().length > 4)) {
-            let r = new RodarJson(); r.obj = [{ param: desc }]; 
-                r.tipo = "BUSCAUSUARIO";      
-            obs = this.reservaService.getExec(r); 
-=======
     filtrarUsuario(desc: Params): Observable<Usuario[]> {
         let obs = new Observable<any>();
         if(desc != null && (!Number(desc) && desc.toString().length > 4)) {
             let r = new RodarJson(); r.obj = [{ param: desc }];
                 r.tipo = "BUSCAUSUARIO";
             obs = this.reservaService.getExec(r);
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         }
 
         this.spinner.hide();
@@ -237,11 +173,7 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
     aoSelecionarUsuario(sequsuario, nome, chapa){
         let usuario = "("+sequsuario+") - " + nome;
-<<<<<<< HEAD
-      
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         this.fifthFormGroup.get("sequsuario").setValue(sequsuario);
         this.fifthFormGroup.get("usuario").setValue(usuario);
         this.fifthFormGroup.get("chapa").setValue(chapa);
@@ -295,11 +227,7 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
             if (isArray(x)) {
                 if (x.length > 0) {
                     this.local      = new Array<Local>();
-<<<<<<< HEAD
-                    x.forEach((e) => {                       
-=======
                     x.forEach((e) => {
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                         let l           = new Local();
                         l.NROEMPRESA    = e.NROEMPRESA;
                         l.NOMEREDUZIDO  = e.NOMEREDUZIDO;
@@ -315,30 +243,11 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
     }
 
     buscaListaCheckin(tipo : string){
-<<<<<<< HEAD
-      
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         let listaCK = this.listaCheckInCheckOut;
 
         this.listaCheckin = [];
             this._subscriptions.push(this.gerenciarReservaService.buscaListaCheckin(this.firstFormGroup.get("sequnidade").value).subscribe((x: ListaCheckin[]) => {
-<<<<<<< HEAD
-               
-                if (x != null) {
-                    if (x.length > 0) {
-                        if(tipo == "CHECKIN")  { 
-                            this.listaCheckin = new Array<ListaCheckin>();
-                        }else {
-                            this.listaCheckOut = new Array<ListaCheckin>();
-                        }  
-                                                 
-
-                        x.forEach(l => {
-                            let c = this.gerenciarReservaService.buscaItemCheckinCheckoutId(listaCK, l.SEQITEM, tipo);
-                            
-=======
 
                 if (x != null) {
                     if (x.length > 0) {
@@ -352,7 +261,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                         x.forEach(l => {
                             let c = this.gerenciarReservaService.buscaItemCheckinCheckoutId(listaCK, l.SEQITEM, tipo);
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                             let itemOK = (c != undefined) ?  c.ITEMOK : null;
                             let seqcheckinckout = (c != undefined) ?  c.SEQCHEKINCHEKOUT : 0;
 
@@ -364,19 +272,11 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                                 lista.SEQCHEKINCHEKOUT  = seqcheckinckout;
                                 lista.CHECKED           = (itemOK == 'S') ? true : false;
 
-<<<<<<< HEAD
-                                if(tipo == "CHECKIN")  { 
-                                    this.listaCheckin.push(lista);
-                                }else {
-                                    this.listaCheckOut.push(lista);   
-                                }                      
-=======
                                 if(tipo == "CHECKIN")  {
                                     this.listaCheckin.push(lista);
                                 }else {
                                     this.listaCheckOut.push(lista);
                                 }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                         });
 
                     }
@@ -387,16 +287,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
     buscaCheckinCheckout(){
         this.listaCheckInCheckOut = new Array<CheckInCheckOut>();
 
-<<<<<<< HEAD
-        this._subscriptions.push(this.gerenciarReservaService.buscaCheckinCheckout(this.seqreserva).subscribe((x : CheckInCheckOut[]) => { 
-            this.listaCheckInCheckOut = x;
-            this.buscaListaCheckin("CHECKIN");
-            this.buscaListaCheckin("CHECKOUT");
-            this.carregarCamposCheckInCheckOut();     
-        }));
-    }
-    
-=======
         this._subscriptions.push(this.gerenciarReservaService.buscaCheckinCheckout(this.seqreserva).subscribe((x : CheckInCheckOut[]) => {
             this.listaCheckInCheckOut = x;
             this.buscaListaCheckin("CHECKIN");
@@ -405,7 +295,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
         }));
     }
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     carregarCamposCheckInCheckOut() {
         let listaCK = this.listaCheckInCheckOut;
 
@@ -415,19 +304,11 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
             this.sixthFormGroup.get("kmInicialCheckIn").setValue(c.KMINICIAL);
             this.sixthFormGroup.get("estaciomentoCheckIn").setValue(c.ESTACIONAMENTO);
             this.sixthFormGroup.get("observacaoCheckIn").setValue(c.OBSERVACAO);
-<<<<<<< HEAD
-            
-                        
-                if(c.SEQITEM > 0) this.verificaCheckIn = true;
-             
-        }    
-=======
 
 
                 if(c.SEQITEM > 0) this.verificaCheckIn = true;
 
         }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
         let o = this.gerenciarReservaService.buscaItemCheckinCheckoutId(listaCK, 1, "CHECKOUT");
         if(o != null) {
@@ -437,26 +318,11 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
             if(o.SEQITEM > 0) this.verificaCheckOut = true;
         }
-<<<<<<< HEAD
-         
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     }
 
     buscaReserva() {
         if (this.seqreserva > 0) {
-<<<<<<< HEAD
-                           
-            this.firstFormGroup.controls['sequnidade'].disable();
-            this.isCompleted = true;
-            //this.isLinear = false;
-            this.reserva = null;             
-            
-            let r = new RodarJson(); r.obj = [{ status: null, seqreserva: this.seqreserva, tipo: 'T' }]; r.tipo = "BUSCARESERVAS";
-            this._subscriptions.push(this.reservaService.getExec(r).subscribe((x: Reservas) => {
-               
-=======
 
             this.firstFormGroup.controls['sequnidade'].disable();
             this.isCompleted = true;
@@ -466,7 +332,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
             let r = new RodarJson(); r.obj = [{ status: null, seqreserva: this.seqreserva, tipo: 'T' }]; r.tipo = "BUSCARESERVAS";
             this._subscriptions.push(this.reservaService.getExec(r).subscribe((x: Reservas) => {
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                 if (x[0] != undefined) {
                     this.reserva = new Reservas();
                     this.reserva.PLACA              = x[0].PLACA;
@@ -499,16 +364,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                     this.fifthFormGroup.get("sequsuario").setValue(this.reserva.SEQUSUARIO);
                     this.fifthFormGroup.get("chapa").setValue(this.reserva.CHAPACONDUTOR);
                     this.fifthFormGroup.get("usuario").setValue("(" + this.reserva.SEQUSUARIO + ") - " + this.reserva.NOME);
-<<<<<<< HEAD
-                    this.seventhFormGroup.get("observacao").setValue(this.reserva.OBSERVACAO);                    
-    
-                    this.buscaVeiculos();
-                    this.buscaEmpresas();
-                    this.buscaLocal();                      
-                    
-                    this.buscaCheckinCheckout(); 
-                                           
-=======
                     this.seventhFormGroup.get("observacao").setValue(this.reserva.OBSERVACAO);
 
                     this.buscaVeiculos();
@@ -517,7 +372,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
                     this.buscaCheckinCheckout();
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                     this.thirdFormGroup.get("veiculo").setValue(this.reserva.SEQVEICULO);
 
 
@@ -549,11 +403,7 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                 sequnidade          : this.firstFormGroup.get("sequnidade").value,
                 sequsuario          : this.fifthFormGroup.get("sequsuario").value,
                 chapa               : this.fifthFormGroup.get("chapa").value,
-<<<<<<< HEAD
-                tipo                : 'T',                
-=======
                 tipo                : 'T',
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                 status              : this.firstFormGroup.get("status").value
             }];
             r.tipo = "RESERVAFROTA";
@@ -564,29 +414,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                 if (Number(c)) {
                     //SALVA DESTINO
                     this._subscriptions.push(this.gerenciarReservaService.salvaReservaDestino(
-<<<<<<< HEAD
-                         Number(c), 
-                         this.local).subscribe((result) => { 
-                             
-                            this._subscriptions.push(this.gerenciarReservaService.getRequest(result).subscribe((x : string) => {
-
-                                if(x == "sucesso"){
-                                    
-                                    if(this.verificaCheckIn) {
-                                        //SALVA CHECKIN INFORMAÇÕES 
-                                        this._subscriptions.push(this.gerenciarReservaService.salvaCheckinCheckOut(
-                                            this.seqreserva, 
-                                            this.firstFormGroup.get("sequnidade").value, 
-                                            "CHECKIN", 
-                                            this.sixthFormGroup.get("kmInicialCheckIn").value, 
-                                            null, 
-                                            this.sixthFormGroup.get("estaciomentoCheckIn").value, 
-                                            this.sixthFormGroup.get("observacaoCheckIn").value).subscribe((result) => {
-
-                                                    //SALVA ITENS CHECKIN                                   
-                                                    this._subscriptions.push(this.gerenciarReservaService.salvarCheckinCheckoutItens(
-                                                        this.listaCheckin).subscribe((result) => { 
-=======
                          Number(c),
                          this.local).subscribe((result) => {
 
@@ -608,7 +435,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                                                     //SALVA ITENS CHECKIN
                                                     this._subscriptions.push(this.gerenciarReservaService.salvarCheckinCheckoutItens(
                                                         this.listaCheckin).subscribe((result) => {
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                                                         this._subscriptions.push(this.gerenciarReservaService.getRequest(result).subscribe((r) => {
                                                             if(r == '1' && this.verificaCheckOut == false){
                                                                 this.voltar();
@@ -622,19 +448,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
                                             //SALVA CHECKOUT INFORMAÇÕES
                                             this._subscriptions.push(this.gerenciarReservaService.salvaCheckinCheckOut(
-<<<<<<< HEAD
-                                                this.seqreserva, 
-                                                this.firstFormGroup.get("sequnidade").value, 
-                                                "CHECKOUT", 
-                                                null, 
-                                                this.sixthFormGroup.get("kmFinalCheckOut").value, 
-                                                this.sixthFormGroup.get("estaciomentoCheckOut").value, 
-                                                this.sixthFormGroup.get("observacaoCheckOut").value).subscribe((result) => {
-
-                                                     //SALVA ITENS CHECKOUT    
-                                                    this._subscriptions.push(this.gerenciarReservaService.salvarCheckinCheckoutItens( 
-                                                        this.listaCheckOut).subscribe((result) => { 
-=======
                                                 this.seqreserva,
                                                 this.firstFormGroup.get("sequnidade").value,
                                                 "CHECKOUT",
@@ -646,7 +459,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                                                      //SALVA ITENS CHECKOUT
                                                     this._subscriptions.push(this.gerenciarReservaService.salvarCheckinCheckoutItens(
                                                         this.listaCheckOut).subscribe((result) => {
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
                                                         this._subscriptions.push(this.gerenciarReservaService.getRequest(result).subscribe((r) => {
                                                             if(r == '1'){
                                                                 this.voltar();
@@ -654,37 +466,22 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                                                         }));
                                                     }));
 
-<<<<<<< HEAD
-                                            }));  
-                                        }   
-=======
                                             }));
                                         }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
                                         if(!this.verificaCheckIn && !this.verificaCheckOut){
                                             this.voltar();
                                         }
                                     }
-<<<<<<< HEAD
-                            }));                       
-                        
-                        }));             
-=======
                             }));
 
                         }));
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
                     if (this.seqreserva > 0) {
                         this.alertService.alert("Reserva alterada com sucesso.");
                     } else {
                         this.alertService.alert("Reserva cadastrada com sucesso.");
-<<<<<<< HEAD
-                    }                    
-=======
                     }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 
                 } else {
                     this.alertService.alert(c.toString());
@@ -729,18 +526,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
             if(this.veiculos.length > 0) {
                 this.veiculos.filter(x => x.SEQVEICULO == seqveiculo).map(v => {
-<<<<<<< HEAD
-                    this.fourthFormGroup.get("origem").setValue(v.NOMEEMPALOC + " / " +v.LOCESTACIONAMENTO); 
-                });               
-            }           
-        }
-    }
-    /*getVeiculoEsc(id) {
-        
-        this.veiculos.filter(x => x.SEQVEICULO == id).map((v:Cadastro) => {
-              //let l : string = (v.LOCESTACIONAMENTO != null && v.LOCESTACIONAMENTO != '') ? '(' +v.EMPALOCACAO + ') ' + v.LOCESTACIONAMENTO :  v.EMPALOCACAO.toString();
-              
-=======
                     this.fourthFormGroup.get("origem").setValue(v.NOMEEMPALOC + " / " +v.LOCESTACIONAMENTO);
                 });
             }
@@ -751,7 +536,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
         this.veiculos.filter(x => x.SEQVEICULO == id).map((v:Cadastro) => {
               //let l : string = (v.LOCESTACIONAMENTO != null && v.LOCESTACIONAMENTO != '') ? '(' +v.EMPALOCACAO + ') ' + v.LOCESTACIONAMENTO :  v.EMPALOCACAO.toString();
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
               this.fourthFormGroup.get("origem").setValue(l);
         });
     }*/
@@ -774,16 +558,6 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
 
     }
 
-<<<<<<< HEAD
-    removerLocalGrid(nroempresa: number, nomereduzido : string, sequnidade: number) { 
-        if(this.seqreserva > 0) {
-            this._subscriptions.push(this.reservaService.deleteReservaDestino(this.seqreserva, nroempresa, nomereduzido, sequnidade).subscribe((x) => {
-                if(x == "sucesso") this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
-            }));            
-        }else{
-            this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
-        }        
-=======
     removerLocalGrid(nroempresa: number, nomereduzido : string, sequnidade: number) {
         if(this.seqreserva > 0) {
             this._subscriptions.push(this.reservaService.deleteReservaDestino(this.seqreserva, nroempresa, nomereduzido, sequnidade).subscribe((x) => {
@@ -792,22 +566,15 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
         }else{
             this.dataSource = new MatTableDataSource<Local>(this.reservaService.removerLocalGrid(this.local, nroempresa));
         }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     }
 
     goBack(stepper: MatStepper) {
         stepper.previous();
     }
 
-<<<<<<< HEAD
-    goForward(stepper: MatStepper) { 
-        
-        switch(stepper.selectedIndex){ 
-=======
     goForward(stepper: MatStepper) {
 
         switch(stepper.selectedIndex){
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
             case 0:
                 if(this.seqreserva > 0) {
                     this.firstFormGroup.controls["sequnidade"].enable();
@@ -842,11 +609,7 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
                 this.validError.showError(this.seventhFormGroup);
                 if(this.seventhFormGroup.valid) stepper.next();
             break;
-<<<<<<< HEAD
-        }        
-=======
         }
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     }
 
     voltar() {
@@ -863,8 +626,4 @@ export class GerenciarReservaFormFrotaComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

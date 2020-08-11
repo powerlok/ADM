@@ -104,21 +104,12 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 	}
 
 	submit() {
-<<<<<<< HEAD
 		if (this.form.valid) {
 			this.carregaChekbox();
 
 			    this.spinner.show();
 			    this._subscriptions.push(this.pesquisaService.getFornecItens(this.form.get("chapa").value.toUpperCase()).subscribe((x : FuncGrid[]) => {
 
-=======
-		if (this.form.valid) {
-			this.carregaChekbox();
-
-			    this.spinner.show();
-			    this._subscriptions.push(this.pesquisaService.getFornecItens(this.form.get("chapa").value.toUpperCase()).subscribe((x : FuncGrid[]) => {
-
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 					this.dataSource = new MatTableDataSource<FuncGrid>(x);
 					this.dataSource.paginator = this.paginator;
 					this.dataSource.sort = this.sort;
@@ -128,11 +119,6 @@ export class PesquisaComponent implements OnInit, OnDestroy {
 					this.spinner.hide();
 				}));
 
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 		}
 	}
 

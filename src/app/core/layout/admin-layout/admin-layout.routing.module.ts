@@ -23,6 +23,12 @@ const routes = [
                 ]
             },
             {
+              path: "financeiro",
+              children:  [
+                  { path: "importa dda itau", loadChildren: 'app/areas/financeiro/importa-dda-itau/importa-dda-itau.module#ImportaDDAItauModule' },
+             ]
+          },
+            {
                 path: "ti",
                 children:  [
                     { path: "pesquisa chapa", loadChildren: 'app/areas/ti/pesquisa/pesquisa.module#PesquisaModule' },

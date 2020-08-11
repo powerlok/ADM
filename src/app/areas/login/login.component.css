@@ -37,13 +37,10 @@
         background: linear-gradient(-45deg, rgba(117, 128, 117, 0.369), rgba(72, 80, 71, 0)) !important;
     }
 
-<<<<<<< HEAD
     .login .mat-card-conatiner{
         margin: auto;
-    }    
+    }
 
-=======
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     .login .mat-card {
         overflow: visible !important;
         z-index: auto !important;
@@ -77,21 +74,12 @@
 
     .login  .mat-form-field {
         width: 100%;
-<<<<<<< HEAD
-    }    
-    
-    .login  .mat-raised-button {
-        width: 100% !important;
-    }
-    
-=======
     }
 
     .login  .mat-raised-button {
         width: 100% !important;
     }
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     .login .mat-card-title {
         border-radius: 50%;
         height: 56px;
@@ -118,11 +106,7 @@
     router-outlet {
         height: 0 !important;
     }
-<<<<<<< HEAD
-   
-=======
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
 /*body {
 	background-color: rgba(0, 0, 0, 0.0392156862745098) !important;
     background: linear-gradient(-45deg, rgba(16, 0, 78, 0.3686274509803922), rgba(20, 4, 81, 0)) !important;
@@ -180,8 +164,4 @@
 #forgotpassword{
 	float: right;
 }
-<<<<<<< HEAD
 */
-=======
-*/
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

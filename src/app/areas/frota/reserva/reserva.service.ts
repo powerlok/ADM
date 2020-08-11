@@ -6,21 +6,12 @@ import { RodarJson } from "../../../shared/models/RodarJson";
 import { DbConsult } from "../../../shared/models/Service";
 import { AlertService } from "../../../shared/services/alert.service";
 import { AlertRodizioComponent } from "./popup/alert-rodizio.component";
-<<<<<<< HEAD
 import { MatDialog } from "@angular/material";
 import { Rodizio, Local } from "../../../shared/models/Frota";
 
 @Injectable()
 export class ReservaFrotaService {
-    
-=======
-import { Rodizio, Local } from "../../../shared/models/Frota";
-import { MatDialog } from "@angular/material/dialog";
 
-@Injectable()
-export class ReservaFrotaService {
-
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     constructor(private json : ReservaFrotaServiceJson, private ordenaArray : OrdenaArray, private alertService: AlertService, public dialog: MatDialog) {
     }
 
@@ -32,26 +23,6 @@ export class ReservaFrotaService {
         return this.json.gerarJsonMult(r);
     }
 
-<<<<<<< HEAD
-    getRequest(requests)  {   
-        let retorno : string = null;   
-
-        for(let res of requests) {
-            let r = res as DbConsult;
-            let resp : object = r.obj.json as object; 
-
-            if(res.error.errorMasseger != null){
-                this.alertService.alert('Erro ao tentar carregar o campo. Motivo: ' + res.error.errorMasseger);
-                break;                                                    
-            }else{              
-                retorno = resp.toString(); 
-                continue;                   
-            } 
-        } 
-    }
-
-        
-=======
     getRequest(requests)  {
         let retorno : string = null;
 
@@ -70,7 +41,6 @@ export class ReservaFrotaService {
     }
 
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
     dialogRodizio(titulo : string, descricao : string, rodizio: Rodizio[], width: string) : any{
         let dialogRef = this.dialog.open(AlertRodizioComponent, {
                 width: width,
@@ -80,19 +50,11 @@ export class ReservaFrotaService {
             return dialogRef
     }
 
-<<<<<<< HEAD
-    removerLocalGrid(local : Local[], nroempresa : number) : Local[] {       
-        
-        let index = local.findIndex(i => i.NROEMPRESA === nroempresa);
-                    local.splice(index, 1);
-        
-=======
     removerLocalGrid(local : Local[], nroempresa : number) : Local[] {
 
         let index = local.findIndex(i => i.NROEMPRESA === nroempresa);
                     local.splice(index, 1);
 
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d
         return local;
     }
 
@@ -110,8 +72,4 @@ export class ReservaFrotaService {
         return this.getExec(r);
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 10ea516aba4d097f0a07b6037dc067fcf347cc8d

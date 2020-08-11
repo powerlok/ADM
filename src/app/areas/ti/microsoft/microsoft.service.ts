@@ -261,19 +261,19 @@ export class MicrosoftService {
     }
 
     //Salva / Edita
-    salvar(tel: Microsoft): Observable<boolean> {
+    salvar(tel: Microsoft): Observable<string> {
         this.spinner.show();
 
         return this.consult.post(this.getJsonCadastro(tel), 0).pipe(map((res: DbConsult) => {
             let resp = res.obj.json;
-            let ret = false;
+            let ret = '';
 
             if (resp != null) {
                 let _data = resp.toString().split('|');
 
                 this._alertService.alert(_data[0]);
 
-                ret = (_data[1] == "false") ? false : true;
+                ret = _data[1];
 
             }
             this.spinner.hide();
